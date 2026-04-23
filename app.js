@@ -212,4 +212,8 @@ function getWeakestCategory() {
   return minCat;
 }
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
 loadData();
