@@ -2,34 +2,471 @@
   {
     "id": 1,
     "type": "multiple_choice",
-    "category": "gramatica",
-    "question": "Quina frase és correcta en registre formal?",
-    "options": [
-      "No hi ha res a fer-hi",
-      "No hi ha res a fer",
-      "No hi ha res que fer"
-    ],
+    "category": "interferencia",
+    "question": "Quina és correcta en català formal?",
+    "options": ["Realitzar un estudi", "Dur a terme un estudi", "Fer a terme un estudi"],
     "correct": 1,
-    "explanation": "En registre formal, s'evita estructures redundants.",
-    "theory": "El català formal tendeix a la simplicitat sintàctica."
+    "explanation": "'Realitzar' sovint és calc; millor 'dur a terme'.",
+    "theory": "Evita calcs en registre formal."
   },
   {
     "id": 2,
     "type": "fill_gap",
-    "category": "ortografia",
-    "question": "Li ___ vaig dir tot el que sabia.",
-    "answer": "ho",
-    "explanation": "'Ho' substitueix un complement neutre.",
-    "theory": "Els pronoms febles poden substituir oracions completes."
+    "category": "subjuntiu",
+    "question": "Encara que ___ tard, començarem.",
+    "answer": "arribi",
+    "explanation": "Subjuntiu per incertesa.",
+    "theory": "Subjuntiu amb 'encara que'."
   },
   {
     "id": 3,
+    "type": "error_detection",
+    "category": "interferencia",
+    "question": "Detecta l’error: 'Donar-se compte és important.'",
+    "answer": "Donar-se compte",
+    "explanation": "Forma incorrecta; cal 'adonar-se'.",
+    "theory": "Calc del castellà."
+  },
+  {
+    "id": 4,
+    "type": "reordering",
+    "category": "cohesio",
+    "question": "Ordena: [malgrat / plogués / vam sortir]",
+    "answer": "Malgrat que plogués, vam sortir",
+    "explanation": "Connector concessiu amb subjuntiu.",
+    "theory": "Estructures concessives."
+  },
+  {
+    "id": 5,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula en registre formal: 'Hi ha un munt de problemes'",
+    "answer": "Hi ha nombrosos problemes",
+    "explanation": "'Nombrosos' és més formal.",
+    "theory": "Evita col·loquialismes."
+  },
+
+  {
+    "id": 6,
+    "type": "multiple_choice",
+    "category": "connectors",
+    "question": "Connector formal correcte:",
+    "options": ["Però", "Tanmateix", "Tot i això però"],
+    "correct": 1,
+    "explanation": "'Tanmateix' és formal.",
+    "theory": "Evita redundàncies."
+  },
+  {
+    "id": 7,
+    "type": "fill_gap",
+    "category": "pronoms",
+    "question": "Li ___ vaig explicar tot.",
+    "answer": "ho",
+    "explanation": "Complement neutre.",
+    "theory": "Pronoms febles."
+  },
+  {
+    "id": 8,
+    "type": "error_detection",
+    "category": "ortografia",
+    "question": "Detecta l’error: 'Perque ho fas?'",
+    "answer": "Perque",
+    "explanation": "Ha de ser 'Per què'.",
+    "theory": "Distinció perquè/per què."
+  },
+  {
+    "id": 9,
+    "type": "sentence_transform",
+    "category": "subjuntiu",
+    "question": "Reformula: 'Espero que ve'",
+    "answer": "Espero que vingui",
+    "explanation": "Subjuntiu obligatori.",
+    "theory": "Oracions subordinades."
+  },
+  {
+    "id": 10,
     "type": "multiple_choice",
     "category": "lexic",
-    "question": "Quina paraula és més precisa?",
-    "options": ["Cosa", "Element", "Trasto"],
+    "question": "Opció més precisa:",
+    "options": ["Fer", "Executar", "Fer coses"],
     "correct": 1,
-    "explanation": "'Element' és més precís i formal.",
-    "theory": "El lèxic C1 prioritza precisió."
+    "explanation": "Verbs precisos són clau al C1.",
+    "theory": "Evita verbs comodí."
+  },
+
+  {
+    "id": 11,
+    "type": "reordering",
+    "category": "connectors",
+    "question": "Ordena: [conseqüentment / va dimitir / el director]",
+    "answer": "Conseqüentment, el director va dimitir",
+    "explanation": "Connector causal formal.",
+    "theory": "Cohesió textual."
+  },
+  {
+    "id": 12,
+    "type": "error_detection",
+    "category": "interferencia",
+    "question": "Detecta l’error: 'Aplicar a una feina'",
+    "answer": "Aplicar",
+    "explanation": "Cal 'sol·licitar'.",
+    "theory": "Calc de l’anglès/castellà."
+  },
+  {
+    "id": 13,
+    "type": "fill_gap",
+    "category": "ortografia",
+    "question": "No sé ___ ho ha fet.",
+    "answer": "per què",
+    "explanation": "Interrogatiu indirecte.",
+    "theory": "Ús de 'per què'."
+  },
+  {
+    "id": 14,
+    "type": "multiple_choice",
+    "category": "registre",
+    "question": "Forma formal:",
+    "options": ["De pressa", "Ràpid", "Amb celeritat"],
+    "correct": 2,
+    "explanation": "Registre culte.",
+    "theory": "Lèxic formal."
+  },
+  {
+    "id": 15,
+    "type": "sentence_transform",
+    "category": "cohesio",
+    "question": "Reformula amb connector formal: 'Plou però sortirem'",
+    "answer": "Tanmateix, sortirem",
+    "explanation": "Connector adequat.",
+    "theory": "Cohesió."
+  },
+
+  {
+    "id": 16,
+    "type": "multiple_choice",
+    "category": "subjuntiu",
+    "question": "Tria:",
+    "options": ["Encara que ve", "Encara que vingui"],
+    "correct": 1,
+    "explanation": "Subjuntiu.",
+    "theory": "Incertesa."
+  },
+  {
+    "id": 17,
+    "type": "fill_gap",
+    "category": "pronoms",
+    "question": "No ___ vaig dir res (a ella)",
+    "answer": "li",
+    "explanation": "CI.",
+    "theory": "Pronoms."
+  },
+  {
+    "id": 18,
+    "type": "error_detection",
+    "category": "lexic",
+    "question": "Detecta error: 'Fer una decisió'",
+    "answer": "Fer",
+    "explanation": "Cal 'prendre'.",
+    "theory": "Col·locacions."
+  },
+  {
+    "id": 19,
+    "type": "reordering",
+    "category": "cohesio",
+    "question": "Ordena: [no obstant això / va continuar / parlant]",
+    "answer": "No obstant això, va continuar parlant",
+    "explanation": "Connector oposició.",
+    "theory": "Discurs."
+  },
+  {
+    "id": 20,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula: 'Va dir moltes coses'",
+    "answer": "Va expressar nombroses idees",
+    "explanation": "Precisió.",
+    "theory": "Lèxic formal."
+  },
+
+  {
+    "id": 21,
+    "type": "multiple_choice",
+    "category": "interferencia",
+    "question": "Correcte:",
+    "options": ["Donar-se compte", "Adonar-se"],
+    "correct": 1,
+    "explanation": "Forma correcta.",
+    "theory": "Interferència."
+  },
+  {
+    "id": 22,
+    "type": "fill_gap",
+    "category": "subjuntiu",
+    "question": "Cal que ___ (venir)",
+    "answer": "vinguis",
+    "explanation": "Subjuntiu.",
+    "theory": "Necessitat."
+  },
+  {
+    "id": 23,
+    "type": "error_detection",
+    "category": "ortografia",
+    "question": "Error: 'Per el qual'",
+    "answer": "Per el",
+    "explanation": "Ha de ser 'pel'.",
+    "theory": "Contraccions."
+  },
+  {
+    "id": 24,
+    "type": "reordering",
+    "category": "connectors",
+    "question": "Ordena: [per tant / marxarem / ara]",
+    "answer": "Per tant, marxarem ara",
+    "explanation": "Conclusió.",
+    "theory": "Connectors."
+  },
+  {
+    "id": 25,
+    "type": "sentence_transform",
+    "category": "lexic",
+    "question": "Reformula: 'Fer servir'",
+    "answer": "Utilitzar",
+    "explanation": "Formal.",
+    "theory": "Precisió."
+  },
+
+  {
+    "id": 26,
+    "type": "multiple_choice",
+    "category": "registre",
+    "question": "Opció formal:",
+    "options": ["Molts", "Un munt", "Nombrosos"],
+    "correct": 2,
+    "explanation": "Formal.",
+    "theory": "Registre."
+  },
+  {
+    "id": 27,
+    "type": "fill_gap",
+    "category": "pronoms",
+    "question": "Ja ___ he vist (els llibres)",
+    "answer": "els",
+    "explanation": "CD plural.",
+    "theory": "Pronoms."
+  },
+  {
+    "id": 28,
+    "type": "error_detection",
+    "category": "interferencia",
+    "question": "Error: 'Eventualment vindré'",
+    "answer": "Eventualment",
+    "explanation": "No vol dir 'potser'.",
+    "theory": "Falsos amics."
+  },
+  {
+    "id": 29,
+    "type": "reordering",
+    "category": "cohesio",
+    "question": "Ordena: [a més / ho va explicar / clarament]",
+    "answer": "A més, ho va explicar clarament",
+    "explanation": "Addició.",
+    "theory": "Cohesió."
+  },
+  {
+    "id": 30,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula: 'Va acabar ràpid'",
+    "answer": "Va concloure amb celeritat",
+    "explanation": "Formal.",
+    "theory": "Lèxic."
+  },
+
+  {
+    "id": 31,
+    "type": "multiple_choice",
+    "category": "subjuntiu",
+    "question": "Correcte:",
+    "options": ["Espero que ve", "Espero que vingui"],
+    "correct": 1,
+    "explanation": "Subjuntiu.",
+    "theory": "Subordinades."
+  },
+  {
+    "id": 32,
+    "type": "fill_gap",
+    "category": "ortografia",
+    "question": "___ vols? (pregunta)",
+    "answer": "Per què",
+    "explanation": "Interrogatiu.",
+    "theory": "Per què."
+  },
+  {
+    "id": 33,
+    "type": "error_detection",
+    "category": "lexic",
+    "question": "Error: 'Fer un error'",
+    "answer": "Fer",
+    "explanation": "Cal 'cometre'.",
+    "theory": "Col·locacions."
+  },
+  {
+    "id": 34,
+    "type": "reordering",
+    "category": "connectors",
+    "question": "Ordena: [tanmateix / no va venir / finalment]",
+    "answer": "Tanmateix, finalment no va venir",
+    "explanation": "Oposició.",
+    "theory": "Connectors."
+  },
+  {
+    "id": 35,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula: 'Va dir'",
+    "answer": "Va afirmar",
+    "explanation": "Formal.",
+    "theory": "Precisió."
+  },
+
+  {
+    "id": 36,
+    "type": "multiple_choice",
+    "category": "interferencia",
+    "question": "Correcte:",
+    "options": ["Aplicar per una feina", "Sol·licitar una feina"],
+    "correct": 1,
+    "explanation": "Forma correcta.",
+    "theory": "Interferència."
+  },
+  {
+    "id": 37,
+    "type": "fill_gap",
+    "category": "subjuntiu",
+    "question": "És possible que ___ (ploure)",
+    "answer": "plogui",
+    "explanation": "Subjuntiu.",
+    "theory": "Possibilitat."
+  },
+  {
+    "id": 38,
+    "type": "error_detection",
+    "category": "ortografia",
+    "question": "Error: 'perquè ho fas?'",
+    "answer": "perquè",
+    "explanation": "Ha de ser 'per què'.",
+    "theory": "Distinció."
+  },
+  {
+    "id": 39,
+    "type": "reordering",
+    "category": "cohesio",
+    "question": "Ordena: [en canvi / ell / va marxar]",
+    "answer": "En canvi, ell va marxar",
+    "explanation": "Contrast.",
+    "theory": "Cohesió."
+  },
+  {
+    "id": 40,
+    "type": "sentence_transform",
+    "category": "lexic",
+    "question": "Reformula: 'Fer servir un mètode'",
+    "answer": "Aplicar un mètode",
+    "explanation": "Precisió.",
+    "theory": "Lèxic."
+  },
+
+  {
+    "id": 41,
+    "type": "multiple_choice",
+    "category": "connectors",
+    "question": "Connector formal:",
+    "options": ["Llavors", "Per consegüent"],
+    "correct": 1,
+    "explanation": "Formal.",
+    "theory": "Connectors."
+  },
+  {
+    "id": 42,
+    "type": "fill_gap",
+    "category": "pronoms",
+    "question": "Els ___ donaré demà",
+    "answer": "els",
+    "explanation": "CD plural.",
+    "theory": "Pronoms."
+  },
+  {
+    "id": 43,
+    "type": "error_detection",
+    "category": "interferencia",
+    "question": "Error: 'Suportar una reunió'",
+    "answer": "Suportar",
+    "explanation": "Cal 'fer' o 'assistir a'.",
+    "theory": "Interferència."
+  },
+  {
+    "id": 44,
+    "type": "reordering",
+    "category": "connectors",
+    "question": "Ordena: [així doncs / marxem / ara]",
+    "answer": "Així doncs, marxem ara",
+    "explanation": "Conclusió.",
+    "theory": "Connectors."
+  },
+  {
+    "id": 45,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula: 'Moltes coses'",
+    "answer": "Nombrosos aspectes",
+    "explanation": "Formal.",
+    "theory": "Lèxic."
+  },
+
+  {
+    "id": 46,
+    "type": "multiple_choice",
+    "category": "subjuntiu",
+    "question": "Correcte:",
+    "options": ["Quan vindrà", "Quan vingui"],
+    "correct": 1,
+    "explanation": "Subjuntiu futur incert.",
+    "theory": "Subordinades."
+  },
+  {
+    "id": 47,
+    "type": "fill_gap",
+    "category": "ortografia",
+    "question": "No sé el motiu ___ ho va fer",
+    "answer": "pel qual",
+    "explanation": "Contracció.",
+    "theory": "Relatius."
+  },
+  {
+    "id": 48,
+    "type": "error_detection",
+    "category": "lexic",
+    "question": "Error: 'Tenir lloc una decisió'",
+    "answer": "Tenir lloc",
+    "explanation": "Cal 'prendre'.",
+    "theory": "Col·locacions."
+  },
+  {
+    "id": 49,
+    "type": "reordering",
+    "category": "cohesio",
+    "question": "Ordena: [finalment / va acceptar / la proposta]",
+    "answer": "Finalment, va acceptar la proposta",
+    "explanation": "Seqüència.",
+    "theory": "Discurs."
+  },
+  {
+    "id": 50,
+    "type": "sentence_transform",
+    "category": "registre",
+    "question": "Reformula: 'Va fer un canvi'",
+    "answer": "Va efectuar una modificació",
+    "explanation": "Formal.",
+    "theory": "Lèxic."
   }
 ]

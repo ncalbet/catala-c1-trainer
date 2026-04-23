@@ -1,48 +1,62 @@
 let questions = [];
 let current = 0;
 
-// 🧠 Estat persistent
+// 🧠 estat usuari
 function loadState() {
   const saved = localStorage.getItem("c1_state");
   return saved ? JSON.parse(saved) : {
     score: 0,
-    errors: [],
-    categoryStats: {
-      gramatica: 0,
-      lexic: 0,
-      ortografia: 0
-    }
+    errors: []
   };
 }
 
 function saveState() {
-  localStorage.setItem("c1_state", JSON.stringify(state));
+  localStorage.setItem("c1_state", JSON.stringify({
+    score,
+    errors
+  }));
 }
 
 let state = loadState();
 let score = state.score;
 let errors = state.errors;
 
-// 📦 carregar dades
-async function loadData() {
-  const res = await fetch("data.json");
-  questions = await res.json();
-  render();
-}
+// 🧠 SRS
+let reviewData = JSON.parse(localStorage.getItem("c1_srs")) || {};
 
-// 🧠 actualitzar estadística per categoria
-function updateCategory(cat, correct) {
-  if (!state.categoryStats[cat]) {
-    state.categoryStats[cat] = 0;
+function updateSRS(id, correct) {
+  if (!reviewData[id]) {
+    reviewData[id] = { strength: 0, nextReview: 0 };
   }
 
   if (correct) {
-    state.categoryStats[cat] += 1;
+    reviewData[id].strength++;
   } else {
-    state.categoryStats[cat] -= 1;
+    reviewData[id].strength = 0;
   }
 
-  saveState();
+  const delay = Math.pow(2, reviewData[id].strength);
+  reviewData[id].nextReview = Date.now() + delay * 10000;
+
+  localStorage.setItem("c1_srs", JSON.stringify(reviewData));
+}
+
+// 📦 carregar preguntes
+async function loadData() {
+  const res = await fetch("data.json");
+  const allQuestions = await res.json();
+
+  questions = allQuestions.filter(q => {
+    const data = reviewData[q.id];
+    if (!data) return true;
+    return Date.now() >= data.nextReview;
+  });
+
+  if (questions.length === 0) {
+    questions = allQuestions;
+  }
+
+  render();
 }
 
 // 🎯 render
@@ -50,14 +64,21 @@ function render() {
   const app = document.getElementById("app");
   const q = questions[current];
 
+  if (!q) {
+    showResults();
+    return;
+  }
+
   let content = "";
 
+  // 🟢 MULTIPLE CHOICE
   if (q.type === "multiple_choice") {
     content = q.options.map((opt, i) => `
       <button onclick="checkMC(${i})">${opt}</button>
     `).join("");
   }
 
+  // 🔵 FILL GAP
   if (q.type === "fill_gap") {
     content = `
       <input id="answer" placeholder="Escriu la resposta">
@@ -65,8 +86,45 @@ function render() {
     `;
   }
 
+  // 🟠 ERROR DETECTION
+  if (q.type === "error_detection") {
+    content = `
+      <input id="answer" placeholder="Quin és l'error?">
+      <button onclick="checkText()">Comprovar</button>
+    `;
+  }
+
+  // 🟣 REORDERING
+  if (q.type === "reordering") {
+    content = `
+      <input id="answer" placeholder="Escriu la frase ordenada">
+      <button onclick="checkText()">Comprovar</button>
+    `;
+  }
+
+  // 🔴 SENTENCE TRANSFORM
+  if (q.type === "sentence_transform") {
+    content = `
+      <input id="answer" placeholder="Reformula la frase">
+      <button onclick="checkText()">Comprovar</button>
+    `;
+  }
+
+  const progress = (current / questions.length) * 100;
+
   app.innerHTML = `
     <div class="card">
+
+      <div class="stats">
+        ⭐ ${score} punts | ❌ ${errors.length} errors
+      </div>
+
+      <div style="margin:10px 0;">
+        <div style="height:8px;background:#e5e7eb;border-radius:5px;">
+          <div style="width:${progress}%;height:100%;background:#3b82f6;border-radius:5px;"></div>
+        </div>
+      </div>
+
       <h3>Categoria: ${q.category}</h3>
       <h2>${q.question}</h2>
 
@@ -76,21 +134,13 @@ function render() {
 
       <p id="feedback"></p>
 
-      <p>⭐ Puntuació: ${score}</p>
-
-      <hr>
-
-      <h4>📊 Progrés</h4>
-      <p>Gramàtica: ${state.categoryStats.gramatica || 0}</p>
-      <p>Lèxic: ${state.categoryStats.lexic || 0}</p>
-      <p>Ortografia: ${state.categoryStats.ortografia || 0}</p>
-
       <button onclick="next()">Següent</button>
+
     </div>
   `;
 }
 
-// ✔ MC
+// ✔ multiple choice
 function checkMC(i) {
   const q = questions[current];
   const feedback = document.getElementById("feedback");
@@ -105,29 +155,54 @@ function checkMC(i) {
     feedback.innerHTML = "✘ Incorrecte<br>" + q.explanation;
   }
 
-  updateCategory(q.category, correct);
-  state.score = score;
-  state.errors = errors;
-  saveState();
+  updateSRS(q.id, correct);
+  saveProgress();
 }
 
-// ✔ fill
+// ✔ fill gap
 function checkFill() {
   const q = questions[current];
   const val = document.getElementById("answer").value.trim();
+  handleTextAnswer(val, q.answer);
+}
+
+// ✔ text-based (error, reorder, transform)
+function checkText() {
+  const q = questions[current];
+  const val = document.getElementById("answer").value.trim();
+
+  handleTextAnswer(val, q.answer);
+}
+
+// 🧠 comparació flexible
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // accents fora
+    .replace(/[.,!?]/g, "")
+    .trim();
+}
+
+function handleTextAnswer(user, correctAnswer) {
   const feedback = document.getElementById("feedback");
 
-  const correct = val === q.answer;
+  const correct = normalize(user) === normalize(correctAnswer);
 
   if (correct) {
     score++;
-    feedback.innerHTML = "✔ Correcte<br>" + q.explanation;
+    feedback.innerHTML = "✔ Correcte<br>" + correctAnswer;
   } else {
-    errors.push(q.id);
-    feedback.innerHTML = "✘ Incorrecte<br>" + q.explanation;
+    errors.push(questions[current].id);
+    feedback.innerHTML = "✘ Incorrecte<br>Resposta correcta: " + correctAnswer;
   }
 
-  updateCategory(q.category, correct);
+  updateSRS(questions[current].id, correct);
+  saveProgress();
+}
+
+// 💾 guardar estat
+function saveProgress() {
   state.score = score;
   state.errors = errors;
   saveState();
@@ -144,76 +219,31 @@ function next() {
   }
 }
 
-// 📊 resultats + recomanació
+// 📊 resultats
 function showResults() {
   const app = document.getElementById("app");
 
-  const weakest = getWeakestCategory();
-
   app.innerHTML = `
     <div class="card">
-      <h2>📊 Resultats finals</h2>
+      <h2>📊 Resultats</h2>
 
       <p>Puntuació: ${score}</p>
       <p>Errors: ${errors.length}</p>
 
-      <h3>🧠 Recomanació</h3>
-      <p>Has de practicar més: <strong>${weakest}</strong></p>
-
-      <button onclick="reviewErrors()">🔁 Revisar errors</button>
-      <button onclick="restart()">Reiniciar</button>
+      <button onclick="restart()">Tornar a començar</button>
     </div>
   `;
 }
 
-// 🔁 errors
-function reviewErrors() {
-  questions = questions.filter(q => errors.includes(q.id));
-  current = 0;
-  score = 0;
-  errors = [];
-  render();
-}
-
-// 🔄 restart
+// 🔄 reiniciar
 function restart() {
   current = 0;
   score = 0;
   errors = [];
 
-  state = {
-    score: 0,
-    errors: [],
-    categoryStats: {
-      gramatica: 0,
-      lexic: 0,
-      ortografia: 0
-    }
-  };
-
   saveState();
   loadData();
 }
 
-// 🧠 detectar punt feble
-function getWeakestCategory() {
-  const stats = state.categoryStats;
-
-  let minCat = "gramàtica";
-  let minVal = stats.gramatica || 0;
-
-  for (let cat in stats) {
-    if (stats[cat] < minVal) {
-      minVal = stats[cat];
-      minCat = cat;
-    }
-  }
-
-  return minCat;
-}
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-
+// 🚀 iniciar
 loadData();
