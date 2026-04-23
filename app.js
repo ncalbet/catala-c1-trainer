@@ -1,5 +1,9 @@
 let questions = [];
+let filtered = [];
 let current = 0;
+
+let mode = "menu";
+let currentCategory = null;
 
 // 🧠 estat usuari
 function loadState() {
@@ -18,41 +22,78 @@ let errors = state.errors;
 // 🧠 SRS
 let reviewData = JSON.parse(localStorage.getItem("c1_srs")) || {};
 
-function updateSRS(id, correct) {
-  if (!reviewData[id]) {
-    reviewData[id] = { strength: 0, nextReview: 0 };
-  }
-
-  reviewData[id].strength = correct
-    ? reviewData[id].strength + 1
-    : 0;
-
-  const delay = Math.pow(2, reviewData[id].strength);
-  reviewData[id].nextReview = Date.now() + delay * 10000;
-
-  localStorage.setItem("c1_srs", JSON.stringify(reviewData));
-}
-
 // 📦 carregar dades
 async function loadData() {
   const res = await fetch("data.json");
-  const allQuestions = await res.json();
+  questions = await res.json();
+  renderMenu();
+}
 
-  questions = allQuestions.filter(q => {
-    const data = reviewData[q.id];
-    if (!data) return true;
-    return Date.now() >= data.nextReview;
-  });
+// 🧭 MENU PRINCIPAL
+function renderMenu() {
+  mode = "menu";
+  const app = document.getElementById("app");
 
-  if (questions.length === 0) questions = allQuestions;
+  app.innerHTML = `
+    <div class="card">
+
+      <h1>📘 Català C1 Trainer</h1>
+
+      <p>Tria una categoria:</p>
+
+      <button onclick="startCategory('interferencia')">🔴 Interferències</button>
+      <button onclick="startCategory('subjuntiu')">🟢 Subjuntiu</button>
+      <button onclick="startCategory('lexic')">🔵 Lèxic</button>
+      <button onclick="startCategory('connectors')">🟣 Connectors</button>
+      <button onclick="startCategory('ortografia')">🟡 Ortografia</button>
+
+      <hr>
+
+      <button onclick="startMixed()">🎯 Mode mixt (C1 complet)</button>
+      <button onclick="startExam()">🧪 Mode examen</button>
+
+      <p>⭐ Punts: ${score}</p>
+      <p>❌ Errors: ${errors.length}</p>
+
+    </div>
+  `;
+}
+
+// 🚀 iniciar categoria
+function startCategory(cat) {
+  currentCategory = cat;
+  mode = "practice";
+  current = 0;
+
+  filtered = questions.filter(q => q.category === cat);
 
   render();
 }
 
-// 🎯 render
+// 🎯 mode mixt
+function startMixed() {
+  mode = "practice";
+  current = 0;
+  filtered = questions;
+  render();
+}
+
+// 🧪 mode examen (simulat)
+function startExam() {
+  mode = "practice";
+  current = 0;
+
+  filtered = [...questions]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 15);
+
+  render();
+}
+
+// 🎯 render exercici
 function render() {
   const app = document.getElementById("app");
-  const q = questions[current];
+  const q = filtered[current];
 
   if (!q) return showResults();
 
@@ -69,22 +110,22 @@ function render() {
     `;
   }
 
-  const progress = (current / questions.length) * 100;
+  const progress = (current / filtered.length) * 100;
 
   app.innerHTML = `
     <div class="card">
 
+      <button onclick="renderMenu()">⬅ Menú</button>
+
       <div class="stats">
-        ⭐ ${score} | ❌ ${errors.length}
+        ⭐ ${score} | ❌ ${errors.length} | 📂 ${q.category}
       </div>
 
       <div style="height:8px;background:#e5e7eb;border-radius:5px;">
         <div style="width:${progress}%;height:100%;background:#3b82f6;border-radius:5px;"></div>
       </div>
 
-      <h3>${q.category}</h3>
       <h2>${q.question}</h2>
-
       <p><em>${q.theory}</em></p>
 
       ${content}
@@ -92,13 +133,14 @@ function render() {
       <p id="feedback"></p>
 
       <button onclick="next()">Següent</button>
+
     </div>
   `;
 }
 
 // ✔ MC
 function checkMC(i) {
-  const q = questions[current];
+  const q = filtered[current];
   const correct = i === q.correct;
 
   feedback(correct, q);
@@ -107,20 +149,28 @@ function checkMC(i) {
   saveProgress();
 }
 
-// ✔ TEXT (SEMÀNTIC)
+// ✔ TEXT
 function checkText() {
-  const q = questions[current];
+  const q = filtered[current];
   const user = document.getElementById("answer").value;
 
-  const correct = isSemanticallyCorrect(user, q);
+  const correct = isCorrect(user, q);
 
-  feedback(correct, q, user);
+  feedback(correct, q);
 
   updateSRS(q.id, correct);
   saveProgress();
 }
 
-// 🧠 NORMATITZACIÓ
+// 🧠 comparació simple + semàntica existent
+function isCorrect(user, q) {
+  const u = normalize(user);
+  const answers = q.answers ? q.answers : [q.answer];
+
+  return answers.some(a => normalize(a) === u);
+}
+
+// 🧠 normalització
 function normalize(text) {
   return text
     .toLowerCase()
@@ -131,68 +181,8 @@ function normalize(text) {
     .trim();
 }
 
-// 🧠 GRUPS SEMÀNTICS (CLAU DEL SISTEMA)
-const semanticGroups = [
-  {
-    id: "dir_moltes_coses",
-    patterns: [
-      "va dir moltes coses",
-      "va afirmar moltes idees",
-      "va expressar moltes idees",
-      "va manifestar moltes idees",
-      "va dir nombroses coses",
-      "va expressar nombroses idees"
-    ]
-  },
-  {
-    id: "fer_servir",
-    patterns: [
-      "utilitzar",
-      "emprar",
-      "fer servir"
-    ]
-  },
-  {
-    id: "adonar_se",
-    patterns: [
-      "adonar-se",
-      "va adonar-se",
-      "s'adonar"
-    ]
-  }
-];
-
-// 🧠 SEMÀNTICA PRINCIPAL
-function isSemanticallyCorrect(user, q) {
-  const u = normalize(user);
-
-  // 1. si hi ha resposta múltiple directa
-  const answers = getAnswers(q);
-  if (answers.length) {
-    if (answers.some(a => normalize(a) === u)) return true;
-  }
-
-  // 2. grups semàntics
-  for (const group of semanticGroups) {
-    if (group.patterns.map(normalize).includes(u)) {
-      if (answers.some(a => group.patterns.map(normalize).includes(normalize(a)))) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-// 📦 respostes
-function getAnswers(q) {
-  if (Array.isArray(q.answers)) return q.answers;
-  if (q.answer) return [q.answer];
-  return [];
-}
-
 // 💬 feedback
-function feedback(correct, q, user) {
+function feedback(correct, q) {
   const el = document.getElementById("feedback");
 
   if (correct) {
@@ -200,24 +190,15 @@ function feedback(correct, q, user) {
     el.innerHTML = "✔ Correcte<br>" + q.explanation;
   } else {
     errors.push(q.id);
-    el.innerHTML = `
-      ✘ Incorrecte<br>
-      Resposta possible: ${getAnswers(q).join(" / ")}
-    `;
+    el.innerHTML = "✘ Incorrecte<br>" +
+      (q.answers ? q.answers.join(" / ") : q.answer);
   }
-}
-
-// 💾 guardar
-function saveProgress() {
-  state.score = score;
-  state.errors = errors;
-  saveState();
 }
 
 // ➡️ següent
 function next() {
   current++;
-  if (current >= questions.length) showResults();
+  if (current >= filtered.length) showResults();
   else render();
 }
 
@@ -225,21 +206,27 @@ function next() {
 function showResults() {
   document.getElementById("app").innerHTML = `
     <div class="card">
-      <h2>Resultats</h2>
+
+      <h2>📊 Resultat</h2>
+
       <p>Puntuació: ${score}</p>
       <p>Errors: ${errors.length}</p>
-      <button onclick="restart()">Reiniciar</button>
+
+      <button onclick="renderMenu()">🏠 Tornar al menú</button>
+      <button onclick="restart()">🔄 Reiniciar dades</button>
+
     </div>
   `;
 }
 
 // 🔄 restart
 function restart() {
-  current = 0;
   score = 0;
   errors = [];
+  current = 0;
+
   saveState();
-  loadData();
+  renderMenu();
 }
 
 loadData();
