@@ -10,30 +10,26 @@
       "No hi ha res que fer"
     ],
     "correct": 1,
-    "explanation": "En registre formal, s'evita el pronom innecessari 'hi' en aquesta construcció.",
-    "theory": "En català formal, les construccions impersonals tendeixen a simplificar-se."
+    "explanation": "En registre formal, s'evita estructures redundants.",
+    "theory": "El català formal tendeix a la simplicitat sintàctica."
   },
   {
     "id": 2,
     "type": "fill_gap",
     "category": "ortografia",
-    "question": "Omple el buit: Li ___ vaig dir tot el que sabia.",
+    "question": "Li ___ vaig dir tot el que sabia.",
     "answer": "ho",
-    "explanation": "'Ho' substitueix un complement neutre (tot el que sabia).",
+    "explanation": "'Ho' substitueix un complement neutre.",
     "theory": "Els pronoms febles poden substituir oracions completes."
   },
   {
     "id": 3,
     "type": "multiple_choice",
     "category": "lexic",
-    "question": "Quina paraula és més precisa en context acadèmic?",
-    "options": [
-      "Cosa",
-      "Element",
-      "Trasto"
-    ],
+    "question": "Quina paraula és més precisa?",
+    "options": ["Cosa", "Element", "Trasto"],
     "correct": 1,
-    "explanation": "'Element' és més precís i formal que 'cosa'.",
-    "theory": "El lèxic C1 prioritza precisió semàntica."
+    "explanation": "'Element' és més precís i formal.",
+    "theory": "El lèxic C1 prioritza precisió."
   }
 ]
