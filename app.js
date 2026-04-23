@@ -1,26 +1,15 @@
 let questions = [];
 let filtered = [];
 let current = 0;
+let currentLevel = "menu";
 
-let mode = "menu";
-let currentCategory = null;
+let state = JSON.parse(localStorage.getItem("c1_state")) || {
+  score: 0,
+  errors: []
+};
 
-// 🧠 estat usuari
-function loadState() {
-  const saved = localStorage.getItem("c1_state");
-  return saved ? JSON.parse(saved) : { score: 0, errors: [] };
-}
-
-function saveState() {
-  localStorage.setItem("c1_state", JSON.stringify({ score, errors }));
-}
-
-let state = loadState();
 let score = state.score;
 let errors = state.errors;
-
-// 🧠 SRS
-let reviewData = JSON.parse(localStorage.getItem("c1_srs")) || {};
 
 // 📦 carregar dades
 async function loadData() {
@@ -31,26 +20,20 @@ async function loadData() {
 
 // 🧭 MENU PRINCIPAL
 function renderMenu() {
-  mode = "menu";
-  const app = document.getElementById("app");
+  currentLevel = "menu";
 
-  app.innerHTML = `
+  document.getElementById("app").innerHTML = `
     <div class="card">
 
       <h1>📘 Català C1 Trainer</h1>
+      <p>Progressió B2 → C1 real</p>
 
-      <p>Tria una categoria:</p>
-
-      <button onclick="startCategory('interferencia')">🔴 Interferències</button>
-      <button onclick="startCategory('subjuntiu')">🟢 Subjuntiu</button>
-      <button onclick="startCategory('lexic')">🔵 Lèxic</button>
-      <button onclick="startCategory('connectors')">🟣 Connectors</button>
-      <button onclick="startCategory('ortografia')">🟡 Ortografia</button>
+      <button onclick="start('b2')">📘 Base B2</button>
+      <button onclick="start('c1_transition')">📙 Transició C1</button>
+      <button onclick="start('c1')">📕 C1 avançat</button>
+      <button onclick="start('all')">🧪 Simulació completa</button>
 
       <hr>
-
-      <button onclick="startMixed()">🎯 Mode mixt (C1 complet)</button>
-      <button onclick="startExam()">🧪 Mode examen</button>
 
       <p>⭐ Punts: ${score}</p>
       <p>❌ Errors: ${errors.length}</p>
@@ -59,40 +42,22 @@ function renderMenu() {
   `;
 }
 
-// 🚀 iniciar categoria
-function startCategory(cat) {
-  currentCategory = cat;
-  mode = "practice";
+// 🚀 iniciar nivell
+function start(level) {
+  currentLevel = level;
   current = 0;
 
-  filtered = questions.filter(q => q.category === cat);
-
-  render();
-}
-
-// 🎯 mode mixt
-function startMixed() {
-  mode = "practice";
-  current = 0;
-  filtered = questions;
-  render();
-}
-
-// 🧪 mode examen (simulat)
-function startExam() {
-  mode = "practice";
-  current = 0;
-
-  filtered = [...questions]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 15);
+  if (level === "all") {
+    filtered = questions;
+  } else {
+    filtered = questions.filter(q => q.level === level);
+  }
 
   render();
 }
 
 // 🎯 render exercici
 function render() {
-  const app = document.getElementById("app");
   const q = filtered[current];
 
   if (!q) return showResults();
@@ -110,23 +75,16 @@ function render() {
     `;
   }
 
-  const progress = (current / filtered.length) * 100;
-
-  app.innerHTML = `
+  document.getElementById("app").innerHTML = `
     <div class="card">
 
       <button onclick="renderMenu()">⬅ Menú</button>
 
-      <div class="stats">
-        ⭐ ${score} | ❌ ${errors.length} | 📂 ${q.category}
-      </div>
-
-      <div style="height:8px;background:#e5e7eb;border-radius:5px;">
-        <div style="width:${progress}%;height:100%;background:#3b82f6;border-radius:5px;"></div>
-      </div>
-
+      <h3>${q.level.toUpperCase()} · ${q.category}</h3>
       <h2>${q.question}</h2>
+
       <p><em>${q.theory}</em></p>
+      <p>📌 Exemple: ${q.example}</p>
 
       ${content}
 
@@ -145,35 +103,24 @@ function checkMC(i) {
 
   feedback(correct, q);
 
-  updateSRS(q.id, correct);
-  saveProgress();
+  save(correct, q);
 }
 
-// ✔ TEXT
+// ✔ TEXT (multi resposta)
 function checkText() {
   const q = filtered[current];
-  const user = document.getElementById("answer").value;
+  const user = normalize(document.getElementById("answer").value);
 
-  const correct = isCorrect(user, q);
+  const correct = q.answers.some(a => normalize(a) === user);
 
   feedback(correct, q);
 
-  updateSRS(q.id, correct);
-  saveProgress();
-}
-
-// 🧠 comparació simple + semàntica existent
-function isCorrect(user, q) {
-  const u = normalize(user);
-  const answers = q.answers ? q.answers : [q.answer];
-
-  return answers.some(a => normalize(a) === u);
+  save(correct, q);
 }
 
 // 🧠 normalització
-function normalize(text) {
-  return text
-    .toLowerCase()
+function normalize(t) {
+  return t.toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[.,!?;:()"]/g, "")
@@ -191,15 +138,22 @@ function feedback(correct, q) {
   } else {
     errors.push(q.id);
     el.innerHTML = "✘ Incorrecte<br>" +
-      (q.answers ? q.answers.join(" / ") : q.answer);
+      "Respostes: " + q.answers.join(" / ");
   }
+}
+
+// 💾 guardar
+function save(correct, q) {
+  localStorage.setItem("c1_state", JSON.stringify({
+    score,
+    errors
+  }));
 }
 
 // ➡️ següent
 function next() {
   current++;
-  if (current >= filtered.length) showResults();
-  else render();
+  render();
 }
 
 // 📊 resultats
@@ -207,26 +161,15 @@ function showResults() {
   document.getElementById("app").innerHTML = `
     <div class="card">
 
-      <h2>📊 Resultat</h2>
+      <h2>📊 Resultats</h2>
 
       <p>Puntuació: ${score}</p>
       <p>Errors: ${errors.length}</p>
 
       <button onclick="renderMenu()">🏠 Tornar al menú</button>
-      <button onclick="restart()">🔄 Reiniciar dades</button>
 
     </div>
   `;
-}
-
-// 🔄 restart
-function restart() {
-  score = 0;
-  errors = [];
-  current = 0;
-
-  saveState();
-  renderMenu();
 }
 
 loadData();
