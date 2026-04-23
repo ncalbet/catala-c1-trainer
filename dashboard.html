@@ -1,0 +1,130 @@
+import { useMemo, useState, useEffect } from "react";
+
+const mockQuestions = [
+  { id: 1, category: "subjuntiu", correct: true },
+  { id: 2, category: "subjuntiu", correct: false },
+  { id: 3, category: "lexic", correct: true },
+  { id: 4, category: "interferencia", correct: true },
+  { id: 5, category: "interferencia", correct: false },
+  { id: 6, category: "ortografia", correct: true },
+  { id: 7, category: "connectors", correct: true },
+  { id: 8, category: "connectors", correct: true },
+  { id: 9, category: "lexic", correct: false },
+];
+
+function getStats(data) {
+  const total = data.length;
+  const correct = data.filter(d => d.correct).length;
+  const accuracy = total ? Math.round((correct / total) * 100) : 0;
+
+  const byCategory = {};
+
+  data.forEach(d => {
+    if (!byCategory[d.category]) {
+      byCategory[d.category] = { total: 0, correct: 0 };
+    }
+    byCategory[d.category].total++;
+    if (d.correct) byCategory[d.category].correct++;
+  });
+
+  return { total, correct, accuracy, byCategory };
+}
+
+function ProgressBar({ value }) {
+  return (
+    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-blue-500"
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  );
+}
+
+export default function Dashboard() {
+  const [data, setData] = useState(mockQuestions);
+
+  // placeholder streak logic
+  const streak = useMemo(() => 5, []);
+
+  const stats = useMemo(() => getStats(data), [data]);
+
+  const categoryLabels = {
+    subjuntiu: "Subjuntiu",
+    lexic: "Lèxic",
+    interferencia: "Interferències",
+    ortografia: "Ortografia",
+    connectors: "Connectors"
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-5xl mx-auto space-y-6">
+        
+        {/* Header */}
+        <div className="bg-white rounded-2xl shadow p-6">
+          <h1 className="text-2xl font-bold">📘 Català C1 Dashboard</h1>
+          <p className="text-gray-500">Seguiment real d’aprenentatge</p>
+        </div>
+
+        {/* Main stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-2xl shadow p-5">
+            <p className="text-gray-500">Precisió global</p>
+            <p className="text-3xl font-bold">{stats.accuracy}%</p>
+            <ProgressBar value={stats.accuracy} />
+          </div>
+
+          <div className="bg-white rounded-2xl shadow p-5">
+            <p className="text-gray-500">Encerts</p>
+            <p className="text-3xl font-bold">{stats.correct}/{stats.total}</p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow p-5">
+            <p className="text-gray-500">Streak</p>
+            <p className="text-3xl font-bold">🔥 {streak} dies</p>
+          </div>
+        </div>
+
+        {/* Category breakdown */}
+        <div className="bg-white rounded-2xl shadow p-6">
+          <h2 className="text-xl font-semibold mb-4">📊 Progrés per competència</h2>
+
+          <div className="space-y-4">
+            {Object.entries(stats.byCategory).map(([cat, value]) => {
+              const percent = Math.round((value.correct / value.total) * 100);
+
+              return (
+                <div key={cat} className="space-y-1">
+                  <div className="flex justify-between">
+                    <span>{categoryLabels[cat] || cat}</span>
+                    <span className="text-gray-500">
+                      {value.correct}/{value.total} ({percent}%)
+                    </span>
+                  </div>
+                  <ProgressBar value={percent} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Recommendations */}
+        <div className="bg-white rounded-2xl shadow p-6">
+          <h2 className="text-xl font-semibold mb-3">🎯 Recomanació</h2>
+
+          <div className="space-y-2 text-gray-700">
+            {stats.byCategory.interferencia?.correct < stats.byCategory.interferencia?.total && (
+              <p>⚠️ Revisa interferències del castellà</p>
+            )}
+            {stats.byCategory.subjuntiu?.correct < stats.byCategory.subjuntiu?.total && (
+              <p>⚠️ Practica subjuntiu avançat</p>
+            )}
+            <p>💡 Mantén el ritme diari per millorar el C1</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
