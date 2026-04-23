@@ -1,31 +1,54 @@
 let questions = [];
 let current = 0;
-let score = 0;
-let errors = [];
-let selectedCategory = "all";
-let examMode = false;
-let timeLeft = 60; // examen curt per prova
 
+// 🧠 Estat persistent
+function loadState() {
+  const saved = localStorage.getItem("c1_state");
+  return saved ? JSON.parse(saved) : {
+    score: 0,
+    errors: [],
+    categoryStats: {
+      gramatica: 0,
+      lexic: 0,
+      ortografia: 0
+    }
+  };
+}
+
+function saveState() {
+  localStorage.setItem("c1_state", JSON.stringify(state));
+}
+
+let state = loadState();
+let score = state.score;
+let errors = state.errors;
+
+// 📦 carregar dades
 async function loadData() {
   const res = await fetch("data.json");
   questions = await res.json();
   render();
 }
 
-function getFilteredQuestions() {
-  if (selectedCategory === "all") return questions;
-  return questions.filter(q => q.category === selectedCategory);
+// 🧠 actualitzar estadística per categoria
+function updateCategory(cat, correct) {
+  if (!state.categoryStats[cat]) {
+    state.categoryStats[cat] = 0;
+  }
+
+  if (correct) {
+    state.categoryStats[cat] += 1;
+  } else {
+    state.categoryStats[cat] -= 1;
+  }
+
+  saveState();
 }
 
+// 🎯 render
 function render() {
   const app = document.getElementById("app");
-  const qList = getFilteredQuestions();
-  const q = qList[current];
-
-  if (!q) {
-    showResults();
-    return;
-  }
+  const q = questions[current];
 
   let content = "";
 
@@ -37,7 +60,7 @@ function render() {
 
   if (q.type === "fill_gap") {
     content = `
-      <input id="answer">
+      <input id="answer" placeholder="Escriu la resposta">
       <button onclick="checkFill()">Comprovar</button>
     `;
   }
@@ -55,77 +78,95 @@ function render() {
 
       <p>⭐ Puntuació: ${score}</p>
 
-      <button onclick="next()">Següent</button>
-
       <hr>
 
-      <button onclick="setCategory('all')">Totes</button>
-      <button onclick="setCategory('gramatica')">Gramàtica</button>
-      <button onclick="setCategory('lexic')">Lèxic</button>
-      <button onclick="setCategory('ortografia')">Ortografia</button>
+      <h4>📊 Progrés</h4>
+      <p>Gramàtica: ${state.categoryStats.gramatica || 0}</p>
+      <p>Lèxic: ${state.categoryStats.lexic || 0}</p>
+      <p>Ortografia: ${state.categoryStats.ortografia || 0}</p>
 
-      <br><br>
-
-      <button onclick="startExam()">🧪 Mode examen</button>
+      <button onclick="next()">Següent</button>
     </div>
   `;
 }
 
-function setCategory(cat) {
-  selectedCategory = cat;
-  current = 0;
-  render();
-}
-
+// ✔ MC
 function checkMC(i) {
-  const q = getFilteredQuestions()[current];
+  const q = questions[current];
   const feedback = document.getElementById("feedback");
 
-  if (i === q.correct) {
+  const correct = i === q.correct;
+
+  if (correct) {
     score++;
     feedback.innerHTML = "✔ Correcte<br>" + q.explanation;
   } else {
     errors.push(q.id);
     feedback.innerHTML = "✘ Incorrecte<br>" + q.explanation;
   }
+
+  updateCategory(q.category, correct);
+  state.score = score;
+  state.errors = errors;
+  saveState();
 }
 
+// ✔ fill
 function checkFill() {
-  const q = getFilteredQuestions()[current];
+  const q = questions[current];
   const val = document.getElementById("answer").value.trim();
   const feedback = document.getElementById("feedback");
 
-  if (val === q.answer) {
+  const correct = val === q.answer;
+
+  if (correct) {
     score++;
     feedback.innerHTML = "✔ Correcte<br>" + q.explanation;
   } else {
     errors.push(q.id);
     feedback.innerHTML = "✘ Incorrecte<br>" + q.explanation;
   }
+
+  updateCategory(q.category, correct);
+  state.score = score;
+  state.errors = errors;
+  saveState();
 }
 
+// ➡️ següent
 function next() {
   current++;
-  render();
+
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    render();
+  }
 }
 
+// 📊 resultats + recomanació
 function showResults() {
   const app = document.getElementById("app");
 
-  const errorQuestions = questions.filter(q => errors.includes(q.id));
+  const weakest = getWeakestCategory();
 
   app.innerHTML = `
     <div class="card">
       <h2>📊 Resultats finals</h2>
+
       <p>Puntuació: ${score}</p>
       <p>Errors: ${errors.length}</p>
 
+      <h3>🧠 Recomanació</h3>
+      <p>Has de practicar més: <strong>${weakest}</strong></p>
+
       <button onclick="reviewErrors()">🔁 Revisar errors</button>
-      <button onclick="restart()">Tornar a començar</button>
+      <button onclick="restart()">Reiniciar</button>
     </div>
   `;
 }
 
+// 🔁 errors
 function reviewErrors() {
   questions = questions.filter(q => errors.includes(q.id));
   current = 0;
@@ -134,40 +175,41 @@ function reviewErrors() {
   render();
 }
 
+// 🔄 restart
 function restart() {
   current = 0;
   score = 0;
   errors = [];
-  selectedCategory = "all";
+
+  state = {
+    score: 0,
+    errors: [],
+    categoryStats: {
+      gramatica: 0,
+      lexic: 0,
+      ortografia: 0
+    }
+  };
+
+  saveState();
   loadData();
 }
 
-function startExam() {
-  examMode = true;
-  current = 0;
-  score = 0;
-  errors = [];
-  timeLeft = 60;
+// 🧠 detectar punt feble
+function getWeakestCategory() {
+  const stats = state.categoryStats;
 
-  startTimer();
-  render();
-}
+  let minCat = "gramàtica";
+  let minVal = stats.gramatica || 0;
 
-function startTimer() {
-  const interval = setInterval(() => {
-    if (!examMode) {
-      clearInterval(interval);
-      return;
+  for (let cat in stats) {
+    if (stats[cat] < minVal) {
+      minVal = stats[cat];
+      minCat = cat;
     }
+  }
 
-    timeLeft--;
-
-    if (timeLeft <= 0) {
-      examMode = false;
-      clearInterval(interval);
-      showResults();
-    }
-  }, 1000);
+  return minCat;
 }
 
 loadData();
