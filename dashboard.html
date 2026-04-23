@@ -1,130 +1,185 @@
-import { useMemo, useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>C1 Dashboard</title>
 
-const mockQuestions = [
-  { id: 1, category: "subjuntiu", correct: true },
-  { id: 2, category: "subjuntiu", correct: false },
-  { id: 3, category: "lexic", correct: true },
-  { id: 4, category: "interferencia", correct: true },
-  { id: 5, category: "interferencia", correct: false },
-  { id: 6, category: "ortografia", correct: true },
-  { id: 7, category: "connectors", correct: true },
-  { id: 8, category: "connectors", correct: true },
-  { id: 9, category: "lexic", correct: false },
-];
-
-function getStats(data) {
-  const total = data.length;
-  const correct = data.filter(d => d.correct).length;
-  const accuracy = total ? Math.round((correct / total) * 100) : 0;
-
-  const byCategory = {};
-
-  data.forEach(d => {
-    if (!byCategory[d.category]) {
-      byCategory[d.category] = { total: 0, correct: 0 };
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
     }
-    byCategory[d.category].total++;
-    if (d.correct) byCategory[d.category].correct++;
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .label {
+      color: gray;
+      font-size: 14px;
+    }
+
+    .bar {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .fill {
+      height: 100%;
+      background: #3b82f6;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .category {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <h1>📘 Català C1 Dashboard</h1>
+    <p>Seguiment d’aprenentatge en temps real</p>
+  </div>
+
+  <div class="card grid">
+    <div>
+      <div class="stat" id="accuracy">0%</div>
+      <div class="label">Precisió global</div>
+    </div>
+
+    <div>
+      <div class="stat" id="score">0</div>
+      <div class="label">Punts totals</div>
+    </div>
+
+    <div>
+      <div class="stat" id="errors">0</div>
+      <div class="label">Errors</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📊 Progrés per competència</h2>
+
+    <div class="category">
+      <p>Subjuntiu</p>
+      <div class="bar"><div class="fill" id="subjuntiu"></div></div>
+    </div>
+
+    <div class="category">
+      <p>Lèxic</p>
+      <div class="bar"><div class="fill" id="lexic"></div></div>
+    </div>
+
+    <div class="category">
+      <p>Interferències</p>
+      <div class="bar"><div class="fill" id="interferencia"></div></div>
+    </div>
+
+    <div class="category">
+      <p>Ortografia</p>
+      <div class="bar"><div class="fill" id="ortografia"></div></div>
+    </div>
+
+    <div class="category">
+      <p>Connectors</p>
+      <div class="bar"><div class="fill" id="connectors"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Accions</h2>
+
+    <button onclick="goApp()">⬅ Tornar a l’app</button>
+    <button onclick="reset()">🔄 Reiniciar dades</button>
+  </div>
+
+</div>
+
+<script>
+function load() {
+  const state = JSON.parse(localStorage.getItem("c1_state")) || { score: 0, errors: [] };
+  const questions = JSON.parse(localStorage.getItem("c1_srs")) || {};
+
+  const score = state.score || 0;
+  const errors = state.errors?.length || 0;
+
+  const total = score + errors;
+  const accuracy = total ? Math.round((score / total) * 100) : 0;
+
+  document.getElementById("accuracy").innerText = accuracy + "%";
+  document.getElementById("score").innerText = score;
+  document.getElementById("errors").innerText = errors;
+
+  const categories = ["subjuntiu", "lexic", "interferencia", "ortografia", "connectors"];
+
+  categories.forEach(cat => {
+    const items = Object.values(questions).filter(q => q.category === cat);
+    const correct = items.filter(q => q.strength > 0).length;
+
+    const percent = items.length ? (correct / items.length) * 100 : 0;
+
+    document.getElementById(cat).style.width = percent + "%";
   });
-
-  return { total, correct, accuracy, byCategory };
 }
 
-function ProgressBar({ value }) {
-  return (
-    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-      <div
-        className="h-full bg-blue-500"
-        style={{ width: `${value}%` }}
-      />
-    </div>
-  );
+function goApp() {
+  window.location.href = "index.html";
 }
 
-export default function Dashboard() {
-  const [data, setData] = useState(mockQuestions);
-
-  // placeholder streak logic
-  const streak = useMemo(() => 5, []);
-
-  const stats = useMemo(() => getStats(data), [data]);
-
-  const categoryLabels = {
-    subjuntiu: "Subjuntiu",
-    lexic: "Lèxic",
-    interferencia: "Interferències",
-    ortografia: "Ortografia",
-    connectors: "Connectors"
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-5xl mx-auto space-y-6">
-        
-        {/* Header */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h1 className="text-2xl font-bold">📘 Català C1 Dashboard</h1>
-          <p className="text-gray-500">Seguiment real d’aprenentatge</p>
-        </div>
-
-        {/* Main stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl shadow p-5">
-            <p className="text-gray-500">Precisió global</p>
-            <p className="text-3xl font-bold">{stats.accuracy}%</p>
-            <ProgressBar value={stats.accuracy} />
-          </div>
-
-          <div className="bg-white rounded-2xl shadow p-5">
-            <p className="text-gray-500">Encerts</p>
-            <p className="text-3xl font-bold">{stats.correct}/{stats.total}</p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow p-5">
-            <p className="text-gray-500">Streak</p>
-            <p className="text-3xl font-bold">🔥 {streak} dies</p>
-          </div>
-        </div>
-
-        {/* Category breakdown */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">📊 Progrés per competència</h2>
-
-          <div className="space-y-4">
-            {Object.entries(stats.byCategory).map(([cat, value]) => {
-              const percent = Math.round((value.correct / value.total) * 100);
-
-              return (
-                <div key={cat} className="space-y-1">
-                  <div className="flex justify-between">
-                    <span>{categoryLabels[cat] || cat}</span>
-                    <span className="text-gray-500">
-                      {value.correct}/{value.total} ({percent}%)
-                    </span>
-                  </div>
-                  <ProgressBar value={percent} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Recommendations */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-semibold mb-3">🎯 Recomanació</h2>
-
-          <div className="space-y-2 text-gray-700">
-            {stats.byCategory.interferencia?.correct < stats.byCategory.interferencia?.total && (
-              <p>⚠️ Revisa interferències del castellà</p>
-            )}
-            {stats.byCategory.subjuntiu?.correct < stats.byCategory.subjuntiu?.total && (
-              <p>⚠️ Practica subjuntiu avançat</p>
-            )}
-            <p>💡 Mantén el ritme diari per millorar el C1</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
+function reset() {
+  localStorage.clear();
+  location.reload();
 }
+
+load();
+</script>
+
+</body>
+</html>
