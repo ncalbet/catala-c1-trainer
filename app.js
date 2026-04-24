@@ -1,76 +1,102 @@
 let questions = [];
-let filtered = [];
+let session = [];
 let current = 0;
-let currentLevel = "menu";
 
-let state = JSON.parse(localStorage.getItem("c1_state")) || {
-  score: 0,
-  errors: []
+let urlParams = new URLSearchParams(window.location.search);
+let selectedLevel = urlParams.get("level");
+
+// 🧠 stats adaptatius
+let stats = JSON.parse(localStorage.getItem("c1_stats")) || {};
+
+// 🧠 progrés tipus Duolingo
+let progress = JSON.parse(localStorage.getItem("c1_progress")) || {
+  completed: [],
+  xp: 0
 };
-
-let score = state.score;
-let errors = state.errors;
 
 // 📦 carregar dades
 async function loadData() {
   const res = await fetch("data.json");
   questions = await res.json();
-  renderMenu();
+
+  if (selectedLevel) {
+    startLevel(selectedLevel);
+  } else {
+    renderMenu();
+  }
 }
 
-// 🧭 MENU PRINCIPAL
+// 🧭 MENU
 function renderMenu() {
-  currentLevel = "menu";
-
   document.getElementById("app").innerHTML = `
     <div class="card">
 
-      <h1>📘 Català C1 Trainer</h1>
-      <p>Progressió B2 → C1 real</p>
+      <h1>📘 Català Trainer</h1>
 
-      <button onclick="start('b2')">📘 Base B2</button>
-      <button onclick="start('c1_transition')">📙 Transició C1</button>
-      <button onclick="start('c1')">📕 C1 avançat</button>
-      <button onclick="start('all')">🧪 Simulació completa</button>
-
-      <hr>
-
-      <p>⭐ Punts: ${score}</p>
-      <p>❌ Errors: ${errors.length}</p>
+      <button onclick="startAdaptive()">🎯 Mode intel·ligent</button>
+      <button onclick="goLevels()">🧭 Camí d’aprenentatge</button>
 
     </div>
   `;
 }
 
-// 🚀 iniciar nivell
-function start(level) {
-  currentLevel = level;
+// 🔗 anar a mapa
+function goLevels() {
+  window.location.href = "levels.html";
+}
+
+// 🎯 iniciar nivell des del mapa
+function startLevel(levelId) {
   current = 0;
 
-  if (level === "all") {
-    filtered = questions;
-  } else {
-    filtered = questions.filter(q => q.level === level);
-  }
+  const mapping = {
+    "1": "b2",
+    "2": "b2",
+    "3": "c1_transition",
+    "4": "c1_transition",
+    "5": "c1",
+    "6": "c1"
+  };
+
+  const levelType = mapping[levelId] || "b2";
+
+  session = questions.filter(q => q.level === levelType);
 
   render();
 }
 
-// 🎯 render exercici
-function render() {
-  const q = filtered[current];
+// 🎯 mode adaptatiu
+function startAdaptive() {
+  session = questions
+    .map(q => ({ ...q, weight: getWeight(q) }))
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 10);
 
-  if (!q) return showResults();
+  current = 0;
+  render();
+}
+
+// 🧠 pes adaptatiu
+function getWeight(q) {
+  const s = stats[q.id] || { correct: 0, wrong: 0 };
+  return (s.wrong - s.correct) * 2;
+}
+
+// 🎯 render
+function render() {
+  const q = session[current];
+
+  if (!q) return completeLevel();
 
   let content = "";
 
   if (q.type === "multiple_choice") {
-    content = q.options.map((opt, i) => `
-      <button onclick="checkMC(${i})">${opt}</button>
-    `).join("");
+    content = q.options.map((opt, i) =>
+      `<button onclick="checkMC(${i})">${opt}</button>`
+    ).join("");
   } else {
     content = `
-      <input id="answer" placeholder="Escriu la resposta">
+      <input id="answer" placeholder="Resposta">
       <button onclick="checkText()">Comprovar</button>
     `;
   }
@@ -80,11 +106,11 @@ function render() {
 
       <button onclick="renderMenu()">⬅ Menú</button>
 
-      <h3>${q.level.toUpperCase()} · ${q.category}</h3>
+      <h3>${q.level} · ${q.category}</h3>
       <h2>${q.question}</h2>
 
       <p><em>${q.theory}</em></p>
-      <p>📌 Exemple: ${q.example}</p>
+      <p>📌 ${q.example}</p>
 
       ${content}
 
@@ -98,56 +124,37 @@ function render() {
 
 // ✔ MC
 function checkMC(i) {
-  const q = filtered[current];
-  const correct = i === q.correct;
-
-  feedback(correct, q);
-
-  save(correct, q);
+  const q = session[current];
+  handleResult(i === q.correct, q);
 }
 
-// ✔ TEXT (multi resposta)
+// ✔ TEXT
 function checkText() {
-  const q = filtered[current];
+  const q = session[current];
   const user = normalize(document.getElementById("answer").value);
 
   const correct = q.answers.some(a => normalize(a) === user);
 
-  feedback(correct, q);
-
-  save(correct, q);
+  handleResult(correct, q);
 }
 
-// 🧠 normalització
-function normalize(t) {
-  return t.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[.,!?;:()"]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-// 💬 feedback
-function feedback(correct, q) {
-  const el = document.getElementById("feedback");
+// 🧠 resultat
+function handleResult(correct, q) {
+  if (!stats[q.id]) stats[q.id] = { correct: 0, wrong: 0 };
 
   if (correct) {
-    score++;
-    el.innerHTML = "✔ Correcte<br>" + q.explanation;
+    stats[q.id].correct++;
+    progress.xp += 5;
   } else {
-    errors.push(q.id);
-    el.innerHTML = "✘ Incorrecte<br>" +
-      "Respostes: " + q.answers.join(" / ");
+    stats[q.id].wrong++;
   }
-}
 
-// 💾 guardar
-function save(correct, q) {
-  localStorage.setItem("c1_state", JSON.stringify({
-    score,
-    errors
-  }));
+  localStorage.setItem("c1_stats", JSON.stringify(stats));
+  localStorage.setItem("c1_progress", JSON.stringify(progress));
+
+  document.getElementById("feedback").innerHTML = correct
+    ? "✔ Correcte<br>" + q.explanation
+    : "✘ Incorrecte<br>" + q.answers.join(" / ");
 }
 
 // ➡️ següent
@@ -156,20 +163,34 @@ function next() {
   render();
 }
 
-// 📊 resultats
-function showResults() {
+// 🏁 completar nivell
+function completeLevel() {
+  if (selectedLevel && !progress.completed.includes(Number(selectedLevel))) {
+    progress.completed.push(Number(selectedLevel));
+  }
+
+  localStorage.setItem("c1_progress", JSON.stringify(progress));
+
   document.getElementById("app").innerHTML = `
     <div class="card">
 
-      <h2>📊 Resultats</h2>
+      <h2>🎉 Nivell completat</h2>
 
-      <p>Puntuació: ${score}</p>
-      <p>Errors: ${errors.length}</p>
+      <p>XP total: ${progress.xp}</p>
 
-      <button onclick="renderMenu()">🏠 Tornar al menú</button>
+      <button onclick="goLevels()">🧭 Tornar al mapa</button>
 
     </div>
   `;
+}
+
+// 🧠 normalitzar
+function normalize(t) {
+  return t.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.,!?]/g, "")
+    .trim();
 }
 
 loadData();
