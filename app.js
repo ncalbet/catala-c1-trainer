@@ -5,16 +5,16 @@ let current = 0;
 let urlParams = new URLSearchParams(window.location.search);
 let selectedLevel = urlParams.get("level");
 
-// 🧠 stats adaptatius
+// stats adaptatius
 let stats = JSON.parse(localStorage.getItem("c1_stats")) || {};
 
-// 🧠 progrés tipus Duolingo
+// progrés tipus Duolingo
 let progress = JSON.parse(localStorage.getItem("c1_progress")) || {
   completed: [],
   xp: 0
 };
 
-// 📦 carregar dades
+// carregar dades
 async function loadData() {
   const res = await fetch("data.json");
   questions = await res.json();
@@ -26,26 +26,31 @@ async function loadData() {
   }
 }
 
-// 🧭 MENU
+// MENU
 function renderMenu() {
   document.getElementById("app").innerHTML = `
     <div class="card">
 
-      <h1>📘 Català Trainer</h1>
+      <h1>📘 Català C1 Trainer</h1>
 
       <button onclick="startAdaptive()">🎯 Mode intel·ligent</button>
       <button onclick="goLevels()">🧭 Camí d’aprenentatge</button>
+      <button onclick="goDashboard()">📊 Dashboard</button>
 
     </div>
   `;
 }
 
-// 🔗 anar a mapa
+// navegació
 function goLevels() {
   window.location.href = "levels.html";
 }
 
-// 🎯 iniciar nivell des del mapa
+function goDashboard() {
+  window.location.href = "dashboard.html";
+}
+
+// iniciar nivell
 function startLevel(levelId) {
   current = 0;
 
@@ -65,7 +70,7 @@ function startLevel(levelId) {
   render();
 }
 
-// 🎯 mode adaptatiu
+// mode adaptatiu
 function startAdaptive() {
   session = questions
     .map(q => ({ ...q, weight: getWeight(q) }))
@@ -76,17 +81,19 @@ function startAdaptive() {
   render();
 }
 
-// 🧠 pes adaptatiu
+// pes adaptatiu
 function getWeight(q) {
   const s = stats[q.id] || { correct: 0, wrong: 0 };
   return (s.wrong - s.correct) * 2;
 }
 
-// 🎯 render
+// RENDER UX MILLORAT
 function render() {
   const q = session[current];
 
   if (!q) return completeLevel();
+
+  const percent = Math.round((current / session.length) * 100);
 
   let content = "";
 
@@ -102,11 +109,29 @@ function render() {
   }
 
   document.getElementById("app").innerHTML = `
+
+    <div class="header">
+      <div class="header-top">
+        <span>📘 ${q.level.toUpperCase()} · ${q.category}</span>
+        <span>⭐ XP: ${progress.xp}</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${percent}%"></div>
+      </div>
+    </div>
+
     <div class="card">
 
-      <button onclick="renderMenu()">⬅ Menú</button>
+      <div class="breadcrumb">
+        ${q.level.toUpperCase()} > ${q.category} > ${current + 1}/${session.length}
+      </div>
 
-      <h3>${q.level} · ${q.category}</h3>
+      <div class="actions">
+        <button onclick="renderMenu()">🏠</button>
+        <button onclick="goLevels()">🧭</button>
+      </div>
+
       <h2>${q.question}</h2>
 
       <p><em>${q.theory}</em></p>
@@ -122,13 +147,13 @@ function render() {
   `;
 }
 
-// ✔ MC
+// resposta MC
 function checkMC(i) {
   const q = session[current];
   handleResult(i === q.correct, q);
 }
 
-// ✔ TEXT
+// resposta text
 function checkText() {
   const q = session[current];
   const user = normalize(document.getElementById("answer").value);
@@ -138,7 +163,7 @@ function checkText() {
   handleResult(correct, q);
 }
 
-// 🧠 resultat
+// gestió resultat
 function handleResult(correct, q) {
   if (!stats[q.id]) stats[q.id] = { correct: 0, wrong: 0 };
 
@@ -157,13 +182,13 @@ function handleResult(correct, q) {
     : "✘ Incorrecte<br>" + q.answers.join(" / ");
 }
 
-// ➡️ següent
+// següent
 function next() {
   current++;
   render();
 }
 
-// 🏁 completar nivell
+// completar nivell
 function completeLevel() {
   if (selectedLevel && !progress.completed.includes(Number(selectedLevel))) {
     progress.completed.push(Number(selectedLevel));
@@ -174,17 +199,18 @@ function completeLevel() {
   document.getElementById("app").innerHTML = `
     <div class="card">
 
-      <h2>🎉 Nivell completat</h2>
+      <h2>🎉 Sessió completada</h2>
 
       <p>XP total: ${progress.xp}</p>
 
       <button onclick="goLevels()">🧭 Tornar al mapa</button>
+      <button onclick="renderMenu()">🏠 Menú</button>
 
     </div>
   `;
 }
 
-// 🧠 normalitzar
+// normalitzar text
 function normalize(t) {
   return t.toLowerCase()
     .normalize("NFD")
