@@ -5,10 +5,7 @@ let current = 0;
 let urlParams = new URLSearchParams(window.location.search);
 let selectedLevel = urlParams.get("level");
 
-// stats adaptatius
 let stats = JSON.parse(localStorage.getItem("c1_stats")) || {};
-
-// progrés tipus Duolingo
 let progress = JSON.parse(localStorage.getItem("c1_progress")) || {
   completed: [],
   xp: 0
@@ -26,19 +23,71 @@ async function loadData() {
   }
 }
 
-// MENU
-function renderMenu() {
+// HEADER + NAV GLOBAL
+function renderLayout(content, title = "") {
   document.getElementById("app").innerHTML = `
-    <div class="card">
 
-      <h1>📘 Català C1 Trainer</h1>
+    <div class="header">
+      <div class="header-title">
+        📘 Català C1 Trainer
+      </div>
 
-      <button onclick="startAdaptive()">🎯 Mode intel·ligent</button>
-      <button onclick="goLevels()">🧭 Camí d’aprenentatge</button>
-      <button onclick="goDashboard()">📊 Dashboard</button>
+      <div class="header-info">
+        ${title}
+        <span>⭐ ${progress.xp} XP</span>
+      </div>
+    </div>
 
+    <div class="nav">
+      <button onclick="renderMenu()">🏠 Inici</button>
+      <button onclick="goLevels()">🧭 Nivells</button>
+      <button onclick="goDashboard()">📊 Progrés</button>
+      <button onclick="goHelp()">❓ Ajuda</button>
+    </div>
+
+    <div class="content">
+      ${content}
     </div>
   `;
+}
+
+// MENU
+function renderMenu() {
+  renderLayout(`
+    <div class="card">
+
+      <h2>Benvingut</h2>
+
+      <p>Aquesta app et permet assolir el nivell C1 de català amb pràctica adaptativa.</p>
+
+      <button onclick="startAdaptive()">🎯 Practicar (intel·ligent)</button>
+      <button onclick="goLevels()">🧭 Seguir el camí</button>
+
+    </div>
+  `, "Menú principal");
+}
+
+// ajuda
+function goHelp() {
+  renderLayout(`
+    <div class="card">
+
+      <h2>❓ Com funciona</h2>
+
+      <p><strong>🎯 Mode intel·ligent</strong><br>
+      Practica segons els teus errors.</p>
+
+      <p><strong>🧭 Nivells</strong><br>
+      Segueix un camí estructurat B2 → C1.</p>
+
+      <p><strong>📊 Progrés</strong><br>
+      Consulta el teu rendiment.</p>
+
+      <p><strong>💡 Consell</strong><br>
+      Practica cada dia per consolidar el nivell.</p>
+
+    </div>
+  `, "Ajuda");
 }
 
 // navegació
@@ -67,7 +116,7 @@ function startLevel(levelId) {
 
   session = questions.filter(q => q.level === levelType);
 
-  render();
+  renderExercise();
 }
 
 // mode adaptatiu
@@ -78,7 +127,7 @@ function startAdaptive() {
     .slice(0, 10);
 
   current = 0;
-  render();
+  renderExercise();
 }
 
 // pes adaptatiu
@@ -87,13 +136,11 @@ function getWeight(q) {
   return (s.wrong - s.correct) * 2;
 }
 
-// RENDER UX MILLORAT
-function render() {
+// EXERCICI
+function renderExercise() {
   const q = session[current];
 
   if (!q) return completeLevel();
-
-  const percent = Math.round((current / session.length) * 100);
 
   let content = "";
 
@@ -108,28 +155,11 @@ function render() {
     `;
   }
 
-  document.getElementById("app").innerHTML = `
-
-    <div class="header">
-      <div class="header-top">
-        <span>📘 ${q.level.toUpperCase()} · ${q.category}</span>
-        <span>⭐ XP: ${progress.xp}</span>
-      </div>
-
-      <div class="progress-bar">
-        <div class="progress-fill" style="width:${percent}%"></div>
-      </div>
-    </div>
-
+  renderLayout(`
     <div class="card">
 
       <div class="breadcrumb">
         ${q.level.toUpperCase()} > ${q.category} > ${current + 1}/${session.length}
-      </div>
-
-      <div class="actions">
-        <button onclick="renderMenu()">🏠</button>
-        <button onclick="goLevels()">🧭</button>
       </div>
 
       <h2>${q.question}</h2>
@@ -144,26 +174,24 @@ function render() {
       <button onclick="next()">Següent</button>
 
     </div>
-  `;
+  `, `${q.level.toUpperCase()} · ${q.category}`);
 }
 
-// resposta MC
+// respostes
 function checkMC(i) {
   const q = session[current];
   handleResult(i === q.correct, q);
 }
 
-// resposta text
 function checkText() {
   const q = session[current];
   const user = normalize(document.getElementById("answer").value);
 
   const correct = q.answers.some(a => normalize(a) === user);
-
   handleResult(correct, q);
 }
 
-// gestió resultat
+// resultat
 function handleResult(correct, q) {
   if (!stats[q.id]) stats[q.id] = { correct: 0, wrong: 0 };
 
@@ -185,32 +213,24 @@ function handleResult(correct, q) {
 // següent
 function next() {
   current++;
-  render();
+  renderExercise();
 }
 
-// completar nivell
+// final
 function completeLevel() {
-  if (selectedLevel && !progress.completed.includes(Number(selectedLevel))) {
-    progress.completed.push(Number(selectedLevel));
-  }
-
-  localStorage.setItem("c1_progress", JSON.stringify(progress));
-
-  document.getElementById("app").innerHTML = `
+  renderLayout(`
     <div class="card">
 
       <h2>🎉 Sessió completada</h2>
-
       <p>XP total: ${progress.xp}</p>
 
       <button onclick="goLevels()">🧭 Tornar al mapa</button>
-      <button onclick="renderMenu()">🏠 Menú</button>
 
     </div>
-  `;
+  `, "Final");
 }
 
-// normalitzar text
+// util
 function normalize(t) {
   return t.toLowerCase()
     .normalize("NFD")
