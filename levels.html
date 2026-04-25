@@ -2,188 +2,63 @@
 <html lang="ca">
 <head>
 <meta charset="UTF-8">
-<title>C1 Progressió</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-}
-
-.container {
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-}
-
-/* CAMÍ */
-.path {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  margin-top: 30px;
-}
-
-/* NODE */
-.node {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-/* ESTATS */
-.locked {
-  background: #9ca3af;
-  cursor: not-allowed;
-}
-
-.available {
-  background: #3b82f6;
-}
-
-.completed {
-  background: #22c55e;
-}
-
-/* línia visual */
-.line {
-  width: 4px;
-  height: 30px;
-  background: #d1d5db;
-}
-
-/* HEADER */
-.header {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-.xp {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.progress-bar {
-  height: 10px;
-  background: #e5e7eb;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: #3b82f6;
-}
-</style>
+<title>Camí d’aprenentatge</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
-
-  <div class="header">
-    <h1>📘 Català C1</h1>
-    <div class="xp" id="xp">XP: 0</div>
-
-    <div class="progress-bar">
-      <div class="progress-fill" id="progress"></div>
-    </div>
-  </div>
-
-  <div class="path" id="path"></div>
-
-</div>
+<div id="app"></div>
 
 <script>
 const levels = [
-  { id: 1, name: "B2 bàsic" },
-  { id: 2, name: "Connectors" },
-  { id: 3, name: "Subjuntiu" },
-  { id: 4, name: "Interferències" },
-  { id: 5, name: "C1 lèxic" },
-  { id: 6, name: "Reformulació" }
+  { id: 1, lesson: "subjuntiu", name: "Subjuntiu" },
+  { id: 2, lesson: "interferencies", name: "Interferències" }
 ];
 
-// 🧠 estat
 let progress = JSON.parse(localStorage.getItem("c1_progress")) || {
   completed: [],
   xp: 0
 };
 
-// render
 function render() {
-  const path = document.getElementById("path");
-  path.innerHTML = "";
-
-  levels.forEach((lvl, i) => {
+  const html = levels.map((lvl, i) => {
 
     let status = "locked";
 
     if (progress.completed.includes(lvl.id)) {
       status = "completed";
-    } else if (
-      i === 0 ||
-      progress.completed.includes(levels[i - 1].id)
-    ) {
+    } else if (i === 0 || progress.completed.includes(levels[i-1].id)) {
       status = "available";
     }
 
-    const node = document.createElement("div");
-    node.className = `node ${status}`;
-    node.innerText = lvl.id;
+    return `
+      <div class="card">
+        <h3>${lvl.name}</h3>
+        <p>Estat: ${status}</p>
+        <button onclick="openLevel(${lvl.id})" ${status==="locked"?"disabled":""}>
+          Entrar
+        </button>
+      </div>
+    `;
+  }).join("");
 
-    if (status !== "locked") {
-      node.onclick = () => startLevel(lvl.id);
-    }
-
-    path.appendChild(node);
-
-    if (i < levels.length - 1) {
-      const line = document.createElement("div");
-      line.className = "line";
-      path.appendChild(line);
-    }
-  });
-
-  updateHeader();
+  document.getElementById("app").innerHTML = `
+    <div class="content">
+      <h2>🧭 Camí d’aprenentatge</h2>
+      ${html}
+      <button onclick="goHome()">🏠 Inici</button>
+    </div>
+  `;
 }
 
-// XP + progrés
-function updateHeader() {
-  document.getElementById("xp").innerText = "XP: " + progress.xp;
-
-  const percent = (progress.completed.length / levels.length) * 100;
-  document.getElementById("progress").style.width = percent + "%";
+function openLevel(id) {
+  const level = levels.find(l => l.id === id);
+  window.location.href = "index.html?lesson=" + level.lesson + "&levelId=" + id;
 }
 
-// iniciar nivell
-function startLevel(id) {
-  window.location.href = "index.html?level=" + id;
-
-  // simulació completat
-  if (!progress.completed.includes(id)) {
-    progress.completed.push(id);
-    progress.xp += 10;
-  }
-
-  localStorage.setItem("c1_progress", JSON.stringify(progress));
-  render();
+function goHome() {
+  window.location.href = "index.html";
 }
 
 render();

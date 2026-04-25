@@ -1,54 +1,77 @@
 [
   {
     "id": 1,
-    "level": "b2",
-    "category": "gramatica",
+    "level": "c1",
+    "category": "subjuntiu",
     "type": "fill_gap",
     "question": "Encara que ___ tard, començarem.",
     "answers": ["arribi", "vingui"],
-    "theory": "Després d’‘encara que’ s’utilitza subjuntiu quan l’acció és hipotètica.",
+    "theory": "Subjuntiu en contextos hipotètics.",
     "example": "Encara que plogui, sortirem.",
-    "explanation": "És subjuntiu perquè expressa una acció no real o futura."
+    "explanation": "Acció no real → subjuntiu"
   },
 
   {
     "id": 2,
-    "level": "b2",
-    "category": "connectors",
-    "type": "multiple_choice",
-    "question": "Quin connector és causal?",
-    "options": ["però", "ja que", "encara que"],
-    "correct": 1,
-    "theory": "Els connectors causals expliquen motius.",
-    "example": "No vaig venir perquè estava malalt.",
-    "explanation": "‘ja que’ introdueix causa."
+    "level": "c1",
+    "category": "lexic",
+    "type": "sentence_transform",
+    "question": "Reformula en registre formal: \"Va dir moltes coses\"",
+    "answers": [
+      "va expressar moltes idees",
+      "va manifestar moltes idees",
+      "va afirmar nombroses idees"
+    ],
+    "theory": "Precisió lèxica",
+    "example": "dir → expressar",
+    "explanation": "Evitar verbs genèrics"
   },
 
   {
     "id": 3,
-    "level": "c1_transition",
-    "category": "interferencia",
-    "type": "fill_gap",
-    "question": "Hem de ___ la situació com més aviat millor.",
-    "answers": ["resoldre"],
-    "theory": "Evitem calcs del castellà com ‘solucionar’. En català formal és ‘resoldre’.",
-    "example": "Cal resoldre el problema urgentment.",
-    "explanation": "Lèxic precís de registre formal."
+    "level": "c1",
+    "category": "cohesio",
+    "type": "reorder_text",
+    "question": "Ordena el text:",
+    "parts": [
+      "Tot i això, no es va rendir.",
+      "Va intentar diverses solucions.",
+      "Finalment, ho va aconseguir."
+    ],
+    "correct_order": [1, 0, 2],
+    "theory": "Cohesió textual",
+    "example": "Primer..., tot i això..., finalment...",
+    "explanation": "Ordre lògic"
   },
 
   {
     "id": 4,
     "level": "c1",
-    "category": "reformulacio",
-    "type": "sentence_transform",
-    "question": "Reformula: Va dir moltes coses.",
-    "answers": [
-      "va expressar moltes idees",
-      "va afirmar nombroses idees",
-      "va manifestar moltes idees"
+    "category": "comprensio",
+    "type": "reading",
+    "text": "La precisió lingüística és essencial en contextos formals, ja que qualsevol imprecisió pot afectar la credibilitat del discurs.",
+    "question": "Quina és la idea principal?",
+    "options": [
+      "Els textos han de ser llargs",
+      "La precisió és important",
+      "El llenguatge informal és millor"
     ],
-    "theory": "Al C1 cal precisió lèxica i variació estilística.",
-    "example": "Dir → expressar / manifestar / afirmar",
-    "explanation": "Evitar repetició lèxica simple."
+    "correct": 1,
+    "theory": "Comprensió global",
+    "example": "Idea principal",
+    "explanation": "El text tracta la precisió lingüística"
+  },
+
+  {
+    "id": 5,
+    "level": "c1",
+    "category": "produccio",
+    "type": "guided_writing",
+    "question": "Escriu una frase formal amb: problema + solució + urgència",
+    "keywords": ["problema", "resoldre", "urgent"],
+    "sample_answer": "Cal resoldre aquest problema urgentment.",
+    "theory": "Producció guiada",
+    "example": "Cal + verb",
+    "explanation": "Incloure idees clau"
   }
 ]

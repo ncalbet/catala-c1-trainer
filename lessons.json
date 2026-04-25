@@ -1,0 +1,101 @@
+[
+  {
+    "id": "subjuntiu",
+    "title": "Subjuntiu avançat",
+    "level": "c1",
+    "content": [
+      "El subjuntiu s’utilitza per expressar accions no reals, hipotètiques o desitjades.",
+      "És obligatori després de construccions com 'cal que', 'és necessari que', 'encara que'.",
+      "En registres formals, l’ús correcte del subjuntiu és essencial."
+    ],
+    "examples": [
+      "Cal que vinguis puntualment.",
+      "Encara que sigui difícil, ho intentarem.",
+      "És important que ho entenguin."
+    ],
+    "exercise_ids": [1]
+  },
+
+  {
+    "id": "connectors",
+    "title": "Connectors i cohesió textual",
+    "level": "c1",
+    "content": [
+      "Els connectors estructuren el discurs i en garanteixen la coherència.",
+      "Al C1 cal dominar connectors de causa, conseqüència, oposició i concessió.",
+      "Evita repetir connectors simples com 'però' o 'i'."
+    ],
+    "examples": [
+      "Tanmateix, no hi estic d’acord.",
+      "Per consegüent, cal actuar immediatament.",
+      "Així i tot, ho va intentar."
+    ],
+    "exercise_ids": [3]
+  },
+
+  {
+    "id": "interferencies",
+    "title": "Interferències del castellà",
+    "level": "c1",
+    "content": [
+      "Molts errors provenen de calcs del castellà.",
+      "Cal evitar formes com 'realitzar' quan és millor 'fer'.",
+      "També cal evitar estructures sintàctiques calcades."
+    ],
+    "examples": [
+      "Incorrecte: realitzar un treball",
+      "Correcte: fer un treball",
+      "Incorrecte: donar-se compte",
+      "Correcte: adonar-se"
+    ],
+    "exercise_ids": [2]
+  },
+
+  {
+    "id": "lexic",
+    "title": "Lèxic formal i precisió",
+    "level": "c1",
+    "content": [
+      "Al nivell C1 cal evitar repeticions i usar lèxic precís.",
+      "És important diferenciar registres formals i informals.",
+      "Cal ampliar el vocabulari amb sinònims adequats."
+    ],
+    "examples": [
+      "dir → expressar / afirmar / manifestar",
+      "cosa → element / aspecte / qüestió"
+    ],
+    "exercise_ids": [2]
+  },
+
+  {
+    "id": "comprensio",
+    "title": "Comprensió lectora avançada",
+    "level": "c1",
+    "content": [
+      "La comprensió C1 implica entendre idees implícites.",
+      "Cal identificar la idea principal i les secundàries.",
+      "També cal interpretar el to i la intenció del text."
+    ],
+    "examples": [
+      "Identificar la idea principal d’un text",
+      "Detectar arguments implícits"
+    ],
+    "exercise_ids": [4]
+  },
+
+  {
+    "id": "produccio",
+    "title": "Producció escrita guiada",
+    "level": "c1",
+    "content": [
+      "Al C1 cal produir textos coherents i ben estructurats.",
+      "És important utilitzar connectors i lèxic precís.",
+      "Els textos han de tenir introducció, desenvolupament i conclusió."
+    ],
+    "examples": [
+      "Cal resoldre aquest problema amb caràcter urgent.",
+      "És necessari adoptar mesures immediates."
+    ],
+    "exercise_ids": [5]
+  }
+]
