@@ -1915,7 +1915,7 @@ function checkFill() {
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Correcte! La forma és: <strong>${q.answers[0]}</strong></div>`
     : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
-  showTheory(q); markDone(d'acord, 10);
+  showTheory(q); markDone(ok, 10);
 }
 function onDragStart(i) { dragIdx = i; }
 function onDragOver(e, i) {
@@ -1944,7 +1944,7 @@ function checkReorder() {
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Ordre perfecte!</div>`
     : `<div class="ct-feedback ko">✗ L'ordre correcte és:<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;">${correctOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
-  showTheory(q); markDone(d'acord, 15);
+  showTheory(q); markDone(ok, 15);
 }
 
 // ── AVALUACIÓ LOCAL (sense API) ─────────────────────────────
@@ -2014,7 +2014,7 @@ function localFeedbackTransform(q, text) {
   if (hitsHint.length > 0) {
     lines.push(`✓ Has usat vocabulari del registre formal (${hitsHint.slice(0,2).join(', ')}).`);
   } else {
-    lines.push('Prova d'incorporar algun dels verbs o substantius formals suggerits a les pistes.');
+    lines.push("Prova d'incorporar algun dels verbs o substantius formals suggerits a les pistes.'");
   }
 
   lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
@@ -2058,7 +2058,7 @@ function showTheory(q) {
 }
 
 /* PROGRÉS */
-function markDone(d'acord, xp) {
+function markDone(ok, xp) {
   const q = currentSession.items[currentSession.idx];
   if (!progress.done.includes(q.id)) {
     progress.done.push(q.id);
