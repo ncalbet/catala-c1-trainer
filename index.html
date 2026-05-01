@@ -2,15 +2,1651 @@
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
-  <title>Català C1 Trainer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Català Trainer — B2 / C1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c1: #1a2f4e;
+      --bg: #f7f3ee;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: rgba(0,0,0,0.09);
+      --success: #059669;
+      --danger: #dc2626;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); }
 
+    /* HEADER */
+    .ct-header { background: var(--c1); color: white; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .ct-logo { font-family: 'Fraunces', serif; font-size: 20px; }
+    .ct-logo span { color: #f59e0b; font-style: italic; }
+    .ct-stats { display: flex; gap: 14px; font-size: 13px; align-items: center; }
+    .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .ct-streak { color: #fbbf24; font-weight: 500; }
+
+    /* NAV */
+    .ct-nav { display: flex; background: #162840; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; position: sticky; top: 52px; z-index: 99; }
+    .ct-nav button { flex: none; background: none; border: none; color: rgba(255,255,255,0.6); padding: 11px 18px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; width: auto; }
+    .ct-nav button:hover { color: white; background: rgba(255,255,255,0.05); }
+    .ct-nav button.active { color: white; border-bottom-color: #f59e0b; }
+
+    /* BODY */
+    .ct-body { padding: 20px; }
+
+    /* CARD */
+    .ct-card { background: var(--card); border-radius: var(--radius); padding: 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border: 1px solid var(--border); max-width: 640px; margin: 0 auto 16px; }
+
+    /* BADGES */
+    .ct-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ct-badge.b2 { background: #dbeafe; color: #1e40af; }
+    .ct-badge.c1 { background: #fef3c7; color: #92400e; }
+
+    /* QUESTION */
+    .ct-q { font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.4; margin-bottom: 16px; color: var(--c1); }
+
+    /* INPUTS */
+    .ct-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); margin-top: 8px; transition: border-color 0.15s; outline: none; }
+    .ct-input:focus { border-color: var(--c1); }
+
+    /* BUTTONS */
+    .ct-btn { display: inline-block; width: auto; padding: 11px 22px; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; margin: 0; }
+    .ct-btn.primary { background: var(--c1); color: white; }
+    .ct-btn.primary:hover { background: #243f63; }
+    .ct-btn.secondary { background: transparent; color: var(--c1); border: 1.5px solid var(--c1); }
+    .ct-btn.secondary:hover { background: #eef2f7; }
+    .ct-btn.full { width: 100%; margin-top: 10px; text-align: center; }
+    .ct-btn:disabled { opacity: 0.45; cursor: default; }
+
+    /* OPTIONS */
+    .ct-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .ct-opt { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; cursor: pointer; font-size: 14px; text-align: left; font-family: 'DM Sans', sans-serif; width: 100%; margin: 0; color: var(--text); transition: all 0.15s; }
+    .ct-opt:hover { border-color: var(--c1); background: #eef2f7; }
+    .ct-opt.correct { border-color: var(--success); background: #d1fae5; color: #065f46; pointer-events: none; }
+    .ct-opt.wrong { border-color: var(--danger); background: #fee2e2; color: #991b1b; pointer-events: none; }
+
+    /* FEEDBACK */
+    .ct-feedback { margin-top: 14px; padding: 14px 16px; border-radius: 10px; font-size: 14px; line-height: 1.6; }
+    .ct-feedback.ok { background: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; }
+    .ct-feedback.ko { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
+    .ct-feedback.ai { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a5f; }
+
+    /* LOADING */
+    .ct-loading { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; margin-top: 12px; padding: 12px 0; }
+    .ct-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c1); animation: bounce 0.8s infinite; }
+    .ct-dot:nth-child(2) { animation-delay: 0.15s; }
+    .ct-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes bounce { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+
+    /* REORDER */
+    .ct-parts { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+    .ct-part { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; cursor: grab; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; color: var(--text); user-select: none; line-height: 1.5; }
+    .ct-part.drag-over { border-color: var(--c1); background: #eef2f7; }
+    .ct-handle { color: var(--muted); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* THEORY CALLOUT (inside exercise) */
+    .ct-theory { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 13px 15px; margin-top: 14px; font-size: 13px; color: #78350f; line-height: 1.6; }
+    .ct-theory strong { font-weight: 600; }
+
+    /* ══ THEORY PAGE ══ */
+    .th-hero { background: var(--c1); color: white; border-radius: var(--radius); padding: 28px 24px 24px; margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .th-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .th-hero-title { font-family: 'Fraunces', serif; font-size: 26px; line-height: 1.25; margin-bottom: 6px; }
+    .th-hero-sub { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+    .th-section { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 12px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .th-section-title { font-family: 'Fraunces', serif; font-size: 16px; color: var(--c1); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .th-section-icon { font-size: 18px; }
+    .th-body { font-size: 14px; line-height: 1.75; color: #374151; }
+    .th-body p { margin-bottom: 10px; }
+    .th-body p:last-child { margin-bottom: 0; }
+
+    .th-rule { background: #f0f4f8; border-left: 3px solid var(--c1); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: #1e3a5f; line-height: 1.6; }
+    .th-rule strong { font-weight: 600; }
+
+    .th-example-box { background: #f8f9fa; border-radius: 8px; padding: 12px 14px; margin: 10px 0; }
+    .th-example-box .th-ex-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .th-ex-row { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.6; margin-bottom: 4px; }
+    .th-ex-row:last-child { margin-bottom: 0; }
+    .th-ex-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c1); flex-shrink: 0; margin-top: 7px; }
+    .th-ex-text { color: #1e3a5f; }
+    .th-ex-text em { font-style: italic; color: #374151; }
+
+    .th-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+    .th-table th { background: #f0f4f8; color: var(--c1); font-weight: 600; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    .th-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: #374151; vertical-align: top; }
+    .th-table tr:last-child td { border-bottom: none; }
+    .th-table .pill { display: inline-block; background: #dbeafe; color: #1e40af; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
+    .th-table .pill.red { background: #fee2e2; color: #991b1b; }
+    .th-table .pill.green { background: #d1fae5; color: #065f46; }
+
+    /* LESSON CARDS on level menu */
+    .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .ct-lesson-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: all 0.15s; position: relative; }
+    .ct-lesson-card:hover { border-color: var(--c1); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .ct-lesson-card.done { border-color: var(--success); }
+    .ct-lesson-icon { font-size: 24px; margin-bottom: 8px; }
+    .ct-lesson-title { font-size: 14px; font-weight: 600; color: var(--c1); margin-bottom: 4px; }
+    .ct-lesson-desc { font-size: 12px; color: var(--muted); }
+    .ct-lesson-done { position: absolute; top: 12px; right: 12px; color: var(--success); font-size: 16px; }
+    .ct-lesson-badge { position: absolute; bottom: 12px; right: 12px; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 10px; }
+    .ct-lesson-badge.theory { background: #ede9fe; color: #6d28d9; }
+    .ct-lesson-badge.exercise { background: #dbeafe; color: #1d4ed8; }
+
+    /* PROGRESS BAR */
+    .ct-progress-bar { height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
+    .ct-progress-fill { height: 100%; background: var(--c1); border-radius: 3px; transition: width 0.4s ease; }
+
+    /* MISC */
+    .ct-step { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 8px; }
+    .ct-nav-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
+    .ct-sentence { font-size: 17px; line-height: 1.9; margin: 16px 0; font-family: 'Fraunces', serif; color: var(--c1); }
+
+    /* XP POP */
+    .ct-xp-pop { position: fixed; top: 80px; right: 20px; background: #fbbf24; color: #78350f; font-weight: 700; font-size: 18px; padding: 8px 18px; border-radius: 20px; opacity: 0; animation: popXP 1.8s ease forwards; z-index: 999; pointer-events: none; }
+    @keyframes popXP { 0%{opacity:0;transform:translateY(10px) scale(0.8)} 20%{opacity:1;transform:translateY(0) scale(1.1)} 70%{opacity:1} 100%{opacity:0;transform:translateY(-20px)} }
+
+    /* SUMMARY */
+    .ct-summary { text-align: center; padding: 20px; }
+    .ct-summary .big { font-family: 'Fraunces', serif; font-size: 48px; color: var(--c1); }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .ct-grid { grid-template-columns: 1fr; }
+      .ct-card, .th-section { padding: 16px; }
+      .th-hero { padding: 22px 18px 18px; }
+      .ct-q { font-size: 17px; }
+    }
+  </style>
+</head>
 <body>
 
-  <div id="app"></div>
+<div class="ct-header">
+  <div class="ct-logo">Català <span>Trainer</span></div>
+  <div class="ct-stats">
+    <span class="ct-streak" id="ct-streak">🔥 0</span>
+    <span class="ct-xp" id="ct-xp">0 XP</span>
+  </div>
+</div>
+<div class="ct-nav">
+  <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
+  <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
+  <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
+  <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
+</div>
+<div class="ct-body" id="ct-body"></div>
 
-  <script src="app.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   TEORIA PER CATEGORIA
+═══════════════════════════════════════════════════════════ */
+const THEORY = {
+  'Connectors': {
+    level: 'b2',
+    icon: '🔗',
+    subtitle: 'Connecta idees i estructura el discurs',
+    sections: [
+      {
+        title: 'Què són els connectors?',
+        icon: '📌',
+        body: `<p>Els connectors (o marcadors discursius) són paraules o expressions que estableixen relacions lògiques entre les parts d'un text. Sense ells, el discurs seria una successió d'idees sense cohesió.</p>
+               <p>Al nivell B2 cal dominar els connectors més habituals i saber triar-ne el més adequat segons la relació que es vol expressar.</p>`
+      },
+      {
+        title: 'Connectors per funció',
+        icon: '📊',
+        table: {
+          headers: ['Funció', 'Connectors principals', 'Exemple'],
+          rows: [
+            ['Addició', 'a més (a més), també, fins i tot, d\'altra banda', 'A més, cal tenir en compte els costos.'],
+            ['Causa', 'perquè, ja que, atès que, donat que, com que', 'No va venir perquè estava malalt.'],
+            ['Conseqüència', 'per tant, per consegüent, és per això que, així doncs', 'Va treballar molt; per tant, va tenir èxit.'],
+            ['Oposició', 'però, tanmateix, no obstant això, malgrat tot', 'És difícil; tanmateix, és possible.'],
+            ['Concessió', 'tot i que, encara que, malgrat que, per bé que', 'Tot i que plovia, van sortir.'],
+            ['Ordre', 'en primer lloc, a continuació, finalment, per acabar', 'En primer lloc, analitzarem...'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        body: `<p>Evita repetir sempre el mateix connector. «Però» i «i» s'usen massa sovint en registres informals.</p>`,
+        rules: [
+          { bad: 'Però, és difícil.', good: 'Tanmateix, és difícil. / No obstant això, és difícil.' },
+          { bad: 'I també, cal dir que...', good: 'A més, cal dir que... / Addicionalment, cal dir que...' },
+          { bad: 'Però malgrat tot, va continuar.', good: 'Tot i les dificultats, va continuar. (No acumulis connectors de contrast.)' },
+        ]
+      }
+    ]
+  },
 
+  'Subjuntiu': {
+    level: 'b2',
+    icon: '🔀',
+    subtitle: 'Quan i com usar el mode subjuntiu',
+    sections: [
+      {
+        title: 'Quan s\'usa el subjuntiu?',
+        icon: '📌',
+        body: `<p>El subjuntiu és el mode de la incertesa, el desig, la hipòtesi i la valoració. S'usa quan l'acció de la frase subordinada no és un fet real i objectiu, sinó que depèn de la perspectiva del parlant.</p>
+               <p>La clau per detectar-lo: si el verb principal expressa <strong>desig, dubte, valoració, ordre o possibilitat</strong>, el verb subordinat sol anar en subjuntiu.</p>`
+      },
+      {
+        title: 'Contexts que exigeixen subjuntiu',
+        icon: '📋',
+        rules: [
+          { label: 'Desig i voluntat', example: '«Vull que vinguis.» «Espero que pugui ser.»' },
+          { label: 'Valoració', example: '«És important que ho entenguis.» «Cal que ho facis ara.»' },
+          { label: 'Ordre i petició', example: '«Et demano que ho revisis.» «Insisteix que venguin.»' },
+          { label: 'Dubte i negació d\'existència', example: '«Dubto que sigui veritat.» «No hi ha ningú que sàpiga.»' },
+          { label: 'Concessió (hipotètica)', example: '«Encara que plogui, sortirem.»' },
+        ]
+      },
+      {
+        title: 'Formes del present de subjuntiu',
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er/-re (poder)', 'Verbs en -ir (venir)'],
+          rows: [
+            ['jo', 'parli', 'pugui', 'vingui'],
+            ['tu', 'parlis', 'puguis', 'vinguis'],
+            ['ell/ella', 'parli', 'pugui', 'vingui'],
+            ['nosaltres', 'parlem', 'puguem', 'vinguem'],
+            ['vosaltres', 'parleu', 'pugueu', 'vingueu'],
+            ['ells/elles', 'parlin', 'puguin', 'vinguin'],
+          ]
+        }
+      },
+      {
+        title: 'Indicatiu vs. Subjuntiu',
+        icon: '⚖️',
+        body: `<p>La diferència entre indicatiu i subjuntiu pot canviar el significat radicalment:</p>`,
+        examples: [
+          { text: '«Busco un treballador que parla anglès.» → n\'existeix un de concret (indicatiu)' },
+          { text: '«Busco un treballador que parli anglès.» → no sé si existeix (subjuntiu)' },
+          { text: '«Sé que ve demà.» → fet cert (indicatiu)' },
+          { text: '«Vull que vingui demà.» → desig (subjuntiu)' },
+        ]
+      }
+    ]
+  },
+
+  'Cohesió textual': {
+    level: 'b2',
+    icon: '🧩',
+    subtitle: 'Com estructurar i donar coherència a un text',
+    sections: [
+      {
+        title: 'Coherència vs. Cohesió',
+        icon: '📌',
+        body: `<p><strong>Coherència</strong> és la lògica interna del text: les idees han de tenir sentit i progressar de manera ordenada.</p>
+               <p><strong>Cohesió</strong> és l'ús dels mecanismes lingüístics que lliguen les frases i els paràgrafs entre si: pronoms, sinònims, el·lipsis, connectors, etc.</p>`
+      },
+      {
+        title: 'Mecanismes de cohesió',
+        icon: '🔧',
+        rules: [
+          { label: 'Referència pronominal', example: 'El president va parlar. Ell va dir que... → «Ell» evita repetir «el president».' },
+          { label: 'Sinònims i perífrasis', example: '«L\'escriptor... l\'autor... el novel·lista...» → Evita repetir la mateixa paraula.' },
+          { label: 'El·lipsi', example: '«En Joan va arribar tard i (ell) va demanar perdó.» → El subjecte s\'omet per no repetir-lo.' },
+          { label: 'Connectors d\'ordre', example: '«En primer lloc... A continuació... Finalment...» → Guien el lector per l\'argument.' },
+        ]
+      },
+      {
+        title: 'Estructura d\'un paràgraf',
+        icon: '📐',
+        body: `<p>Un bon paràgraf té tres parts:</p>`,
+        examples: [
+          { text: '1. Frase topic: presenta la idea principal del paràgraf.' },
+          { text: '2. Desenvolupament: arguments, exemples, dades que la sostenen.' },
+          { text: '3. Frase de tancament: sintetitza o connecta amb el paràgraf següent.' },
+        ]
+      }
+    ]
+  },
+
+  'Comprensió lectora': {
+    level: 'b2',
+    icon: '📖',
+    subtitle: 'Estratègies per entendre textos complexos',
+    sections: [
+      {
+        title: 'Llegir en dos passos',
+        icon: '📌',
+        body: `<p>Al B2, els textos requereixen una lectura estratègica. Llegir tot dues vegades és la clau:</p>`,
+        rules: [
+          { label: 'Primera lectura (global)', example: 'Llegeix ràpid per captar el tema general, el to i l\'estructura.' },
+          { label: 'Segona lectura (detall)', example: 'Focalitza en les preguntes: cerca les respostes al text, no suposicions.' },
+        ]
+      },
+      {
+        title: 'Com identificar la idea principal',
+        icon: '🎯',
+        body: `<p>La idea principal no sempre és la primera frase. Pregunta't: <em>«Quin missatge vol transmetre l'autor?»</em></p>
+               <p>Descarta les idees secundàries (exemples, detalls, comparacions) i busca l'afirmació més general que engloba tot el text.</p>`
+      },
+      {
+        title: 'Trampes habituals',
+        icon: '⚠️',
+        examples: [
+          { text: 'Opcions que usen paraules del text però canvien el significat → llegeix amb atenció.' },
+          { text: 'Opcions massa extremes («sempre», «mai», «tots») → solen ser incorrectes.' },
+          { text: 'Opcions que barregen informació verídica del text però que no responen la pregunta.' },
+        ]
+      }
+    ]
+  },
+
+  'Producció escrita': {
+    level: 'b2',
+    icon: '🖊️',
+    subtitle: 'Com redactar textos clars i ben estructurats',
+    sections: [
+      {
+        title: 'Planifica abans d\'escriure',
+        icon: '📌',
+        body: `<p>Mai comencis directament a escriure. Dedica 2-3 minuts a:</p>`,
+        rules: [
+          { label: '1. Entendre l\'encàrrec', example: 'Quina és la tasca exacta? (carta, informe, article, opinió...)' },
+          { label: '2. Identificar el registre', example: 'Formal, informal, acadèmic? A qui va dirigit el text?' },
+          { label: '3. Fer un esquema breu', example: 'Introducció → punt 1 → punt 2 → conclusió.' },
+        ]
+      },
+      {
+        title: 'Estructura bàsica',
+        icon: '📐',
+        examples: [
+          { text: 'Introducció: presenta el tema i l\'objectiu.' },
+          { text: 'Desenvolupament: 2-3 paràgrafs amb arguments o informació. Un paràgraf = una idea.' },
+          { text: 'Conclusió: resum o valoració final. No introdueixis idees noves.' },
+        ]
+      },
+      {
+        title: 'Recursos per millorar el text',
+        icon: '✨',
+        body: `<p>Usa varietat lèxica (sinònims), connectors variats i revisa sempre la concordança i els accents.</p>`,
+        rules: [
+          { label: 'Evita repeticions', example: '«dir» → afirmar, manifestar, assenyalar, apuntar.' },
+          { label: 'Usa perífrasis d\'obligació', example: '«Cal + infinitiu», «s\'ha de + infinitiu», «és necessari que + subjuntiu».' },
+          { label: 'Revisa la concordança', example: 'El verb ha de concordar amb el subjecte: «Les mesures són eficaces».' },
+        ]
+      }
+    ]
+  },
+
+  'Lèxic formal': {
+    level: 'b2',
+    icon: '📚',
+    subtitle: 'Ampliar el vocabulari i ajustar el registre',
+    sections: [
+      {
+        title: 'Per què el registre és important?',
+        icon: '📌',
+        body: `<p>El registre és l'adequació del llenguatge al context. Usar un registre inadequat (massa informal en un text formal, o massa rígid en una conversa) és un error comunicatiu greu, igual que una falta gramatical.</p>`
+      },
+      {
+        title: 'Substitucions clau',
+        icon: '🔄',
+        table: {
+          headers: ['Registre informal/genèric', 'Registre formal/precís', 'Exemple'],
+          rows: [
+            ['dir', 'afirmar, manifestar, declarar, anunciar', 'La directora va declarar que...'],
+            ['fer', 'dur a terme, realitzar, executar, impulsar', 'Van dur a terme les reformes.'],
+            ['tenir', 'disposar de, comptar amb, posseir', 'El centre disposa d\'equipament modern.'],
+            ['coses', 'elements, aspectes, qüestions, factors', 'Cal analitzar tots els factors.'],
+            ['molt gran', 'considerable, substancial, notable, d\'envergadura', 'Un creixement considerable.'],
+            ['bo/bona', 'adequat, òptim, satisfactori, positiu', 'Un resultat satisfactori.'],
+          ]
+        }
+      },
+      {
+        title: 'Calcs del castellà a evitar',
+        icon: '⚠️',
+        table: {
+          headers: ['Incorrecte (calc)', 'Correcte en català'],
+          rows: [
+            ['donar-se compte', 'adonar-se'],
+            ['realitzar un treball', 'fer un treball / dur a terme un treball'],
+            ['a nivell de', 'quant a / pel que fa a / en matèria de'],
+            ['de cara a', 'per a / amb vista a / de cara a (admès en alguns contextos)'],
+            ['tenir en compte', 'tenir en compte (correcte) / considerar'],
+          ]
+        }
+      }
+    ]
+  },
+
+  'Interferències': {
+    level: 'b2',
+    icon: '🚧',
+    subtitle: 'Evitar calcs i errors per influència del castellà',
+    sections: [
+      {
+        title: 'Què és una interferència?',
+        icon: '📌',
+        body: `<p>Una interferència lingüística és un error causat per la influència d'una altra llengua (en aquest cas, el castellà). Els calcs poden ser lèxics (paraules), sintàctics (estructures) o semàntics (significats).</p>`
+      },
+      {
+        title: 'Interferències lèxiques freqüents',
+        icon: '📊',
+        table: {
+          headers: ['Forma incorrecta', 'Forma correcta', 'Tipus d\'error'],
+          rows: [
+            ['*donar-se compte', 'adonar-se', 'calc del castellà «darse cuenta»'],
+            ['*lo important', 'allò important / el que és important', 'article neutre inexistent en català'],
+            ['*el/la mateix/a', 'el mateix / la mateixa (cuidar l\'ús)', 'calc anafòric excessiu'],
+            ['*en base a', 'basant-se en / a partir de', 'preposició calcada'],
+            ['*a nivell de', 'quant a / pel que fa a', 'calc preposicional'],
+            ['*moltes gràcies per tot', 'moltes gràcies per tot (correcte)', 'notar que «per» funciona aquí'],
+          ]
+        }
+      },
+      {
+        title: 'Interferències sintàctiques',
+        icon: '⚠️',
+        rules: [
+          { label: 'Passiva amb «ser» + participi', example: '«El projecte va ser aprovat» → correcte, però millor: «El projecte es va aprovar» o «Van aprovar el projecte».' },
+          { label: 'Gerundi de posterioritat', example: '«Va arribar, agafant el cotxe» → Incorrecte. «Va arribar i va agafar el cotxe».' },
+          { label: 'Relatiu «que» per «del qual»', example: '«El tema que hem parlat» → «El tema del qual hem parlat».' },
+        ]
+      }
+    ]
+  },
+
+  'Perífrasis verbals': {
+    level: 'b2',
+    icon: '⚙️',
+    subtitle: 'Construccions verb + infinitiu per expressar aspecte i modalitat',
+    sections: [
+      {
+        title: 'Què és una perífrasi verbal?',
+        icon: '📌',
+        body: `<p>Una perífrasi verbal és la combinació d'un verb auxiliar (conjugat) + infinitiu, gerundi o participi. L'auxiliar perd el seu significat original i aporta un valor aspectual o modal.</p>`
+      },
+      {
+        title: 'Perífrasis d\'obligació i necessitat',
+        icon: '📋',
+        rules: [
+          { label: 'Cal + infinitiu', example: '«Cal estudiar cada dia.» (obligació impersonal)' },
+          { label: 'S\'ha de + infinitiu', example: '«S\'ha de lliurar el treball.» (obligació impersonal)' },
+          { label: 'Haver de + infinitiu', example: '«He de marxar.» (obligació personal)' },
+          { label: 'Cal que + subjuntiu', example: '«Cal que ho estudieu.» (obligació impersonal + persona concreta)' },
+        ]
+      },
+      {
+        title: 'Perífrasis d\'aspecte',
+        icon: '📊',
+        table: {
+          headers: ['Perífrasi', 'Valor', 'Exemple'],
+          rows: [
+            ['Acabar de + inf.', 'Acció recentment acabada', 'Acabo d\'arribar.'],
+            ['Estar + gerundi', 'Acció en curs', 'Estic escrivint l\'informe.'],
+            ['Anar a + inf.', 'Futur immediat', 'Vaig a presentar els resultats.'],
+            ['Tornar a + inf.', 'Repetició', 'Va tornar a cometre el mateix error.'],
+            ['Deixar de + inf.', 'Interrupció', 'Ha deixat de fumar.'],
+          ]
+        }
+      }
+    ]
+  },
+
+  /* ─── C1 CATEGORIES ─── */
+
+  'Subjuntiu avançat': {
+    level: 'c1',
+    icon: '🔀',
+    subtitle: 'Subjuntiu imperfet, condicionals irrels i usos complexos',
+    sections: [
+      {
+        title: 'El subjuntiu imperfet',
+        icon: '📌',
+        body: `<p>El subjuntiu imperfet s'usa quan el verb principal és en passat o condicional, i la subordinada exigeix subjuntiu. És equivalent temporal al condicional: mentre el present de subj. correspon al futur, l'imperfet de subj. correspon al condicional.</p>`
+      },
+      {
+        title: 'Terminacions del subjuntiu imperfet',
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er (tenir)', 'Verbs en -ir (venir)'],
+          rows: [
+            ['jo', 'parlés', 'tingués', 'vingués'],
+            ['tu', 'parlessis', 'tinguessis', 'vinguessis'],
+            ['ell/ella', 'parlés', 'tingués', 'vingués'],
+            ['nosaltres', 'parléssim', 'tinguéssim', 'vinguéssim'],
+            ['vosaltres', 'parléssiu', 'tinguéssiu', 'vinguéssiu'],
+            ['ells/elles', 'parlessin', 'tinguessin', 'vinguessin'],
+          ]
+        }
+      },
+      {
+        title: 'Condicionals (reals vs. hipotètiques vs. irrels)',
+        icon: '⚖️',
+        table: {
+          headers: ['Tipus', 'Estructura', 'Exemple'],
+          rows: [
+            ['Real (possible)', 'Si + present ind. + futur', 'Si estudies, aprovaràs.'],
+            ['Hipotètica (poc probable)', 'Si + imperfet subj. + condicional', 'Si tingués diners, viatjaria.'],
+            ['Irreal (passat)', 'Si + plusquamperfet subj. + condicional perifràstic', 'Si hagués estudiat, hauria aprovat.'],
+          ]
+        }
+      },
+      {
+        title: 'Altres usos del subjuntiu al C1',
+        icon: '📋',
+        rules: [
+          { label: 'Sense que (verb directe)', example: '«Vull que vingui» → formal: «Li demano que prengui nota.»' },
+          { label: 'Relatives amb antecedent negatiu', example: '«No hi ha ningú que sàpiga respondre.»' },
+          { label: 'Oracions temporals de futur', example: '«Quan arribi, l\'avisa.» → NO «quan arribarà».' },
+          { label: 'Per bé que / si bé (concessives)', example: '«Per bé que sigui difícil, cal intentar-ho.»' },
+        ]
+      }
+    ]
+  },
+
+  'Connectors concessius': {
+    level: 'c1',
+    icon: '🔗',
+    subtitle: 'Connectors avançats per expressar oposició i concessió',
+    sections: [
+      {
+        title: 'La concessió: expressar un obstacle que no impedeix',
+        icon: '📌',
+        body: `<p>Les construccions concessives expressen que un obstacle o circumstància adversa <strong>no impedeix</strong> la realització de l'acció principal. Són essencials en l'argumentació formal i acadèmica.</p>
+               <p>Estructura bàsica: <em>Malgrat [l'obstacle], [l'acció es produeix].</em></p>`
+      },
+      {
+        title: 'Connectors concessius i el seu ús',
+        icon: '📊',
+        table: {
+          headers: ['Connector', 'Segueix de...', 'Exemple'],
+          rows: [
+            ['malgrat', 'nom / pronom / infinitiu', 'Malgrat les dificultats, va continuar.'],
+            ['tot i', 'nom / pronom / infinitiu', 'Tot i ploure, van sortir. / Tot i la crisi...'],
+            ['tot i que', 'indicatiu o subjuntiu', 'Tot i que era tard, va trucar.'],
+            ['encara que', 'indicatiu (fet) / subjuntiu (hipòtesi)', 'Encara que sigui difícil, cal fer-ho.'],
+            ['per bé que', 'subjuntiu (registre formal)', 'Per bé que els resultats siguin positius...'],
+            ['si bé', 'indicatiu (registre formal)', 'Si bé els resultats milloren, cal prudència.'],
+            ['malgrat que', 'indicatiu o subjuntiu', 'Malgrat que va protestar, va acceptar.'],
+          ]
+        }
+      },
+      {
+        title: 'Connectors d\'oposició vs. concessió',
+        icon: '⚖️',
+        body: `<p>Oposició simple (contrast directe) i concessió (obstacle que no impedeix) no són el mateix:</p>`,
+        rules: [
+          { label: 'Oposició (però, tanmateix)', example: '«És difícil, però és possible.» → Contrast directe entre dos fets.' },
+          { label: 'Concessió (tot i que, malgrat)', example: '«Tot i que és difícil, ho aconseguirem.» → La dificultat no impedeix l\'èxit.' },
+        ]
+      }
+    ]
+  },
+
+  'Lèxic formal': {
+    level: 'c1',
+    icon: '📚',
+    subtitle: 'Precisió lèxica, sinonímia i registre acadèmic',
+    sections: [
+      {
+        title: 'Precisió vs. genericitat',
+        icon: '📌',
+        body: `<p>Al C1, el lèxic genèric és un dels errors més penalitzats. Cada paraula ha d'aportar informació precisa. Els verbs «fer», «dir», «tenir» i els noms «cosa», «aspecte», «tema» (quan no és necessari) solen ser senyals d'imprecisió lèxica.</p>`
+      },
+      {
+        title: 'Famílies lèxiques per a la producció formal',
+        icon: '📊',
+        table: {
+          headers: ['Camp semàntic', 'Verbs precisos', 'Noms associats'],
+          rows: [
+            ['Comunicació', 'manifestar, declarar, anunciar, expressar, al·ludir, subratllar', 'declaració, afirmació, discurs, al·locució'],
+            ['Acció / Execució', 'dur a terme, executar, impulsar, promoure, implementar', 'implementació, execució, desplegament'],
+            ['Anàlisi', 'examinar, avaluar, constatar, determinar, evidenciar', 'anàlisi, diagnosi, avaluació, estudi'],
+            ['Problema', 'sorgir, agreujar-se, persistir, resoldre, abordar', 'problemàtica, mancança, dèficit, repte'],
+            ['Millora', 'optimitzar, reforçar, consolidar, enfortir, actualitzar', 'millora, avenç, progrés, optimització'],
+          ]
+        }
+      },
+      {
+        title: 'Construccions nominals formals',
+        icon: '✨',
+        body: `<p>En textos acadèmics i formals, es prefereix el sintagma nominal a la frase verbal senzilla. Això aporta densitat informativa i registre elevat.</p>`,
+        rules: [
+          { label: 'Verbalitzar → Nominalitzar', example: '«Han analitzat el problema» → «L\'anàlisi del problema ha posat de manifest...»' },
+          { label: 'Estructures recurrents', example: '«La present anàlisi té per objecte...» / «Cal destacar que...» / «S\'observa una tendència a...»' },
+          { label: 'Marques d\'objectivitat', example: '«Segons les dades disponibles...» / «D\'acord amb les evidències...» / «Com s\'ha esmentat anteriorment...»' },
+        ]
+      }
+    ]
+  },
+
+  'Argumentació': {
+    level: 'c1',
+    icon: '🧠',
+    subtitle: 'Construir arguments acadèmics sòlids i ben estructurats',
+    sections: [
+      {
+        title: 'Estructura de l\'argumentació al C1',
+        icon: '📌',
+        body: `<p>Un text argumentatiu C1 no es limita a presentar una opinió: ha de sostenir-la amb arguments, anticipar objeccions i respondre-hi. Aquest diàleg intern entre posicions és el que distingeix un text de nivell avançat.</p>`
+      },
+      {
+        title: 'Model d\'argumentació acadèmica',
+        icon: '📐',
+        examples: [
+          { text: '1. Tesi: Presenta l\'argument central de manera clara i directa.' },
+          { text: '2. Fonamentació: Argumenta la tesi amb raons, dades o exemples.' },
+          { text: '3. Contraargument: Reconeix una posició contrària («Tot i això, alguns autors...»).' },
+          { text: '4. Refutació o matís: Respon al contraargument o el matises.' },
+          { text: '5. Conclusió: Reforça la tesi inicial integrant els matisos.' },
+        ]
+      },
+      {
+        title: 'Connectors per a l\'argumentació avançada',
+        icon: '🔗',
+        table: {
+          headers: ['Funció', 'Connectors C1'],
+          rows: [
+            ['Presentar tesi', 'Cal tenir present que... / Convé subratllar que... / Es fa palès que...'],
+            ['Afegir argument', 'Així mateix, / D\'altra banda, / En aquest sentit, / Igualment,'],
+            ['Contraargument', 'Tot i això, / No obstant, / Malgrat el que s\'ha dit,'],
+            ['Matís', 'Ara bé, / Dit això, / Sense negar que... / Cal matisar que...'],
+            ['Conclusió', 'Per consegüent, / En definitiva, / Podem concloure que... / Tot plegat,'],
+          ]
+        }
+      }
+    ]
+  },
+
+  'Comprensió crítica': {
+    level: 'c1',
+    icon: '🔍',
+    subtitle: 'Interpretar textos complexos i detectar implicatures',
+    sections: [
+      {
+        title: 'Més enllà del contingut explícit',
+        icon: '📌',
+        body: `<p>Al C1, la comprensió lectora no és qüestió de trobar la informació al text: és qüestió d'<strong>interpretar</strong> el que l'autor implica, insinua o pressuposa sense dir-ho directament.</p>
+               <p>Cal llegir entre línies: quin to adopta l'autor? Quines paraules tria i per què? Quina posició implícita defensa?</p>`
+      },
+      {
+        title: 'Pistes per a la interpretació',
+        icon: '🔎',
+        rules: [
+          { label: 'Paraules valoratives', example: '«Paradoxa», «anomalia», «necessitat fonamental» → L\'autor pren posició.' },
+          { label: 'Negacions significatives', example: '«No és una anomalia» → L\'autor refuta una visió negativa, per tant la justifica.' },
+          { label: 'Modalitat epistèmica', example: '«Sembla que», «és probable que», «cal considerar» → Grau de certesa.' },
+          { label: 'Relació causa-efecte implícita', example: 'Si l\'autor descriu A i B sense connector explícit, pot estar insinuant que A causa B.' },
+        ]
+      },
+      {
+        title: 'Trampes en les opcions de resposta',
+        icon: '⚠️',
+        examples: [
+          { text: 'Opció "massa forta": generalitza en excés el que diu el text («sempre», «inevitablement»).' },
+          { text: 'Opció "verídica però irrellevant": conté informació correcta del text però no respon la pregunta.' },
+          { text: 'Opció "contrària al to": usa les mateixes paraules però amb valoració oposada a la de l\'autor.' },
+        ]
+      }
+    ]
+  },
+
+  'Producció formal': {
+    level: 'c1',
+    icon: '🖊️',
+    subtitle: 'Redactar textos acadèmics i professionals de nivell avançat',
+    sections: [
+      {
+        title: 'El registre acadèmic',
+        icon: '📌',
+        body: `<p>El registre acadèmic i professional al C1 té trets propis: objectivitat, impersonalitat, densitat informativa i precisió lèxica. No és simplement «escriure correctament»: és adoptar les convencions discursives del gènere textual.</p>`
+      },
+      {
+        title: 'Estructura d\'un informe o text formal',
+        icon: '📐',
+        examples: [
+          { text: 'Títol i encapçalament: breu, informatiu, sense article al titular.' },
+          { text: 'Introducció: «La present anàlisi té per objecte...» / «L\'objectiu d\'aquest informe és...»' },
+          { text: 'Cos: paràgrafs temàtics, un per idea. Cada paràgraf comença amb la idea principal.' },
+          { text: 'Conclusió: síntesi i, si escau, recomanacions. «En definitiva...» / «Cal concloure que...»' },
+        ]
+      },
+      {
+        title: 'Impersonalitat i objectivitat',
+        icon: '⚖️',
+        rules: [
+          { label: 'Evita la 1a persona singular', example: '«Crec que» → «Cal considerar que» / «Sembla evident que».' },
+          { label: 'Usa la passiva reflexa', example: '«S\'han observat canvis significatius.» / «Es constata una millora.»' },
+          { label: 'Modalitat epistèmica', example: '«Cal tenir en compte» / «Convé subratllar» / «Es fa palès que».' },
+          { label: 'Referència al document', example: '«Com s\'ha assenyalat anteriorment» / «D\'acord amb les dades presentades».' },
+        ]
+      },
+      {
+        title: 'Fórmules d\'informe útils',
+        icon: '📋',
+        examples: [
+          { text: '«La present anàlisi posa de manifest que...»' },
+          { text: '«D\'acord amb les evidències disponibles, cal concloure que...»' },
+          { text: '«Es recomana, per consegüent, que...»' },
+          { text: '«L\'estudi constata l\'existència d\'una relació directa entre X i Y.»' },
+        ]
+      }
+    ]
+  },
+
+  'Oracions de relatiu': {
+    level: 'c1',
+    icon: '🔗',
+    subtitle: 'Ús culte dels pronoms relatius i construccions de relatiu',
+    sections: [
+      {
+        title: 'El relatiu «que» i les seves limitacions',
+        icon: '📌',
+        body: `<p>«Que» és el relatiu més freqüent, però en registre culte i formal és insuficient quan va precedit de preposició o quan pot crear ambigüitat. En aquests casos s'usa «el qual / la qual / els quals / les quals».</p>`
+      },
+      {
+        title: 'Pronoms relatius al C1',
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Ús', 'Exemple'],
+          rows: [
+            ['que', 'Subjecte o objecte directe (sense preposició)', 'El document que has enviat...'],
+            ['el qual / la qual...', 'Amb preposició o per evitar ambigüitat', 'El tema del qual hem parlat... / La comissió la qual va redactar...'],
+            ['qui', 'Persones, quan és subjecte de la subordinada', 'Els qui vulguin participar que ho comuniquin.'],
+            ['on', 'Lloc', 'La ciutat on va néixer és Barcelona.'],
+            ['quan', 'Temps (registre literari)', 'En el moment en què es va produir...'],
+            ['com', 'Mode', 'La manera com ho ha resolt és exemplar.'],
+          ]
+        }
+      },
+      {
+        title: 'Relatives explicatives vs. especificatives',
+        icon: '⚖️',
+        rules: [
+          { label: 'Especificativa (sense comes)', example: '«El professor que sap molt de sintaxi és el nostre.» → Identifica quin professor.' },
+          { label: 'Explicativa (amb comes)', example: '«El professor, que sap molt de sintaxi, ens ha ajudat molt.» → Afegeix informació sobre un professor ja identificat.' },
+        ]
+      }
+    ]
+  },
+
+  'Subjuntiu imperfet': {
+    level: 'c1',
+    icon: '🔀',
+    subtitle: 'Usos del subjuntiu imperfet en contextos formals i literaris',
+    sections: [
+      {
+        title: 'Quan s\'usa el subjuntiu imperfet?',
+        icon: '📌',
+        body: `<p>El subjuntiu imperfet s'usa quan el verb de la principal és en temps passat (pretèrit perfet perifràstic, imperfet, plusquamperfet) o en condicional, i la subordinada exigeix subjuntiu.</p>
+               <p>Regla de la concordança temporal: present de subj. → present/futur; imperfet de subj. → passat/condicional.</p>`
+      },
+      {
+        title: 'Concordança de temps',
+        icon: '📊',
+        table: {
+          headers: ['Verb principal (temps)', 'Verb subordinat', 'Exemple'],
+          rows: [
+            ['Present / Futur', 'Present de subj.', 'Vull que vingui. / Voldré que vingui.'],
+            ['Passat (perifràstic)', 'Imperfet de subj.', 'Vaig voler que vingués.'],
+            ['Imperfet', 'Imperfet de subj.', 'Volia que vingués.'],
+            ['Condicional', 'Imperfet de subj.', 'Voldria que vingués.'],
+            ['Plusquamperfet subj.', 'Per a irreals en el passat', 'Si hagués vingut, hauria estat millor.'],
+          ]
+        }
+      },
+      {
+        title: 'Usos específics de l\'imperfet de subjuntiu',
+        icon: '📋',
+        rules: [
+          { label: 'Estil indirecte en passat', example: '«Va demanar que tots arribessin puntuals.»' },
+          { label: 'Desig hipotètic (amb ojala, tant de bo)', example: '«Tant de bo ho sabés!» → desig difícil d\'acomplir.' },
+          { label: 'Fórmules de cortesia', example: '«Voldria que m\'expliqués...» → condicional + subj. imperfet.' },
+        ]
+      }
+    ]
+  },
+
+  'Pronoms febles': {
+    level: 'c1',
+    icon: '🔵',
+    subtitle: 'El sistema de pronoms febles del català: combinació i col·locació',
+    sections: [
+      {
+        title: 'Què són els pronoms febles?',
+        icon: '📌',
+        body: `<p>Els pronoms febles (o àtons) substitueixen sintagmes nominals per evitar repeticions. El català té un sistema de pronoms febles especialment ric i complex, molt diferent del castellà, amb pronoms sense equivalent directe com «en», «hi» i els reflexius.</p>
+               <p>Es col·loquen <strong>davant del verb</strong> (proclítics) en frases no imperatives i <strong>darrere del verb</strong> (enclítics, units amb guionet) en imperatius, infinitius i gerundis.</p>`
+      },
+      {
+        title: 'Quadre dels pronoms febles principals',
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Funció', 'Exemple clàssic'],
+          rows: [
+            ['el, la, els, les', 'CD (cosa o persona determinada)', 'El veig. / La truco. / Els crido.'],
+            ['em, et, es, ens, us', 'CD persona / reflexiu / recíproc', 'Em veuen. / Es pentina. / Ens estimem.'],
+            ['li, els (li)', 'CI (persona)', 'Li explico el problema. / Els ho dono.'],
+            ['en', 'CD partitiu / complement de «de» / quantitat', 'En vull tres. / En parlem. / En vinc, de París.'],
+            ['hi', 'Complement de «a/en/amb» (lloc o altre) / substitut CI amb certes estructures', 'Hi vaig demà. / Hi penso molt. / No hi estic d\'acord.'],
+            ['ho', 'Atribut / CD neutre / substitut d\'una frase sencera', 'Ho és, president. / Ho sé. / Ho diu sempre.'],
+          ]
+        }
+      },
+      {
+        title: 'El pronom «en»: usos principals',
+        icon: '🔵',
+        rules: [
+          { label: 'CD partitiu (sense article o amb indefinit)', example: '«Vols formatge?» «Sí, en vull.» / «En tinc molt.»' },
+          { label: 'Substitut de complement amb «de»', example: '«Parleu de política?» «Sí, en parlem.»' },
+          { label: 'Procedència (lloc d\'origen)', example: '«Véns de Barcelona?» «Sí, en vinc.»' },
+          { label: 'Quantitat com a complement', example: '«Quants llibres tens?» «En tinc cinc.»' },
+        ]
+      },
+      {
+        title: 'El pronom «hi»: usos principals',
+        icon: '🟢',
+        rules: [
+          { label: 'Lloc on es va o on s\'és', example: '«Vas al mercat?» «Sí, hi vaig.» / «Hi sóc, a casa.»' },
+          { label: 'Substitut de complement amb «en/a/amb»', example: '«Hi confio, en ell.» / «Hi estic d\'acord.»' },
+          { label: '«Hi ha» (existència)', example: '«Hi ha molts participants.» (mai «Hay» sense hi!)' },
+        ]
+      },
+      {
+        title: 'Combinació de dos pronoms',
+        icon: '📋',
+        body: `<p>Quan dos pronoms febles van junts, l'ordre és fix: <strong>reflexiu/CI + CD/«en»/«hi»</strong>.</p>`,
+        table: {
+          headers: ['Combinació', 'Exemple', 'Nota'],
+          rows: [
+            ['me\'l, me la, me\'ls, me les', '«Me\'l dóna»', 'em + el → me\'l'],
+            ['te\'l, te la, te\'ls, te les', '«Te la porto»', 'et + la → te la'],
+            ['li\'l, li la, li\'ls, li les', '«Li\'ls envia»', 'li + els → li\'ls'],
+            ['me\'n, te\'n, se\'n, ens-en, us-en', '«Me\'n vaig»', 'em + en → me\'n (fui de allí!)'],
+            ['m\'hi, t\'hi, s\'hi, ens-hi, us-hi', '«M\'hi trobo bé»', 'em + hi → m\'hi'],
+            ['li ho, els ho', '«Li ho explico»', 'li + ho (sense contracció)'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents per interferència del castellà',
+        icon: '⚠️',
+        rules: [
+          { bad: '«Se lo digo» → *Li ho dic (correcte, però no «se lo»)', good: 'Li ho dic. / Li ho explico.' },
+          { bad: '«Hay muchos» → *Hi han molts', good: 'Hi ha molts participants. («hi ha» és invariable!)' },
+          { bad: 'Omissió del «hi»: «Vaig demà» (per dir «hi vaig»)', good: 'Hi vaig demà. / Demà hi vaig.' },
+          { bad: '«Se me olvidó» → *Se m\'ha oblidat', good: 'Se m\'ha oblidat. / Me n\'he oblidat.' },
+        ]
+      }
+    ]
+  },
+
+  'Frases fetes': {
+    level: 'c1',
+    icon: '💬',
+    subtitle: 'Unitats fraseològiques, col·locacions i expressions idiomàtiques',
+    sections: [
+      {
+        title: 'Fraseologia: més que «expressions curioses»',
+        icon: '📌',
+        body: `<p>Les frases fetes (o unitats fraseològiques) inclouen locucions, refranys, col·locacions i expressions idiomàtiques. El seu significat no es dedueix de les paraules per separat. Dominar-les és una marca clara de competència avançada.</p>
+               <p>Al C1, no n'hi ha prou amb saber-les: cal saber <strong>quan i com</strong> usar-les sense caure en el registre massa col·loquial en contextos formals.</p>`
+      },
+      {
+        title: 'Locucions verbals freqüents',
+        icon: '📋',
+        table: {
+          headers: ['Expressió', 'Significat', 'Exemple'],
+          rows: [
+            ['anar de bòlit', 'estar molt ocupat, sense temps', 'Aquesta setmana anem de bòlit amb el projecte.'],
+            ['fer els ulls grossos', 'ignorar deliberadament una falta', 'El director hi va fer els ulls grossos.'],
+            ['posar-se les piles', 'esforçar-se, activar-se', 'Ja és hora que et poses les piles.'],
+            ['perdre el fil', 'perdre el seguiment d\'un raonament', 'He perdut el fil de l\'explicació.'],
+            ['tenir molta barra', 'tenir molt de descaro', 'Té molta barra per demanar un augment ara.'],
+            ['fer la viu-viu', 'viure sense treballar gaire', 'Sempre fa la viu-viu i els altres ho fan tot.'],
+            ['estar a l\'aguait', 'estar atent, vigilant', 'Hem d\'estar a l\'aguait de qualsevol canvi.'],
+            ['tirar la tovallola', 'rendir-se, abandonar', 'No és moment de tirar la tovallola.'],
+          ]
+        }
+      },
+      {
+        title: 'Col·locacions lèxiques',
+        icon: '🔗',
+        body: `<p>Les col·locacions són combinacions de paraules que «sonen bé» per convencions de la llengua. Aprendre-les és essencial perquè sovint no coincideixen amb el castellà.</p>`,
+        table: {
+          headers: ['Verb', 'Col·locació correcta', 'Incorrecte (calc)'],
+          rows: [
+            ['fer', 'fer una pregunta', '*realitzar una pregunta'],
+            ['prendre', 'prendre una decisió', '*agafar una decisió'],
+            ['dur', 'dur a terme', '*llevar a terme'],
+            ['tenir', 'tenir en compte', '*agafar en compte'],
+            ['donar', 'donar les gràcies', 'ok en castellà: «dar las gracias»'],
+            ['fer', 'fer cas', '*posar atenció'],
+          ]
+        }
+      },
+      {
+        title: 'Refranys i expressions amb context',
+        icon: '📚',
+        examples: [
+          { text: '«Qui no vulgui pols, que no vagi a l\'era.» → Qui vol fer alguna cosa ha d\'acceptar-ne les conseqüències.' },
+          { text: '«Ja plourà!» → Expressió d\'indiferència o escepticisme davant una promesa o amenaça.' },
+          { text: '«Estar entre l\'espasa i la paret.» → Estar en una situació difícil sense bona sortida.' },
+          { text: '«Fer de tripas cor» → *calc castellà. En català: «fer de necessitat virtut» o «armar-se de coratge».' },
+        ]
+      },
+      {
+        title: 'Registre i adequació',
+        icon: '⚖️',
+        body: `<p>Moltes frases fetes pertanyen al registre col·loquial. Al C1 cal saber quan és adequat usar-les i quan cal substituir-les per expressions formals.</p>`,
+        rules: [
+          { label: 'Col·loquial', example: '«Anem de bòlit» → Formal: «Ens trobem en una situació de gran càrrega de treball».' },
+          { label: 'Col·loquial', example: '«Tirar la tovallola» → Formal: «Abandonar el projecte» / «Renunciar a la iniciativa».' },
+          { label: 'Admesa en tots els registres', example: '«Tenir en compte», «donar suport a», «fer referència a».' },
+        ]
+      }
+    ]
+  },
+
+  'Derivació i flexió': {
+    level: 'c1',
+    icon: '🧬',
+    subtitle: 'Morfologia derivativa i flexiva del català avançat',
+    sections: [
+      {
+        title: 'Morfologia al C1: per què és important?',
+        icon: '📌',
+        body: `<p>Dominar la morfologia permet <strong>crear paraules noves</strong> a partir d\'elements coneguts (derivació) i <strong>adaptar-les al context gramatical</strong> (flexió). Al C1, errors morfològics en textos formals penalitzen molt.</p>
+               <p>La derivació i la composició amplien el lèxic; la flexió correcta garanteix la concordança i el registre adequat.</p>`
+      },
+      {
+        title: 'Prefixos productius en català',
+        icon: '📊',
+        table: {
+          headers: ['Prefix', 'Significat', 'Exemples'],
+          rows: [
+            ['des-', 'negació, reversió', 'desfer, desconèixer, desacord, desmuntar'],
+            ['re-', 'repetició, intensitat', 'refer, rellegir, reforçar, reorganitzar'],
+            ['sub-', 'inferioritat, insuficiència', 'subestimar, subordinat, subconjunt'],
+            ['pre-', 'anterioritat', 'preveure, predeterminar, precedent'],
+            ['co-/con-', 'conjunció, participació', 'coautoria, coexistir, conviure, corresponsabilitat'],
+            ['anti-', 'oposició', 'antidemocràtic, anticossos, antisocial'],
+            ['inter-', 'entre, mutuament', 'intercanvi, interacció, interdisciplinari'],
+            ['multi-', 'multiplicitat', 'multicultural, multidisciplinari, multilingüe'],
+          ]
+        }
+      },
+      {
+        title: 'Sufixos nominals productius',
+        icon: '📊',
+        table: {
+          headers: ['Sufix', 'Valor', 'Exemples'],
+          rows: [
+            ['-ció / -ió', 'acció o resultat', 'formació, aplicació, decisió, revisió'],
+            ['-ment', 'acció (des de verb) / mode (des de adj.)', 'desenvolupament, tractament / ràpidament'],
+            ['-tat / -itat', 'qualitat abstracta', 'llibertat, qualitat, complexitat, diversitat'],
+            ['-isme', 'doctrina, tendència', 'catalanisme, feminisme, liberalisme'],
+            ['-ista', 'adherent, professional', 'periodista, especialista, activista'],
+            ['-dor/-dora', 'agent', 'investigador, gestora, coordinador'],
+            ['-ble', 'possibilitat passiva', 'assolible, sostenible, inqüestionable'],
+            ['-atge', 'col·lectiu, procés', 'aprenentatge, rodatge, personatge'],
+          ]
+        }
+      },
+      {
+        title: 'Flexió verbal: irregularitats freqüents al C1',
+        icon: '🔀',
+        body: `<p>Al C1 és fonamental dominar les formes verbals irregulars, especialment en el subjuntiu i els temps de passat.</p>`,
+        table: {
+          headers: ['Infinitiu', 'Ind. present (1a sg)', 'Subj. present (1a sg)', 'Perf. perifràstic (1a sg)'],
+          rows: [
+            ['ser', 'sóc', 'sigui', 'vaig ser'],
+            ['haver', 'he', 'hagi', 'vaig haver'],
+            ['poder', 'puc', 'pugui', 'vaig poder'],
+            ['voler', 'vull', 'vulgui', 'vaig voler'],
+            ['saber', 'sé', 'sàpiga', 'vaig saber'],
+            ['venir', 'vinc', 'vingui', 'vaig venir'],
+            ['fer', 'faig', 'faci', 'vaig fer'],
+            ['dir', 'dic', 'digui', 'vaig dir'],
+          ]
+        }
+      },
+      {
+        title: 'Flexió nominal: gènere i nombre especials',
+        icon: '📋',
+        rules: [
+          { label: 'Noms amb gènere no predictible', example: '«el mar / la mar» (ambdós); «el terra» (no «la terra» en sentit de sòl).' },
+          { label: 'Plurals irregulars', example: '«el règim → els règims»; «el caràcter → els caràcters»; «la síntesi → les síntesis».' },
+          { label: 'Substantius invariables en gènere', example: '«el/la cantant», «el/la testimoni», «el/la còmplice».' },
+          { label: 'Adjectius amb formes especials', example: '«bo → bona → bons → bones» (però «bon» davant masc. sg.); «gran → gran → grans».' },
+        ]
+      },
+      {
+        title: 'Nominalitzacions: de verb a nom',
+        icon: '✨',
+        body: `<p>La nominalització (convertir verbs en noms) és una marca de registre acadèmic. Cal dominar-la per produir textos formals.</p>`,
+        examples: [
+          { text: '«analitzar» → «l\'anàlisi» / «la tasca d\'anàlisi»' },
+          { text: '«implementar» → «la implementació» / «el desplegament de»' },
+          { text: '«avaluar» → «l\'avaluació» / «el procés d\'avaluació»' },
+          { text: '«Han decidit reduir costos» → «La decisió de reducció de costos implica...»' },
+        ]
+      }
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   EXERCICIS
+═══════════════════════════════════════════════════════════ */
+const DATA = {
+  b2: [
+    { id:'b2-1', type:'choice', level:'b2', category:'Connectors',
+      question:'Quin connector introdueix una conseqüència lògica?',
+      text:'Va treballar molt dur durant tot l\'any. ___, va aconseguir el premi.',
+      options:['Tanmateix','Per consegüent','Malgrat que','Sempre que'],
+      correct:1,
+      theory:'«Per consegüent», «per tant» i «és per això que» introdueixen el resultat d\'una causa anterior.',
+      example:'No va estudiar; per tant, va suspendre l\'examen.' },
+
+    { id:'b2-2', type:'fill', level:'b2', category:'Subjuntiu',
+      question:'Omple el buit amb la forma correcta del present de subjuntiu:',
+      sentence:'Vull que tu ___ a temps a la reunió.',
+      display:'arribar (2a pers. sing.)',
+      answers:['arribis'],
+      theory:'Amb «vull que» el verb subordinat va en subjuntiu. Per a «tu», la terminació del present de subjuntiu en verbs -ar és -is.',
+      example:'Espero que ell pugui venir avui.' },
+
+    { id:'b2-3', type:'reorder', level:'b2', category:'Cohesió textual',
+      question:'Ordena les parts per formar un paràgraf coherent:',
+      parts:['D\'altra banda, cal considerar els aspectes econòmics.','En primer lloc, analitzarem els factors socials.','Finalment, presentarem les nostres conclusions.','A continuació, veurem l\'impacte ambiental.'],
+      correct:[1,0,3,2],
+      theory:'Un text ben estructurat segueix: introducció → arguments ordenats → conclusió. Connectors d\'ordre: en primer lloc, a continuació, d\'altra banda, finalment.',
+      example:'En primer lloc... A continuació... D\'altra banda... Finalment...' },
+
+    { id:'b2-4', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'El transport públic de les grans ciutats s\'enfronta a reptes importants. D\'una banda, la demanda creixent de mobilitat sostenible; de l\'altra, la necessitat de modernitzar infraestructures antigues sense paralitzar el servei. Cal trobar solucions que combinin eficiència i continuïtat.',
+      question:'Quin és el problema central que descriu el text?',
+      options:['La manca de passatgers al transport públic','Adaptar el transport a les noves necessitats sense interrompre el servei','La contaminació causada pels autobusos urbans'],
+      correct:1,
+      theory:'Identifica la idea central buscant el conflicte o tensió principal que el text descriu.',
+      example:'Paraules clau: «reptes», «demanda creixent», «modernitzar», «sense paralitzar».' },
+
+    { id:'b2-5', type:'writing', level:'b2', category:'Producció escrita',
+      question:'Escriu una frase que expressi una condició real (si + present indicatiu + futur simple):',
+      keywords:['si','treball diari','progrés'],
+      sample:'Si treballes cada dia, progressaràs molt més ràpidament en la llengua.',
+      theory:'Condicionals reals: si + present indicatiu + futur simple. Expressen situacions possibles i probables.',
+      example:'Si estudies cada dia, aprovaràs l\'examen.' },
+
+    { id:'b2-6', type:'choice', level:'b2', category:'Lèxic formal',
+      question:'Quin verb és el més adequat en un context formal?',
+      text:'En el seu discurs, la directora va ___ que les mesures entrarien en vigor immediatament.',
+      options:['dir','anunciar','comentar','explicar-li'],
+      correct:1,
+      theory:'En registres formals, cal usar verbs precisos com «afirmar», «manifestar», «anunciar» en lloc del genèric «dir».',
+      example:'La ministra va anunciar noves mesures fiscals per al proper exercici.' },
+
+    { id:'b2-7', type:'fill', level:'b2', category:'Interferències',
+      question:'Substitueix el calc del castellà pel verb català correcte:',
+      sentence:'Vaig ___ compte que havia oblidat les claus a casa.',
+      display:'verb català: ___-se\'n (no «donar-se compte»)',
+      answers:['adonar','adonar-me\'n','adonar-me'],
+      theory:'«Donar-se compte» és un calc del castellà «darse cuenta». La forma correcta en català és «adonar-se (de)».',
+      example:'Em vaig adonar que havia oblidat les claus.' },
+
+    { id:'b2-8', type:'choice', level:'b2', category:'Perífrasis verbals',
+      question:'Quina perífrasi expressa una obligació impersonal?',
+      text:'___ presentar la documentació abans del dia 15.',
+      options:['Es pot','Cal','Solia','Acabava de'],
+      correct:1,
+      theory:'«Cal + infinitiu» expressa necessitat o obligació impersonal. Equivalents: «és necessari + infinitiu», «s\'ha de + infinitiu».',
+      example:'Cal lliurar el treball abans del termini establert.' },
+  ],
+
+  c1: [
+    { id:'c1-1', type:'choice', level:'c1', category:'Subjuntiu avançat',
+      question:'Tria la forma correcta per a una condició hipotètica irreal en el present:',
+      text:'Si jo ___ president, canviaria moltes coses urgentment.',
+      options:['sóc','fos','sigui','havia estat'],
+      correct:1,
+      theory:'Condicionals hipotètiques irrels (present): si + imperfet de subjuntiu + condicional simple. Per a situacions impossibles o molt improbables.',
+      example:'Si tingués més temps, aprendria japonès.' },
+
+    { id:'c1-2', type:'fill', level:'c1', category:'Connectors concessius',
+      question:'Omple amb el connector concessiu més adequat davant un sintagma nominal:',
+      sentence:'___ les dificultats tècniques, l\'equip va assolir tots els objectius.',
+      display:'connector concessiu + sintagma nominal',
+      answers:['malgrat','tot i','malgrat les','tot i les'],
+      theory:'«Malgrat» i «tot i» van seguits de nom, pronom o infinitiu (sense «que»). «Malgrat que» i «tot i que» van seguits de verb conjugat.',
+      example:'Malgrat la pluja, vam sortir. / Tot i ploure, vam sortir.' },
+
+    { id:'c1-3', type:'transform', level:'c1', category:'Lèxic formal',
+      question:'Reformula en registre formal i precís:',
+      original:'«Ell va fer moltes coses importants per al país»',
+      hints:['fer → dur a terme / impulsar / executar','coses → iniciatives / reformes / mesures','importants → rellevants / significatives / d\'abast nacional'],
+      sample:'Va dur a terme nombroses iniciatives rellevants per al conjunt del país.',
+      theory:'Al C1 cal substituir verbs genèrics i noms buits per alternatives precises. Cada substitució aporta precisió semàntica i eleva el registre.',
+      example:'Va impulsar reformes estructurals de llarg abast.' },
+
+    { id:'c1-4', type:'reorder', level:'c1', category:'Argumentació',
+      question:'Ordena per construir un argument acadèmic ben estructurat:',
+      parts:['Tot i això, alguns experts qüestionen l\'eficàcia real d\'aquestes polítiques.','Les mesures de reducció d\'emissions han demostrat resultats positius en diverses metròpolis.','Per consegüent, cal un enfocament holístic que combini diverses estratègies complementàries.','Concretament, argumenten que sense canvis en el model de consum, l\'impacte és limitat.'],
+      correct:[1,0,3,2],
+      theory:'Estructura argumentativa: tesi → contraargument → matís del contraargument → conclusió integradora.',
+      example:'Afirmació → Objecció («tot i això») → Matís → Conclusió («per consegüent»)' },
+
+    { id:'c1-5', type:'reading', level:'c1', category:'Comprensió crítica',
+      text:'La globalització ha provocat una paradoxa singular: mentre s\'accelera la homogeneïtzació cultural, assistim paral·lelament a un renaixement de les identitats locals. Aquesta tensió dialèctica no és una anomalia, sinó el reflex d\'una necessitat humana fonamental: la cerca d\'arrels davant la desorientació del canvi vertiginós.',
+      question:'Quina és la tesi implícita de l\'autor?',
+      options:['La globalització és intrínsecament negativa per a les cultures locals','La revitalització de les identitats locals és una resposta natural i esperada a la globalització','La homogeneïtzació cultural és inevitable i, en definitiva, positiva'],
+      correct:1,
+      theory:'La comprensió C1 exigeix interpretar tesis implícites i el to argumentatiu. Analitza les paraules valoratives i les negacions significatives.',
+      example:'«No és una anomalia» i «necessitat fonamental» → l\'autor legitima i explica el fenomen.' },
+
+    { id:'c1-6', type:'writing', level:'c1', category:'Producció formal',
+      question:'Redacta la introducció d\'un informe sobre l\'ús del català a les universitats. Ha d\'incloure: context, problema identificat i objectiu de l\'informe.',
+      keywords:['context institucional','problema','objectiu','registre acadèmic'],
+      sample:'La present anàlisi té per objecte examinar la situació del català en l\'àmbit universitari. Malgrat els avenços legislatius dels darrers anys, persisteixen desequilibris significatius en l\'ús de la llengua com a vehicle d\'ensenyament. L\'estudi pretén identificar els factors que condicionen aquesta situació i formular propostes per revertir-la.',
+      theory:'Una introducció formal inclou: marc contextual + identificació del problema + objectiu. Evita la 1a persona singular; usa impersonals i passives reflexes.',
+      example:'«La present anàlisi té per objecte...» / «El present informe examina...»' },
+
+    { id:'c1-7', type:'choice', level:'c1', category:'Oracions de relatiu',
+      question:'Tria la construcció de relatiu correcta en registre culte:',
+      text:'La proposta ___ es va presentar ahir no compleix els requisits.',
+      options:['que la qual','la qual','en la qual que','qui'],
+      correct:1,
+      theory:'En registre formal, «el qual / la qual» substitueix «que» quan va precedit de preposició o per evitar ambigüitat. «Qui» s\'usa per a persones com a subjecte.',
+      example:'El document al qual fas referència no és vàlid.' },
+
+    { id:'c1-8', type:'fill', level:'c1', category:'Subjuntiu imperfet',
+      question:'Usa el subjuntiu imperfet per completar la frase:',
+      sentence:'El director va demanar que tots els membres ___ puntuals a la reunió.',
+      display:'arribar (3a pers. pl. subj. imperfet)',
+      answers:['arribessin'],
+      theory:'Verb principal en passat → verb subordinat en imperfet de subjuntiu. 3a persona plural: -essin / -issin.',
+      example:'Va demanar que tots portessin la documentació. / Era necessari que vinguessin aviat.' },
+  ]
+};
+
+/* ═══════════════════════════════════════════════════════════
+   ESTAT I UTILITATS
+═══════════════════════════════════════════════════════════ */
+let progress = JSON.parse(localStorage.getItem('cat_prog_v5') || 'null') || { xp:0, streak:0, done:[], lastDay:null };
+let currentSession = { items:[], idx:0, correct:0, level:'b2' };
+let dragIdx = null;
+
+function saveProgress() { localStorage.setItem('cat_prog_v5', JSON.stringify(progress)); }
+function updateHeader() {
+  document.getElementById('ct-xp').textContent = progress.xp + ' XP';
+  document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
+}
+function showXPPop(n) {
+  const el = document.createElement('div');
+  el.className = 'ct-xp-pop'; el.textContent = '+' + n + ' XP';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+
+/* ═══════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════ */
+function showTab(tab) {
+  document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + tab).classList.add('active');
+  if (tab === 'menu') renderMenu();
+  else if (tab === 'b2') renderLevelMenu('b2');
+  else if (tab === 'c1') renderLevelMenu('c1');
+  else renderProgress();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PANTALLES PRINCIPALS
+═══════════════════════════════════════════════════════════ */
+function renderMenu() {
+  const total = DATA.b2.length + DATA.c1.length;
+  const done = progress.done.length;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="text-align:center;padding:32px 24px;">
+      <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--c1);margin-bottom:8px;">Benvingut/da!</div>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
+        Exercicis de nivell B2 i C1 de català amb avaluació per IA.<br>Cada tema inclou teoria + exercicis pràctics.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+        <div style="background:#eff6ff;border-radius:12px;padding:16px 22px;min-width:100px;">
+          <div style="font-size:26px;font-weight:700;color:#1e40af;">${progress.xp}</div>
+          <div style="font-size:12px;color:#3b82f6;margin-top:2px;">XP totals</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:12px;padding:16px 22px;min-width:100px;">
+          <div style="font-size:26px;font-weight:700;color:#065f46;">${done}/${total}</div>
+          <div style="font-size:12px;color:#059669;margin-top:2px;">Completats</div>
+        </div>
+        <div style="background:#fffbeb;border-radius:12px;padding:16px 22px;min-width:100px;">
+          <div style="font-size:26px;font-weight:700;color:#92400e;">🔥 ${progress.streak}</div>
+          <div style="font-size:12px;color:#d97706;margin-top:2px;">Dies de ratxa</div>
+        </div>
+      </div>
+      <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:24px;">${pct}% del contingut completat</div>
+      <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
+    </div>`;
+}
+
+function renderLevelMenu(level) {
+  const items = DATA[level];
+  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
+  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
+  const desc = level === 'b2'
+    ? 'Cada tema inclou una lliçó de teoria i exercicis pràctics. Comença per la teoria per preparar-te millor.'
+    : 'Contingut avançat: argumentació, precisió lèxica i producció formal. Llegeix la teoria abans de practicar.';
+
+  // Agrupa exercicis per categoria
+  const cats = {};
+  items.forEach((q, i) => {
+    if (!cats[q.category]) cats[q.category] = [];
+    cats[q.category].push({ q, i });
+  });
+
+  const catCards = Object.entries(cats).map(([cat, qs]) => {
+    const th = THEORY[cat];
+    const icon = th ? th.icon : icons[qs[0].q.type];
+    const exercisesDone = qs.filter(({q}) => progress.done.includes(q.id)).length;
+    const allDone = exercisesDone === qs.length;
+    return `
+      <div class="ct-lesson-card ${allDone ? 'done' : ''}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">
+        ${allDone ? '<div class="ct-lesson-done">✓</div>' : ''}
+        <div class="ct-lesson-icon">${icon}</div>
+        <div class="ct-lesson-title">${cat}</div>
+        <div class="ct-lesson-desc">${qs.length} exercici${qs.length > 1 ? 's' : ''} · ${exercisesDone}/${qs.length} fets</div>
+        <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+          ${th ? '<span style="background:#ede9fe;color:#6d28d9;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">TEORIA</span>' : ''}
+          <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">EXERCICIS</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('ct-body').innerHTML = `
+    <div style="max-width:640px;margin:0 auto;">
+      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--c1);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${desc}</p>
+      <button class="ct-btn primary" style="margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
+      <div class="ct-grid">${catCards}</div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PÀGINA DE TEORIA + EXERCICIS
+═══════════════════════════════════════════════════════════ */
+function openCategory(level, cat) {
+  const th = THEORY[cat];
+  const exercises = DATA[level].filter(q => q.category === cat);
+
+  let theoryHTML = '';
+  if (th) {
+    theoryHTML = `
+      <div class="th-hero">
+        <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
+        <div class="th-hero-title">${th.icon} ${cat}</div>
+        <div class="th-hero-sub">${th.subtitle}</div>
+      </div>
+      ${th.sections.map(s => renderTheorySection(s)).join('')}
+      <div style="max-width:640px;margin:0 auto 8px;">
+        <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--c1);margin:8px 0 4px;padding:0 4px;">Ara practica</div>
+        <p style="font-size:13px;color:var(--muted);padding:0 4px;margin-bottom:12px;">Posa en pràctica el que has après amb ${exercises.length} exercici${exercises.length>1?'s':''}.</p>
+      </div>`;
+  }
+
+  const exCards = exercises.map((q, i) => {
+    const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
+    const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
+    const done = progress.done.includes(q.id);
+    return `
+      <div class="ct-lesson-card ${done?'done':''}" onclick="startCategoryExercise('${level}','${cat.replace(/'/g,"\\'")}',${i})" style="cursor:pointer;">
+        ${done?'<div class="ct-lesson-done">✓</div>':''}
+        <div class="ct-lesson-icon">${icons[q.type]}</div>
+        <div class="ct-lesson-title">${names[q.type]}</div>
+        <div class="ct-lesson-desc">${done?'Completat':'Fer aquest exercici'}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('ct-body').innerHTML = `
+    <div style="max-width:640px;margin:0 auto 8px;padding:0 0 4px;">
+      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
+    </div>
+    ${theoryHTML}
+    <div style="max-width:640px;margin:0 auto;">
+      <div class="ct-grid">${exCards}</div>
+      <button class="ct-btn primary" style="width:100%;margin-top:16px;" onclick="startCategorySession('${level}','${cat.replace(/'/g,"\\'")}')">▶ Fer tots els exercicis d\'aquest tema</button>
+    </div>`;
+}
+
+function renderTheorySection(s) {
+  let content = '';
+  if (s.body) content += `<div class="th-body">${s.body}</div>`;
+  if (s.table) {
+    content += `<div style="overflow-x:auto;margin:10px 0;">
+      <table class="th-table">
+        <thead><tr>${s.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${s.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table></div>`;
+  }
+  if (s.rules) {
+    content += s.rules.map(r => `
+      <div class="th-rule">
+        ${r.label ? `<strong>${r.label}:</strong> ` : ''}
+        ${r.example || ''}
+        ${r.bad ? `<span style="color:#991b1b;">✗ ${r.bad}</span> → <span style="color:#065f46;">✓ ${r.good}</span>` : ''}
+      </div>`).join('');
+  }
+  if (s.examples) {
+    content += `<div class="th-example-box">
+      <div class="th-ex-label">Exemples</div>
+      ${s.examples.map(e => `
+        <div class="th-ex-row">
+          <span class="th-ex-dot"></span>
+          <span class="th-ex-text">${e.text}</span>
+        </div>`).join('')}
+    </div>`;
+  }
+  return `
+    <div class="th-section">
+      <div class="th-section-title">
+        <span class="th-section-icon">${s.icon}</span> ${s.title}
+      </div>
+      ${content}
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SESSIONS D'EXERCICIS
+═══════════════════════════════════════════════════════════ */
+function startAllSession(level) {
+  currentSession = { items:[...DATA[level]], idx:0, correct:0, level, returnTo: level };
+  renderExercise();
+}
+function startCategorySession(level, cat) {
+  const items = DATA[level].filter(q => q.category === cat);
+  currentSession = { items, idx:0, correct:0, level, returnTo: 'cat', cat };
+  renderExercise();
+}
+function startCategoryExercise(level, cat, i) {
+  const allItems = DATA[level].filter(q => q.category === cat);
+  currentSession = { items:allItems, idx:i, correct:0, level, returnTo:'cat', cat };
+  renderExercise();
+}
+
+function renderExercise() {
+  const { items, idx } = currentSession;
+  if (idx >= items.length) return renderSummary();
+  const q = items[idx];
+  const pct = Math.round(idx / items.length * 100);
+
+  let body = '';
+  if (q.type==='choice') body = renderChoice(q);
+  else if (q.type==='fill') body = renderFill(q);
+  else if (q.type==='reorder') body = renderReorder(q);
+  else if (q.type==='reading') body = renderReading(q);
+  else if (q.type==='writing') body = renderWriting(q);
+  else if (q.type==='transform') body = renderTransform(q);
+
+  document.getElementById('ct-body').innerHTML = `
+    <div style="max-width:640px;margin:0 auto;">
+      <div class="ct-step">${idx+1} / ${items.length}</div>
+      <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
+      <div class="ct-card">
+        <div style="margin-bottom:10px;">
+          <span class="ct-badge ${q.level}">${q.level.toUpperCase()}</span>
+          <span style="font-size:11px;color:var(--muted);margin-left:6px;">${q.category}</span>
+        </div>
+        <div class="ct-q">${q.question}</div>
+        ${body}
+        <div id="feedback-area"></div>
+        <div id="theory-area"></div>
+        <div class="ct-nav-row" id="nav-row" style="display:none;">
+          <button class="ct-btn secondary" onclick="goNext()">Següent →</button>
+        </div>
+      </div>
+    </div>`;
+  if (q.type==='reorder') dragIdx = null;
+}
+
+/* RENDERITZADORS */
+function renderChoice(q) {
+  return `<p style="font-size:15px;color:#374151;margin-bottom:12px;line-height:1.55;">${q.text}</p>
+    <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
+}
+function renderFill(q) {
+  return `<div class="ct-sentence">${q.sentence.replace('___','<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">')}</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>
+    <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
+}
+function renderReorder(q) {
+  const shuffled = [...q.parts].sort(() => Math.random()-0.5);
+  window._reorder_parts = shuffled;
+  return `<p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Arrossega els blocs per ordenar-los:</p>
+    <div class="ct-parts" id="reorder-list">${shuffled.map((p,i)=>`
+      <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})">
+        <span class="ct-handle">⠿</span><span>${p}</span>
+      </div>`).join('')}</div>
+    <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
+}
+function renderReading(q) {
+  return `<div style="background:#f8f9fa;border-radius:10px;padding:16px;font-size:14px;line-height:1.7;color:#374151;margin-bottom:16px;border-left:3px solid var(--c1);">${q.text}</div>
+    <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
+}
+function renderWriting(q) {
+  return `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
+    <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <button class="ct-btn primary" onclick="checkWriting()">Avaluar amb IA</button>
+      <button class="ct-btn secondary" onclick="showSample()">Veure exemple</button>
+    </div>`;
+}
+function renderTransform(q) {
+  return `<div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:#78350f;line-height:1.55;">
+      Original: <strong>${q.original}</strong></div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
+    <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <button class="ct-btn primary" onclick="checkTransform()">Avaluar amb IA</button>
+      <button class="ct-btn secondary" onclick="showTransformSample()">Veure model</button>
+    </div>`;
+}
+
+/* COMPROVACIÓ */
+function checkChoice(selected, correct) {
+  const opts = document.querySelectorAll('.ct-opt');
+  opts.forEach(o => o.onclick = null);
+  const isOk = selected === correct;
+  opts[selected].classList.add(isOk?'correct':'wrong');
+  if (!isOk) opts[correct].classList.add('correct');
+  showTheory(currentSession.items[currentSession.idx]);
+  markDone(isOk, 10);
+}
+function checkFill() {
+  const q = currentSession.items[currentSession.idx];
+  const val = normalize(document.getElementById('fill-in').value);
+  const ok = q.answers.some(a => normalize(a) === val || normalize(a).startsWith(val));
+  document.getElementById('feedback-area').innerHTML = ok
+    ? `<div class="ct-feedback ok">✓ Correcte! La forma és: <strong>${q.answers[0]}</strong></div>`
+    : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
+  showTheory(q); markDone(ok, 10);
+}
+function onDragStart(i) { dragIdx = i; }
+function onDragOver(e, i) {
+  e.preventDefault();
+  document.querySelectorAll('.ct-part').forEach(p=>p.classList.remove('drag-over'));
+  const pts = document.querySelectorAll('.ct-part');
+  if (pts[i]) pts[i].classList.add('drag-over');
+}
+function onDrop(target) {
+  if (dragIdx===null||dragIdx===target) return;
+  const parts = window._reorder_parts;
+  const moved = parts.splice(dragIdx,1)[0];
+  parts.splice(target,0,moved);
+  window._reorder_parts = parts;
+  document.getElementById('reorder-list').innerHTML = parts.map((p,i)=>`
+    <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})">
+      <span class="ct-handle">⠿</span><span>${p}</span>
+    </div>`).join('');
+  dragIdx = null;
+}
+function checkReorder() {
+  const q = currentSession.items[currentSession.idx];
+  const cur = window._reorder_parts;
+  const correctOrder = q.correct.map(i=>q.parts[i]);
+  const ok = cur.every((p,i)=>p===correctOrder[i]);
+  document.getElementById('feedback-area').innerHTML = ok
+    ? `<div class="ct-feedback ok">✓ Ordre perfecte!</div>`
+    : `<div class="ct-feedback ko">✗ L'ordre correcte és:<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;">${correctOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
+  showTheory(q); markDone(ok, 15);
+}
+
+async function callAI(sys, usr) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:350, system:sys, messages:[{role:'user',content:usr}] })
+  });
+  const d = await res.json();
+  return d.content?.[0]?.text || '';
+}
+
+async function checkWriting() {
+  const q = currentSession.items[currentSession.idx];
+  const text = document.getElementById('write-area').value.trim();
+  if (!text) { alert('Escriu una resposta primer.'); return; }
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-loading"><div class="ct-dot"></div><div class="ct-dot"></div><div class="ct-dot"></div><span style="margin-left:4px;">Avaluant amb IA...</span></div>`;
+  try {
+    const txt = await callAI(
+      `Ets un professor de català de nivell ${q.level.toUpperCase()} expert i rigorós. Avalua la resposta de l'alumne en 3-4 frases, en català, constructivament: (1) si respon l'encàrrec, (2) un error concret si n'hi ha, (3) una millora possible. Sense markdown.`,
+      `Exercici: ${q.question}\nResposta de l'alumne: ${text}\nExemple de bona resposta: ${q.sample}`
+    );
+    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">🤖 ${txt}</div>`;
+  } catch(e) {
+    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">Exemple de resposta: <em>${q.sample}</em></div>`;
+  }
+  showTheory(q); markDone(true, 20);
+}
+
+async function checkTransform() {
+  const q = currentSession.items[currentSession.idx];
+  const text = document.getElementById('transform-area').value.trim();
+  if (!text) { alert('Escriu una reformulació primer.'); return; }
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-loading"><div class="ct-dot"></div><div class="ct-dot"></div><div class="ct-dot"></div><span style="margin-left:4px;">Avaluant amb IA...</span></div>`;
+  try {
+    const txt = await callAI(
+      `Ets un professor de català C1 especialitzat en registre formal. Avalua la transformació en 3-4 frases: si el registre és adequat, un element a millorar i un elogi si és mereixedor. En català, sense markdown.`,
+      `Original informal: ${q.original}\nTransformació de l'alumne: ${text}\nModel: ${q.sample}`
+    );
+    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">🤖 ${txt}</div>`;
+  } catch(e) {
+    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">Model: <em>${q.sample}</em></div>`;
+  }
+  showTheory(q); markDone(true, 20);
+}
+
+function showSample() {
+  const q = currentSession.items[currentSession.idx];
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Exemple: <em>${q.sample}</em></div>`;
+  showTheory(q); markDone(false, 5);
+}
+function showTransformSample() {
+  const q = currentSession.items[currentSession.idx];
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Model: <em>${q.sample}</em></div>`;
+  showTheory(q); markDone(false, 5);
+}
+function showTheory(q) {
+  document.getElementById('theory-area').innerHTML = `
+    <div class="ct-theory">
+      <strong>Nota gramatical:</strong> ${q.theory}<br><br>
+      <strong>Exemple:</strong> <em>${q.example||q.sample||''}</em>
+    </div>`;
+}
+
+/* PROGRÉS */
+function markDone(ok, xp) {
+  const q = currentSession.items[currentSession.idx];
+  if (!progress.done.includes(q.id)) {
+    progress.done.push(q.id);
+    if (ok) { progress.xp += xp; showXPPop(xp); }
+    const today = new Date().toDateString();
+    if (progress.lastDay !== today) { progress.streak++; progress.lastDay = today; }
+    saveProgress(); updateHeader();
+  }
+  if (ok) currentSession.correct++;
+  document.getElementById('nav-row').style.display = 'flex';
+}
+function goNext() { currentSession.idx++; renderExercise(); }
+
+function renderSummary() {
+  const { items, correct, level, returnTo, cat } = currentSession;
+  const pct = Math.round(correct / items.length * 100);
+  const emoji = pct>=80?'🏆':pct>=60?'👍':'📚';
+  const msg = pct>=80?'Excel·lent feina! Domines bé aquest contingut.':pct>=60?'Bon resultat! Continua practicant per consolidar.':'Repassa la teoria i torna-ho a intentar.';
+  const backBtn = returnTo === 'cat'
+    ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">← Tornar al tema</button>`
+    : `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderLevelMenu('${level}')">← Tornar al nivell</button>`;
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card ct-summary" style="max-width:480px;">
+      <div style="font-size:48px;margin-bottom:12px;">${emoji}</div>
+      <div class="big">${pct}%</div>
+      <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">${msg}</p>
+      <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${(cat||items[0]?.category||'').replace(/'/g,"\\'")}')">Repetir exercicis</button>
+      ${backBtn}
+    </div>`;
+}
+
+function renderProgress() {
+  const b2total=DATA.b2.length, c1total=DATA.c1.length;
+  const b2done=DATA.b2.filter(q=>progress.done.includes(q.id)).length;
+  const c1done=DATA.c1.filter(q=>progress.done.includes(q.id)).length;
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:600px;margin:0 auto;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--c1);margin-bottom:20px;">El teu progrés</div>
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
+          <span style="font-weight:500;">Nivell B2</span>
+          <span style="color:var(--muted)">${b2done} / ${b2total} exercicis</span>
+        </div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(b2done/b2total*100)}%;background:#1e40af;"></div></div>
+      </div>
+      <div style="margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
+          <span style="font-weight:500;">Nivell C1</span>
+          <span style="color:var(--muted)">${c1done} / ${c1total} exercicis</span>
+        </div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(c1done/c1total*100)}%;background:#d97706;"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+        <div style="background:#f0fdf4;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:26px;font-weight:700;color:#065f46;">${progress.xp}</div>
+          <div style="font-size:11px;color:#059669;margin-top:2px;">XP totals</div>
+        </div>
+        <div style="background:#fffbeb;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:26px;font-weight:700;color:#92400e;">🔥 ${progress.streak}</div>
+          <div style="font-size:11px;color:#d97706;margin-top:2px;">Dies de ratxa</div>
+        </div>
+        <div style="background:#eff6ff;border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:26px;font-weight:700;color:#1e40af;">${b2done+c1done}</div>
+          <div style="font-size:11px;color:#3b82f6;margin-top:2px;">Completats</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
+      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,done:[],lastDay:null};saveProgress();updateHeader();renderProgress();}">
+        Reiniciar progrés
+      </button>
+    </div>`;
+}
+
+/* INICI */
+updateHeader();
+renderMenu();
+</script>
 </body>
 </html>
