@@ -1039,138 +1039,578 @@ const THEORY = {
 };
 
 /* ═══════════════════════════════════════════════════════════
-   EXERCICIS
+   EXERCICIS (5+ per categoria)
 ═══════════════════════════════════════════════════════════ */
 const DATA = {
   b2: [
-    { id:'b2-1', type:'choice', level:'b2', category:'Connectors',
+    // CONNECTORS
+    { id:'b2-con1', type:'choice', level:'b2', category:'Connectors',
       question:'Quin connector introdueix una conseqüència lògica?',
       text:'Va treballar molt dur durant tot l\'any. ___, va aconseguir el premi.',
       options:['Tanmateix','Per consegüent','Malgrat que','Sempre que'],
-      correct:1,
-      theory:'«Per consegüent», «per tant» i «és per això que» introdueixen el resultat d\'una causa anterior.',
-      example:'No va estudiar; per tant, va suspendre l\'examen.' },
+      correct:1, theory:'«Per consegüent», «per tant» i «és per això que» introdueixen el resultat d\'una causa anterior.', example:'No va estudiar; per tant, va suspendre.' },
+    { id:'b2-con2', type:'choice', level:'b2', category:'Connectors',
+      question:'Quin connector expressa una relació de causa?',
+      text:'No va poder assistir ___ estava malalt de gravetat.',
+      options:['per tant','ja que','tanmateix','a més'],
+      correct:1, theory:'«Ja que», «atès que», «donat que» i «com que» expressen causa.', example:'No va venir, ja que tenia feina urgent.' },
+    { id:'b2-con3', type:'fill', level:'b2', category:'Connectors',
+      question:'Omple amb el connector d\'addició formal (no «també»):',
+      sentence:'La mesura redueix costos. ___, millora l\'eficiència del sistema.',
+      display:'connector d\'addició formal',
+      answers:['a més','a més a més','així mateix','addicionalment'],
+      theory:'En registre formal, «a més (a més)» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.' },
+    { id:'b2-con4', type:'reorder', level:'b2', category:'Connectors',
+      question:'Ordena les frases perquè el text sigui lògicament coherent:',
+      parts:['Per consegüent, es recomana adoptar mesures immediates.','En primer lloc, s\'ha detectat un augment del soroll urbà.','D\'altra banda, la qualitat de l\'aire ha empitjorat notablement.','Finalment, cal revisar la normativa vigent.'],
+      correct:[1,2,0,3], theory:'Estructura: problema → dades → conseqüència → recomanació.', example:'En primer lloc... D\'altra banda... Per consegüent... Finalment...' },
+    { id:'b2-con5', type:'reading', level:'b2', category:'Connectors',
+      text:'L\'ús adequat dels connectors és fonamental en qualsevol text formal. Tanmateix, molts escriptors tendeixen a abusar dels connectors simples, com ara «però» o «i». Per consegüent, el resultat és un discurs que sembla poc elaborat, malgrat que el contingut pugui ser valuós.',
+      question:'Quin problema principal identifica el text?',
+      options:['Que els connectors no serveixen en textos formals','Que l\'ús repetitiu de connectors simples empobreix el discurs','Que cal evitar tots els connectors en registre formal'],
+      correct:1, theory:'«Abusar dels connectors simples», «en detriment» i «poc elaborat» apunten a la resposta.', example:'Paraules clau: «tendeixen a abusar», «poc elaborat».' },
+    { id:'b2-con6', type:'choice', level:'b2', category:'Connectors',
+      question:'Quin connector introdueix una informació que contrasta amb l\'anterior?',
+      text:'El projecte tenia molts punts forts. ___, presentava algunes mancances tècniques.',
+      options:['Per tant','Ja que','Tanmateix','Addicionalment'],
+      correct:2, theory:'«Tanmateix», «no obstant això» i «malgrat tot» introdueixen un contrast respecte al que s\'ha dit.', example:'El resultat va ser positiu; tanmateix, cal continuar treballant.' },
 
-    { id:'b2-2', type:'fill', level:'b2', category:'Subjuntiu',
-      question:'Omple el buit amb la forma correcta del present de subjuntiu:',
-      sentence:'Vull que tu ___ a temps a la reunió.',
-      display:'arribar (2a pers. sing.)',
-      answers:['arribis'],
-      theory:'Amb «vull que» el verb subordinat va en subjuntiu. Per a «tu», la terminació del present de subjuntiu en verbs -ar és -is.',
-      example:'Espero que ell pugui venir avui.' },
+    // SUBJUNTIU
+    { id:'b2-sub1', type:'fill', level:'b2', category:'Subjuntiu',
+      question:'Omple amb la forma correcta del present de subjuntiu:',
+      sentence:'Vull que tu ___ a temps a la reunió d\'avui.',
+      display:'arribar (2a pers. sing.)', answers:['arribis'],
+      theory:'Amb «vull que» el verb subordinat va en subjuntiu. Per a «tu», la terminació és -is.', example:'Espero que ell pugui venir avui.' },
+    { id:'b2-sub2', type:'choice', level:'b2', category:'Subjuntiu',
+      question:'Quina frase usa el subjuntiu correctament?',
+      options:['Dubto que ve demà.','Dubto que vindrà demà.','Dubto que vingui demà.','Dubto de que ve.'],
+      correct:2, theory:'Amb «dubto que» s\'usa sempre el subjuntiu, perquè el dubte expressa una actitud no factual.', example:'Dubto que sigui possible acabar-ho avui.' },
+    { id:'b2-sub3', type:'fill', level:'b2', category:'Subjuntiu',
+      question:'Indicatiu o subjuntiu? Omple el buit:',
+      sentence:'Sé que ella ___ molt bé el català des de petita.',
+      display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
+      theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
+    { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
+      question:'Tria la forma verbal correcta per a una subordinada temporal de futur:',
+      text:'T\'ho explicaré quan ___ més temps disponible.',
+      options:['tindré','tingui','tinc','tingués'],
+      correct:1, theory:'Les oracions temporals de futur usen el present de subjuntiu (quan + subj.), mai el futur.', example:'Quan arribi, truqueu-me. / Ho farem quan puguem.' },
+    { id:'b2-sub5', type:'fill', level:'b2', category:'Subjuntiu',
+      sentence:'Cal que tots els participants ___ el formulari abans del divendres.',
+      question:'Completa amb la forma de subjuntiu correcta:',
+      display:'emplenar (3a pers. pl. present subj.)', answers:['emplenin','omplin'],
+      theory:'«Cal que» exigeix subjuntiu. 3a pers. pl. del present de subj. en verbs -ar: -in.', example:'Cal que emplenin el formulari. / Cal que signin el document.' },
+    { id:'b2-sub6', type:'choice', level:'b2', category:'Subjuntiu',
+      question:'Quina construcció és correcta amb «encara que» hipotètic?',
+      options:['Encara que plourà, sortirem.','Encara que plou, sortirem.','Encara que plogui, sortirem.','Encara que plovent, sortirem.'],
+      correct:2, theory:'«Encara que» amb valor hipotètic (la condició és incerta) va amb subjuntiu.', example:'Encara que plogui, sortirem. / Encara que plou (ja plou), sortim igualment.' },
 
-    { id:'b2-3', type:'reorder', level:'b2', category:'Cohesió textual',
+    // COHESIÓ TEXTUAL
+    { id:'b2-coh1', type:'reorder', level:'b2', category:'Cohesió textual',
       question:'Ordena les parts per formar un paràgraf coherent:',
-      parts:['D\'altra banda, cal considerar els aspectes econòmics.','En primer lloc, analitzarem els factors socials.','Finalment, presentarem les nostres conclusions.','A continuació, veurem l\'impacte ambiental.'],
-      correct:[1,0,3,2],
-      theory:'Un text ben estructurat segueix: introducció → arguments ordenats → conclusió. Connectors d\'ordre: en primer lloc, a continuació, d\'altra banda, finalment.',
-      example:'En primer lloc... A continuació... D\'altra banda... Finalment...' },
+      parts:['D\'altra banda, cal considerar els aspectes econòmics de la mesura.','En primer lloc, analitzarem els factors socials que hi intervenen.','Finalment, presentarem les nostres conclusions i recomanacions.','A continuació, veurem l\'impacte ambiental a curt i llarg termini.'],
+      correct:[1,0,3,2], theory:'Un text ben estructurat segueix: introducció → arguments ordenats → conclusió.', example:'En primer lloc... A continuació... D\'altra banda... Finalment...' },
+    { id:'b2-coh2', type:'choice', level:'b2', category:'Cohesió textual',
+      question:'Quin mecanisme de cohesió usa la frase subratllada?',
+      text:'La nova política mediambiental ha generat un ampli debat. <u>Aquesta mesura</u> ha rebut crítiques de nombrosos experts.',
+      options:['El·lipsi del subjecte','Referència anafòrica amb sinònim','Connector de contrast','Referència catafòrica'],
+      correct:1, theory:'«Aquesta mesura» és una referència anafòrica que reprèn «la nova política» per evitar la repetició.', example:'La reforma va ser aprovada. Aquesta decisió va generar polèmica.' },
+    { id:'b2-coh3', type:'fill', level:'b2', category:'Cohesió textual',
+      question:'Substitueix la repetició innecessària del subjecte per un mecanisme de cohesió:',
+      sentence:'El director va presentar l\'informe, va respondre preguntes i ___ va marxar sense fer declaracions.',
+      display:'connector temporal o el·lipsi',
+      answers:['tot seguit','a continuació','posteriorment','finalment','seguidament'],
+      theory:'En català el pronom subjecte s\'omet quan el context queda clar (el·lipsi). El connector temporal afegeix ordre.', example:'El director va parlar, va respondre preguntes i tot seguit va marxar.' },
+    { id:'b2-coh4', type:'reorder', level:'b2', category:'Cohesió textual',
+      question:'Ordena el paràgraf perquè sigui coherent:',
+      parts:['Concretament, al sector tecnològic s\'han creat 10.000 llocs de treball nous.','En definitiva, les dades confirmen una tendència positiva per a l\'economia.','L\'any passat, el mercat laboral català va mostrar signes clars de recuperació.','Tanmateix, alguns sectors com el comerç minorista encara presenten dificultats.'],
+      correct:[2,0,3,1], theory:'Estructura: idea general → especificació → matís → conclusió.', example:'Idea general → Detall → Objecció → Conclusió.' },
+    { id:'b2-coh5', type:'reading', level:'b2', category:'Cohesió textual',
+      text:'El canvi climàtic afecta tots els ecosistemes del planeta. Aquesta problemàtica requereix una resposta coordinada a escala global. Per consegüent, els governs han de col·laborar més estretament. Sense aquesta cooperació, els esforços individuals seran insuficients.',
+      question:'Quina funció té «Sense aquesta cooperació» en l\'última frase?',
+      options:['Introdueix un exemple de la cooperació descrita','Reprèn anafòricament «col·laboració» i enuncia el resultat negatiu de la seva absència','Contradiu la idea del paràgraf anterior'],
+      correct:1, theory:'«Aquesta cooperació» és una referència anafòrica. «Sense +» planteja l\'escenari negatiu que reforça la recomanació.', example:'«Sense aquest suport, el projecte fracassarà.»' },
+    { id:'b2-coh6', type:'choice', level:'b2', category:'Cohesió textual',
+      question:'Quina opció fa un ús correcte de la referència pronominal?',
+      options:['La directora va parlar. La directora va dir que la directora acceptava.','La directora va parlar. Va dir que acceptava la proposta.','La directora va parlar. Ella va dir que ella acceptava.'],
+      correct:1, theory:'En català, el pronom subjecte s\'omet quan el context queda clar (el·lipsi). Repetir el nom o «ella» és redundant.', example:'Va parlar i va dir que acceptava. (El subjecte s\'entén pel context.)' },
 
-    { id:'b2-4', type:'reading', level:'b2', category:'Comprensió lectora',
-      text:'El transport públic de les grans ciutats s\'enfronta a reptes importants. D\'una banda, la demanda creixent de mobilitat sostenible; de l\'altra, la necessitat de modernitzar infraestructures antigues sense paralitzar el servei. Cal trobar solucions que combinin eficiència i continuïtat.',
+    // COMPRENSIÓ LECTORA
+    { id:'b2-com1', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'El transport públic de les grans ciutats s\'enfronta a reptes importants. D\'una banda, la demanda creixent de mobilitat sostenible; de l\'altra, la necessitat de modernitzar infraestructures antigues sense paralitzar el servei.',
       question:'Quin és el problema central que descriu el text?',
       options:['La manca de passatgers al transport públic','Adaptar el transport a les noves necessitats sense interrompre el servei','La contaminació causada pels autobusos urbans'],
-      correct:1,
-      theory:'Identifica la idea central buscant el conflicte o tensió principal que el text descriu.',
-      example:'Paraules clau: «reptes», «demanda creixent», «modernitzar», «sense paralitzar».' },
+      correct:1, theory:'Identifica la idea central buscant la tensió principal que el text descriu.', example:'Paraules clau: «reptes», «demanda creixent», «modernitzar», «sense paralitzar».' },
+    { id:'b2-com2', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'Les biblioteques públiques han evolucionat molt més enllà del seu rol tradicional. Avui són espais de formació, inclusió digital i cohesió social. Malgrat les retallades pressupostàries dels darrers anys, moltes d\'elles han ampliat els seus serveis i han incrementat el nombre de visitants.',
+      question:'Quin element del text contradiu una expectativa lògica?',
+      options:['Que les biblioteques tinguin menys llibres','Que hagin augmentat visitants malgrat les retallades','Que les biblioteques ofereixin formació digital'],
+      correct:1, theory:'«Malgrat» introdueix una paradoxa: la reducció de pressupost hauria d\'implicar menys serveis, però el resultat és el contrari.', example:'«Malgrat» = hi ha un obstacle que no impedeix el resultat esperat.' },
+    { id:'b2-com3', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'La dieta mediterrània s\'associa sovint amb un estil de vida saludable. No obstant això, estudis recents matisen que no és la dieta en si mateixa, sinó el conjunt d\'hàbits que l\'acompanyen allò que explica els seus beneficis.',
+      question:'Quina és la tesi principal del text?',
+      options:['La dieta mediterrània no és saludable','Els beneficis s\'expliquen pel context de vida global, no per la dieta sola','Cal fer més estudis sobre la dieta mediterrània'],
+      correct:1, theory:'El connector «no obstant això» i l\'estructura «no... sinó...» marquen la tesi real.', example:'Busca el verb principal de la frase introduïda per «sinó».' },
+    { id:'b2-com4', type:'choice', level:'b2', category:'Comprensió lectora',
+      question:'Quin to predomina en: «Sembla que la solució és evident; ara bé, cal ser prudents i analitzar totes les variables»?',
+      options:['Afirmatiu i optimista sense reserves','Prudent i matisat','Negatiu i pessimista'],
+      correct:1, theory:'«Sembla que» relativitza, i «ara bé» frena l\'entusiasme. El to global és de cautela reflexiva.', example:'Paraules com «sembla», «ara bé», «cal ser prudents» → to matisat.' },
+    { id:'b2-com5', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'L\'abandonament escolar prematur continua sent un dels principals reptes. Les causes són múltiples: factors econòmics familiars, manca de motivació i metodologies docents poc adaptades. Per abordar-lo eficaçment, cal actuar de manera transversal.',
+      question:'Quina afirmació és correcta d\'acord amb el text?',
+      options:['L\'abandonament escolar té una sola causa principal','Hi ha diverses causes i cal una resposta multidimensional','El problema ja s\'ha resolt amb les noves metodologies'],
+      correct:1, theory:'«Causes són múltiples» i «actuar de manera transversal» apunten a la resposta.', example:'«Múltiples» → no hi ha una sola causa. «Transversal» → resposta diversa.' },
 
-    { id:'b2-5', type:'writing', level:'b2', category:'Producció escrita',
+    // PRODUCCIÓ ESCRITA
+    { id:'b2-pro1', type:'writing', level:'b2', category:'Producció escrita',
       question:'Escriu una frase que expressi una condició real (si + present indicatiu + futur simple):',
       keywords:['si','treball diari','progrés'],
       sample:'Si treballes cada dia, progressaràs molt més ràpidament en la llengua.',
-      theory:'Condicionals reals: si + present indicatiu + futur simple. Expressen situacions possibles i probables.',
-      example:'Si estudies cada dia, aprovaràs l\'examen.' },
+      theory:'Condicionals reals: si + present indicatiu + futur simple.', example:'Si estudies cada dia, aprovaràs l\'examen.' },
+    { id:'b2-pro2', type:'writing', level:'b2', category:'Producció escrita',
+      question:'Reformula en registre formal substituint els elements informals:',
+      keywords:['«dir» → afirmar/manifestar','«molt» → considerablement/notablement','«coses» → aspectes/qüestions'],
+      sample:'El portaveu va manifestar que la situació havia millorat considerablement en tots els aspectes clau.',
+      theory:'Registre formal: verbs genèrics → precisos; adverbis col·loquials → cultes; «coses» → substantius específics.', example:'«dir» → «manifestar» / «molt» → «notablement» / «coses» → «qüestions».' },
+    { id:'b2-pro3', type:'writing', level:'b2', category:'Producció escrita',
+      question:'Escriu un paràgraf de 3 frases sobre les xarxes socials. Ha d\'incloure un connector de causa, un de contrast i un de conclusió.',
+      keywords:['causa: ja que / perquè','contrast: tanmateix / tot i que','conclusió: per tant / en definitiva'],
+      sample:'Les xarxes socials han transformat la comunicació, ja que permeten connectar persones de tot el món. Tanmateix, l\'ús excessiu pot generar addicció digital. Per tant, cal promoure un ús conscient d\'aquestes plataformes.',
+      theory:'Un bon paràgraf B2 usa connectors variats: causa, contrast i conclusió estructuren l\'argument.', example:'Afirmació + ja que... → Tanmateix... → Per tant...' },
+    { id:'b2-pro4', type:'choice', level:'b2', category:'Producció escrita',
+      question:'Quina estructura és la més adequada per a l\'inici d\'una carta formal?',
+      options:['Hola! T\'escric perquè tinc un problema...','Em plau adreçar-me a vostè en relació amb...','Mira, vull parlar-te d\'una cosa important...'],
+      correct:1, theory:'Les cartes formals s\'inicien amb fórmules protocol·làries: «Em plau adreçar-me a vostè», «Em poso en contacte amb vostè per»...', example:'Em plau adreçar-me a vostè en relació amb la sol·licitud presentada el dia 10.' },
+    { id:'b2-pro5', type:'writing', level:'b2', category:'Producció escrita',
+      question:'Escriu una oració que expressi una condició hipotètica impossible en el present (subjuntiu imperfet):',
+      keywords:['si + subjuntiu imperfet','condicional','situació impossible ara'],
+      sample:'Si fos més jove, estudiaria una carrera completament diferent.',
+      theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués temps, aprendria a tocar el piano.' },
+    { id:'b2-pro6', type:'choice', level:'b2', category:'Producció escrita',
+      question:'Quina conclusió és la més adequada per a un text formal d\'opinió?',
+      options:['Bueno, per acabar, crec que és molt important.','En definitiva, les evidències presentades posen de manifest la necessitat d\'una actuació immediata.','I ja està, bàsicament això és tot el que volia dir.'],
+      correct:1, theory:'Una conclusió formal usa connectors de síntesi («en definitiva», «per concloure») i reprèn la tesi de manera elevada.', example:'En definitiva, cal adoptar un enfocament integral que abasti tots els aspectes de la qüestió.' },
 
-    { id:'b2-6', type:'choice', level:'b2', category:'Lèxic formal',
+    // LÈXIC FORMAL
+    { id:'b2-lex1', type:'choice', level:'b2', category:'Lèxic formal',
       question:'Quin verb és el més adequat en un context formal?',
       text:'En el seu discurs, la directora va ___ que les mesures entrarien en vigor immediatament.',
       options:['dir','anunciar','comentar','explicar-li'],
-      correct:1,
-      theory:'En registres formals, cal usar verbs precisos com «afirmar», «manifestar», «anunciar» en lloc del genèric «dir».',
-      example:'La ministra va anunciar noves mesures fiscals per al proper exercici.' },
+      correct:1, theory:'En registres formals cal usar verbs precisos: «afirmar», «manifestar», «anunciar» en lloc del genèric «dir».', example:'La ministra va anunciar noves mesures fiscals per al proper exercici.' },
+    { id:'b2-lex2', type:'choice', level:'b2', category:'Lèxic formal',
+      question:'Quin sinònim és el més precís per a «tenir» en un context institucional?',
+      text:'El departament ___ tots els recursos necessaris per dur a terme el projecte.',
+      options:['té','disposa de','agafa','porta'],
+      correct:1, theory:'«Disposar de» és la forma formal equivalent a «tenir» quan es parla de recursos o capacitats institucionals.', example:'L\'organisme disposa de personal qualificat i equipament modern.' },
+    { id:'b2-lex3', type:'fill', level:'b2', category:'Lèxic formal',
+      question:'Substitueix «coses» per un substantiu precís:',
+      sentence:'El ministre va parlar de moltes ___ importants durant la conferència.',
+      display:'substantiu precís (no «coses»)',
+      answers:['qüestions','aspectes','temes','punts','elements'],
+      theory:'«Cosa» és el substantiu genèric per excel·lència. Substitueix-lo per «qüestió», «aspecte», «element» o «factor» segons el context.', example:'El ministre va abordar qüestions fonamentals per al futur del sector.' },
+    { id:'b2-lex4', type:'choice', level:'b2', category:'Lèxic formal',
+      question:'Quina expressió és un calc del castellà que cal evitar en català formal?',
+      options:['a partir de','a nivell de','quant a','pel que fa a'],
+      correct:1, theory:'«A nivell de» és un calc de «a nivel de». En català: «quant a», «pel que fa a», «en matèria de», «en l\'àmbit de».', example:'✗ A nivell econòmic → ✓ Quant a l\'economia.' },
+    { id:'b2-lex5', type:'fill', level:'b2', category:'Lèxic formal',
+      question:'Tria el verb precís per completar la frase formal:',
+      sentence:'Les autoritats van ___ les mesures de seguretat davant el risc d\'inundació.',
+      display:'verb formal precís (no «fer» ni «posar»)',
+      answers:['reforçar','endurir','implementar','intensificar','activar'],
+      theory:'En contextos de seguretat i gestió, verbs com «reforçar», «implementar», «activar» aporten precisió al discurs formal.', example:'Les autoritats van activar el protocol d\'emergència davant la situació.' },
+    { id:'b2-lex6', type:'reorder', level:'b2', category:'Lèxic formal',
+      question:'Ordena les paraules per formar una frase formal i ben construïda:',
+      parts:['un increment notable','es constata','de temperatura global','en les darreres dècades'],
+      correct:[1,0,2,3], theory:'Frases nominals formals: verb impersonal (passiva reflexa) + sintagma nominal complex. «Es constata» és marca de registre acadèmic.', example:'Es constata un increment notable de la temperatura global en les darreres dècades.' },
 
-    { id:'b2-7', type:'fill', level:'b2', category:'Interferències',
+    // INTERFERÈNCIES
+    { id:'b2-int1', type:'fill', level:'b2', category:'Interferències',
       question:'Substitueix el calc del castellà pel verb català correcte:',
       sentence:'Vaig ___ compte que havia oblidat les claus a casa.',
-      display:'verb català: ___-se\'n (no «donar-se compte»)',
-      answers:['adonar','adonar-me\'n','adonar-me'],
-      theory:'«Donar-se compte» és un calc del castellà «darse cuenta». La forma correcta en català és «adonar-se (de)».',
-      example:'Em vaig adonar que havia oblidat les claus.' },
+      display:'verb català: ___-se (no «donar-se compte»)',
+      answers:['adonar','adonar-me','adonar-me\'n'],
+      theory:'«Donar-se compte» és un calc de «darse cuenta». La forma correcta en català és «adonar-se (de)».', example:'Em vaig adonar que havia oblidat les claus.' },
+    { id:'b2-int2', type:'choice', level:'b2', category:'Interferències',
+      question:'Quina frase és correcta en català?',
+      options:['Ho vaig fer en base a les teves instruccions.','Ho vaig fer basant-me en les teves instruccions.','Ho vaig realitzar a base de seguir les instruccions.'],
+      correct:1, theory:'«En base a» és un calc del castellà. La forma catalana correcta és «basant-se en», «a partir de» o «d\'acord amb».', example:'✗ En base a les dades. ✓ A partir de les dades disponibles.' },
+    { id:'b2-int3', type:'fill', level:'b2', category:'Interferències',
+      question:'Substitueix «realizar» pel verb català adequat:',
+      sentence:'Van ___ una investigació exhaustiva sobre l\'origen del problema.',
+      display:'verb català correcte (no «realitzar»)',
+      answers:['fer','dur a terme','efectuar','portar a terme'],
+      theory:'«Realitzar» és sovint un calc innecessari. La forma preferida és «fer», «dur a terme» o «efectuar».', example:'Van dur a terme una investigació exhaustiva.' },
+    { id:'b2-int4', type:'choice', level:'b2', category:'Interferències',
+      question:'Quin ús del gerundi és incorrecte en català?',
+      options:['Caminant pel parc, va pensar en ella. (simultani)','Va acabar la reunió, enviant l\'acta tot seguit. (posterior)','Essent una qüestió complexa, cal analitzar-la. (explicatiu)'],
+      correct:1, theory:'El gerundi de posterioritat (acció POSTERIOR a la principal) és un calc del castellà. Cal usar coordinades: «Va acabar la reunió i tot seguit envià l\'acta».', example:'✗ Va acabar el treball, enviant-lo. ✓ Va acabar el treball i l\'envià per correu.' },
+    { id:'b2-int5', type:'fill', level:'b2', category:'Interferències',
+      question:'Substitueix «lo important» per la construcció catalana correcta:',
+      sentence:'___ és que tothom participi activament en la presa de decisions.',
+      display:'construcció sense «lo» (inexistent en català)',
+      answers:['allò important','el que és important','la cosa important'],
+      theory:'El català no té article neutre «lo». S\'usa «allò» (davant adj.) o «el que» (davant verb). «Lo» és sempre un calc del castellà.', example:'✗ Lo millor és descansar. ✓ Allò millor és descansar.' },
+    { id:'b2-int6', type:'choice', level:'b2', category:'Interferències',
+      question:'Quina és la forma correcta en català?',
+      options:['donar-se compte','adonar-se','realitzar-se','enterar-se'],
+      correct:1, theory:'«Adonar-se» és el verb propi del català. «Donar-se compte» i «enterar-se» (en el sentit d\'assabentar-se) són calcs.', example:'Em vaig adonar de l\'error en el darrer moment.' },
 
-    { id:'b2-8', type:'choice', level:'b2', category:'Perífrasis verbals',
+    // PERÍFRASIS VERBALS
+    { id:'b2-per1', type:'choice', level:'b2', category:'Perífrasis verbals',
       question:'Quina perífrasi expressa una obligació impersonal?',
-      text:'___ presentar la documentació abans del dia 15.',
+      text:'___ presentar la documentació original abans del dia 15.',
       options:['Es pot','Cal','Solia','Acabava de'],
-      correct:1,
-      theory:'«Cal + infinitiu» expressa necessitat o obligació impersonal. Equivalents: «és necessari + infinitiu», «s\'ha de + infinitiu».',
-      example:'Cal lliurar el treball abans del termini establert.' },
+      correct:1, theory:'«Cal + infinitiu» expressa necessitat o obligació impersonal. Equivalents: «és necessari + inf.», «s\'ha de + inf.».', example:'Cal lliurar el treball abans del termini establert.' },
+    { id:'b2-per2', type:'choice', level:'b2', category:'Perífrasis verbals',
+      question:'Quina perífrasi expressa que una acció acaba de passar?',
+      text:'___ signar el contracte, de manera que encara ets a temps per revisar-lo.',
+      options:['Han de','Acaben de','Solen','Tornen a'],
+      correct:1, theory:'«Acabar de + infinitiu» expressa una acció molt recent (aspecte perfectiu immediat).', example:'Acabo d\'arribar. / Acabes de dir una cosa molt interessant.' },
+    { id:'b2-per3', type:'fill', level:'b2', category:'Perífrasis verbals',
+      question:'Omple amb la perífrasi adequada per expressar repetició:',
+      sentence:'Ja ha comès aquest error dues vegades. Si ___ cometre\'l, haurà de rebre formació addicional.',
+      display:'perífrasi de repetició (+ infinitiu)',
+      answers:['torna a','vol tornar a'],
+      theory:'«Tornar a + infinitiu» expressa la repetició d\'una acció. Equivalent a «una altra vegada + verb».', example:'Ha tornat a arribar tard. / Si torna a fallar, caldrà prendre mesures.' },
+    { id:'b2-per4', type:'choice', level:'b2', category:'Perífrasis verbals',
+      question:'Quina perífrasi expressa que una acció estava en curs en el passat?',
+      text:'Quan va sonar el telèfon, ___ la presentació per a la reunió.',
+      options:['havia acabat','estava preparant','va preparar','prepararia'],
+      correct:1, theory:'«Estar + gerundi» en imperfet expressa una acció en curs que es veu interrompuda (aspecte progressiu del passat).', example:'Estava escrivint l\'informe quan va arribar la notícia.' },
+    { id:'b2-per5', type:'fill', level:'b2', category:'Perífrasis verbals',
+      question:'Usa la perífrasi correcta per expressar la cessació d\'un hàbit:',
+      sentence:'Fa tres anys que ___ fumar gràcies al programa de deshabituació.',
+      display:'perífrasi de cessament (+ infinitiu)',
+      answers:['va deixar de','ha deixat de','deixar de'],
+      theory:'«Deixar de + infinitiu» expressa la interrupció d\'un hàbit. Diferent de «parar de» (interrupció temporal).', example:'Ha deixat de menjar carn des de fa uns mesos.' },
+    { id:'b2-per6', type:'choice', level:'b2', category:'Perífrasis verbals',
+      question:'Quina perífrasi expressa que alguna cosa passarà immediatament?',
+      text:'Espera, ___ sortir. No marxis encara.',
+      options:['acabo de','vaig a','solia','haig de'],
+      correct:1, theory:'«Anar a + infinitiu» expressa un futur immediat o una acció a punt de produir-se.', example:'Vés preparant-te, que anem a sortir.' },
   ],
 
   c1: [
-    { id:'c1-1', type:'choice', level:'c1', category:'Subjuntiu avançat',
+    // SUBJUNTIU AVANÇAT
+    { id:'c1-sa1', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma correcta per a una condició hipotètica irreal en el present:',
       text:'Si jo ___ president, canviaria moltes coses urgentment.',
       options:['sóc','fos','sigui','havia estat'],
-      correct:1,
-      theory:'Condicionals hipotètiques irrels (present): si + imperfet de subjuntiu + condicional simple. Per a situacions impossibles o molt improbables.',
-      example:'Si tingués més temps, aprendria japonès.' },
+      correct:1, theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
+    { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
+      question:'Tria la forma correcta per a una condicional irreal en el passat:',
+      text:'Si ___ estudiat més, hauria aprovat l\'examen sense problemes.',
+      options:['havia','hagués','hauria','hagi'],
+      correct:1, theory:'Condicionals irreals en el passat: si + plusquamperfet de subjuntiu (hagués + participi) + condicional compost.', example:'Si hagués vingut a temps, hauria pogut saludar-te.' },
+    { id:'c1-sa3', type:'fill', level:'c1', category:'Subjuntiu avançat',
+      question:'Completa la frase temporal de futur amb la forma verbal correcta:',
+      sentence:'Enviarem la proposta definitiva quan ___ totes les esmenes incorporades.',
+      display:'tenir (1a pers. pl. present subj.)', answers:['tinguem'],
+      theory:'Les oracions temporals de futur porten sempre present de subjuntiu: «quan + subj.».', example:'Ho faré quan tingui temps. / Sortirem quan acabi la reunió.' },
+    { id:'c1-sa4', type:'choice', level:'c1', category:'Subjuntiu avançat',
+      question:'Quina frase usa el subjuntiu correctament en una oració relativa?',
+      options:['Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'],
+      correct:1, theory:'Quan l\'antecedent del relatiu és indefinit (no se sap si existeix), el verb de la subordinada va en subjuntiu.', example:'Busco algú que parli japonès. (subj.) / Conec algú que parla japonès. (ind.)' },
+    { id:'c1-sa5', type:'fill', level:'c1', category:'Subjuntiu avançat',
+      question:'Completa amb la forma de subjuntiu correcta per a un desig hipotètic:',
+      sentence:'Tant de bo ___ possible que tothom visqués en pau!',
+      display:'ser (imperfet subj. 3a pers. sing.)', answers:['fos','sigui'],
+      theory:'«Tant de bo» amb imperfet de subjuntiu: desig difícil o impossible. Amb present: desig possible.', example:'Tant de bo pugui venir! (possible) / Tant de bo pogués volar! (impossible)' },
+    { id:'c1-sa6', type:'choice', level:'c1', category:'Subjuntiu avançat',
+      question:'Quina és la forma correcta amb «per bé que» en registre formal?',
+      text:'___ els resultats siguin positius, cal continuar vigilant l\'evolució.',
+      options:['Malgrat que','Per bé que','Ja que','Per tant'],
+      correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
-    { id:'c1-2', type:'fill', level:'c1', category:'Connectors concessius',
-      question:'Omple amb el connector concessiu més adequat davant un sintagma nominal:',
-      sentence:'___ les dificultats tècniques, l\'equip va assolir tots els objectius.',
-      display:'connector concessiu + sintagma nominal',
+    // CONNECTORS CONCESSIUS
+    { id:'c1-cc1', type:'fill', level:'c1', category:'Connectors concessius',
+      question:'Omple amb el connector concessiu adequat davant un sintagma nominal:',
+      sentence:'___ les dificultats tècniques considerables, l\'equip va assolir tots els objectius.',
+      display:'connector concessiu + sintagma nominal (sense verb conjugat)',
       answers:['malgrat','tot i','malgrat les','tot i les'],
-      theory:'«Malgrat» i «tot i» van seguits de nom, pronom o infinitiu (sense «que»). «Malgrat que» i «tot i que» van seguits de verb conjugat.',
-      example:'Malgrat la pluja, vam sortir. / Tot i ploure, vam sortir.' },
+      theory:'«Malgrat» i «tot i» van seguits de nom, pronom o infinitiu. «Malgrat que» i «tot i que» van seguits de verb conjugat.', example:'Malgrat la pluja, vam sortir. / Tot i ploure, vam sortir.' },
+    { id:'c1-cc2', type:'choice', level:'c1', category:'Connectors concessius',
+      question:'Quin connector concessiu va obligatòriament amb subjuntiu?',
+      options:['si bé','per bé que','tot i que','malgrat que'],
+      correct:1, theory:'«Per bé que» és el connector concessiu formal que exigeix sempre subjuntiu. «Si bé» porta indicatiu.', example:'Per bé que els resultats siguin positius, cal prudència.' },
+    { id:'c1-cc3', type:'fill', level:'c1', category:'Connectors concessius',
+      question:'Omple amb el connector concessiu més formal per a registre acadèmic + indicatiu:',
+      sentence:'___ les mesures adoptades han estat insuficients, representen un primer pas en la bona direcció.',
+      display:'connector concessiu formal + indicatiu',
+      answers:['si bé','tot i que','malgrat que','encara que'],
+      theory:'«Si bé» és el connector concessiu més marcat com a formal i acadèmic. Va amb indicatiu.', example:'Si bé els resultats milloren, la situació continua sent preocupant.' },
+    { id:'c1-cc4', type:'reorder', level:'c1', category:'Connectors concessius',
+      question:'Ordena per formar una frase concessiva ben construïda:',
+      parts:['el projecte va ser un èxit notable','malgrat les nombroses dificultats inicials','i va superar totes les expectatives del comitè'],
+      correct:[1,0,2], theory:'Estructura: connector concessiu + obstacle → acció principal + resultat positiu malgrat tot.', example:'Malgrat les dificultats → el projecte va ser un èxit → i va superar les expectatives.' },
+    { id:'c1-cc5', type:'reading', level:'c1', category:'Connectors concessius',
+      text:'Tot i que el cost inicial de les energies renovables era elevat, la seva implantació s\'ha accelerat. Per bé que alguns sectors continuïn resistint-se a la transició, les dades indiquen que el punt de no retorn ja s\'ha superat. Malgrat tot, la velocitat del canvi continua sent insuficient.',
+      question:'Quina funció comparteixen «tot i que», «per bé que» i «malgrat tot» en el text?',
+      options:['Introduir causes de la situació','Expressar obstacles que no impedeixen el resultat principal','Donar ordre cronològic als esdeveniments'],
+      correct:1, theory:'Els tres connectors són concessius: introdueixen un obstacle que no impedeix la conclusió principal.', example:'Tot i que [obstacle]... [la situació continua].' },
+    { id:'c1-cc6', type:'choice', level:'c1', category:'Connectors concessius',
+      question:'En quina frase s\'usa incorrectament un connector concessiu?',
+      options:['Malgrat la crisi, l\'empresa va créixer.','Tot i ploure molt, van sortir a caminar.','Per bé que és un bon professional, treballarà amb nosaltres.'],
+      correct:2, theory:'«Per bé que» exigeix subjuntiu. «És» (indicatiu) és incorrecte. La forma correcta: «per bé que sigui un bon professional».', example:'Per bé que sigui difícil, cal intentar-ho.' },
 
-    { id:'c1-3', type:'transform', level:'c1', category:'Lèxic formal',
+    // LÈXIC FORMAL C1
+    { id:'c1-lf1', type:'transform', level:'c1', category:'Lèxic formal',
       question:'Reformula en registre formal i precís:',
       original:'«Ell va fer moltes coses importants per al país»',
       hints:['fer → dur a terme / impulsar / executar','coses → iniciatives / reformes / mesures','importants → rellevants / significatives / d\'abast nacional'],
       sample:'Va dur a terme nombroses iniciatives rellevants per al conjunt del país.',
-      theory:'Al C1 cal substituir verbs genèrics i noms buits per alternatives precises. Cada substitució aporta precisió semàntica i eleva el registre.',
-      example:'Va impulsar reformes estructurals de llarg abast.' },
+      theory:'Al C1 cal substituir verbs genèrics i noms buits per alternatives precises.', example:'Va impulsar reformes estructurals de llarg abast nacional.' },
+    { id:'c1-lf2', type:'transform', level:'c1', category:'Lèxic formal',
+      question:'Transforma al registre acadèmic formal:',
+      original:'«La gent diu que el canvi climàtic és un problema molt gran»',
+      hints:['la gent → diverses evidències científiques / estudis recents','dir → indicar / demostrar / constatar','molt gran → d\'una magnitud considerable / d\'escala global'],
+      sample:'Diverses evidències científiques constaten que el canvi climàtic constitueix una problemàtica d\'escala global.',
+      theory:'En registre acadèmic: elimina «la gent»; usa fonts específiques i verbs epistèmics.', example:'Els estudis disponibles indiquen que la situació és d\'una gravetat considerable.' },
+    { id:'c1-lf3', type:'fill', level:'c1', category:'Lèxic formal',
+      question:'Omple amb la nominalització correcta del verb indicat:',
+      sentence:'La ___ de les dades ha posat de manifest irregularitats significatives en la gestió.',
+      display:'nominalització d\'«analitzar»', answers:['anàlisi','tasca d\'anàlisi'],
+      theory:'La nominalització (verb → nom) és una marca de registre acadèmic: analitzar → anàlisi.', example:'L\'anàlisi de les dades ha evidenciat... / La implementació del projecte...' },
+    { id:'c1-lf4', type:'choice', level:'c1', category:'Lèxic formal',
+      question:'Quina paraula encaixa millor en el context acadèmic?',
+      text:'L\'estudi ___ l\'existència d\'una correlació directa entre les dues variables.',
+      options:['diu','constata','explica','comenta'],
+      correct:1, theory:'«Constatar» és un verb epistèmic que expressa que quelcom ha quedat verificat empíricament. Molt freqüent en textos científics.', example:'L\'estudi constata / evidencia / posa de manifest / demostra...' },
+    { id:'c1-lf5', type:'writing', level:'c1', category:'Lèxic formal',
+      question:'Reescriu en registre acadèmic formal, usant nominalitzacions i verbs precisos: «La gent participa més en les decisions».',
+      keywords:['nominalitzar els verbs','eliminar «la gent»','usar passiva reflexa si cal'],
+      sample:'S\'ha observat un increment significatiu de la participació ciutadana en els processos de presa de decisions.',
+      theory:'Nominalització + passiva reflexa + lèxic precís = tríada del registre acadèmic al C1.', example:'«La gent participa més» → «S\'observa un increment de la participació ciutadana».' },
+    { id:'c1-lf6', type:'transform', level:'c1', category:'Lèxic formal',
+      question:'Reformula per a un informe institucional:',
+      original:'«El govern ha de fer alguna cosa per resoldre aquest problema tan important»',
+      hints:['ha de fer → ha d\'adoptar / cal que implementi / s\'imposa','alguna cosa → mesures concretes / una estratègia integral','tan important → d\'envergadura / de primer ordre / estructural'],
+      sample:'S\'imposa que les administracions competents implementin mesures concretes per resoldre una problemàtica d\'envergadura estructural.',
+      theory:'En informes institucionals: subjecte impersonal, verb d\'obligació formal, complement precís.', example:'Cal que les institucions adoptin una estratègia integral per fer front a un repte de primer ordre.' },
 
-    { id:'c1-4', type:'reorder', level:'c1', category:'Argumentació',
+    // ARGUMENTACIÓ
+    { id:'c1-arg1', type:'reorder', level:'c1', category:'Argumentació',
       question:'Ordena per construir un argument acadèmic ben estructurat:',
       parts:['Tot i això, alguns experts qüestionen l\'eficàcia real d\'aquestes polítiques.','Les mesures de reducció d\'emissions han demostrat resultats positius en diverses metròpolis.','Per consegüent, cal un enfocament holístic que combini diverses estratègies complementàries.','Concretament, argumenten que sense canvis en el model de consum, l\'impacte és limitat.'],
-      correct:[1,0,3,2],
-      theory:'Estructura argumentativa: tesi → contraargument → matís del contraargument → conclusió integradora.',
-      example:'Afirmació → Objecció («tot i això») → Matís → Conclusió («per consegüent»)' },
+      correct:[1,0,3,2], theory:'Estructura: tesi → contraargument → matís → conclusió integradora.', example:'Afirmació → Objecció («tot i això») → Matís → Conclusió («per consegüent»).' },
+    { id:'c1-arg2', type:'writing', level:'c1', category:'Argumentació',
+      question:'Escriu un paràgraf argumentatiu de 4 frases sobre el treball en remot: tesi, argument, contraargument i conclusió matisada.',
+      keywords:['tesi clara','connector de causa: en efecte / ja que','contraargument: tot i això / ara bé','conclusió: en definitiva / per consegüent'],
+      sample:'El treball en remot ha demostrat ser una modalitat eficient que millora la conciliació. En efecte, estudis recents evidencien increments de productivitat. Tot i això, no tots els perfils se\'n beneficien per igual. En definitiva, cal un model híbrid que combini les avantatges de les dues modalitats.',
+      theory:'Estructura C1: tesi → fonamentació → contraargument → conclusió matisada. La conclusió ha de ser una síntesi, no una repetició.', example:'Tesi → En efecte... → Tot i això... → En definitiva...' },
+    { id:'c1-arg3', type:'reading', level:'c1', category:'Argumentació',
+      text:'Alguns defensors de la intel·ligència artificial sostenen que aquesta tecnologia resoldrà els grans problemes de la humanitat. Ara bé, cal matisar que les eines tecnològiques no actuen de manera autònoma: la seva eficàcia depèn de les decisions humanes. Per consegüent, el debat no hauria de centrar-se en la tecnologia, sinó en la responsabilitat dels seus creadors.',
+      question:'Quina estratègia argumentativa usa l\'autor?',
+      options:['Presenta una sola posició sense matissos','Presenta una afirmació, la matisa i redirigeix el debat cap a una conclusió diferent','Refuta completament la posició dels defensors de la IA'],
+      correct:1, theory:'L\'autor usa l\'estratègia de «sí, però»: reconeix la posició contrària, la matisa i redirigeix la conclusió.', example:'Reconèixer → Matisar («Ara bé») → Concloure diferent («Per consegüent»).' },
+    { id:'c1-arg4', type:'choice', level:'c1', category:'Argumentació',
+      question:'Quina expressió serveix per introduir una tesi en un text acadèmic?',
+      options:['Crec que és important dir que...','Es fa palès que les mesures adoptades han estat insuficients.','Bueno, bàsicament el que vull dir és que...'],
+      correct:1, theory:'En registre acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives: «Es fa palès que», «Cal tenir present que», «Les evidències indiquen que».', example:'Es fa palès que les polítiques actuals no han assolit els objectius previstos.' },
+    { id:'c1-arg5', type:'fill', level:'c1', category:'Argumentació',
+      question:'Omple amb el connector argumentatiu que introdueix un matís a la posició anterior:',
+      sentence:'Els resultats han estat satisfactoris. ___, cal no perdre de vista les limitacions metodològiques.',
+      display:'connector de matís (no «però»)',
+      answers:['ara bé','dit això','cal matisar que','no obstant això','tanmateix'],
+      theory:'«Ara bé» i «dit això» introdueixen un matís que relativitza sense contradir frontalment. Característics del registre formal C1.', example:'La mesura ha estat eficaç. Ara bé, cal avaluar els seus efectes a llarg termini.' },
 
-    { id:'c1-5', type:'reading', level:'c1', category:'Comprensió crítica',
-      text:'La globalització ha provocat una paradoxa singular: mentre s\'accelera la homogeneïtzació cultural, assistim paral·lelament a un renaixement de les identitats locals. Aquesta tensió dialèctica no és una anomalia, sinó el reflex d\'una necessitat humana fonamental: la cerca d\'arrels davant la desorientació del canvi vertiginós.',
+    // COMPRENSIÓ CRÍTICA
+    { id:'c1-crit1', type:'reading', level:'c1', category:'Comprensió crítica',
+      text:'La globalització ha provocat una paradoxa singular: mentre s\'accelera la homogeneïtzació cultural, assistim a un renaixement de les identitats locals. Aquesta tensió dialèctica no és una anomalia, sinó el reflex d\'una necessitat humana fonamental: la cerca d\'arrels davant la desorientació del canvi vertiginós.',
       question:'Quina és la tesi implícita de l\'autor?',
-      options:['La globalització és intrínsecament negativa per a les cultures locals','La revitalització de les identitats locals és una resposta natural i esperada a la globalització','La homogeneïtzació cultural és inevitable i, en definitiva, positiva'],
-      correct:1,
-      theory:'La comprensió C1 exigeix interpretar tesis implícites i el to argumentatiu. Analitza les paraules valoratives i les negacions significatives.',
-      example:'«No és una anomalia» i «necessitat fonamental» → l\'autor legitima i explica el fenomen.' },
+      options:['La globalització és intrínsecament negativa per a les cultures locals','La revitalització de les identitats locals és una resposta natural i esperada','La homogeneïtzació cultural és inevitable i positiva'],
+      correct:1, theory:'«No és una anomalia» i «necessitat fonamental» → l\'autor legitima i naturalitza el fenomen.', example:'Identifica les paraules valoratives de l\'autor i la seva posició real.' },
+    { id:'c1-crit2', type:'reading', level:'c1', category:'Comprensió crítica',
+      text:'La crisi de la biodiversitat sovint queda eclipsada pel debat sobre el canvi climàtic, com si tots dos fenòmens fossin compartiments estancs. En realitat, constitueixen dues cares d\'una mateixa crisi sistèmica. Separar-los no és tan sols una simplificació: és un error estratègic que permet tractar els símptomes ignorant la malaltia de fons.',
+      question:'Quina posició defensa implícitament l\'autor?',
+      options:['La crisi de biodiversitat és menys important que el canvi climàtic','Cal abordar biodiversitat i canvi climàtic com a fenòmens interconnectats, no separats','El debat sobre el canvi climàtic és innecessari'],
+      correct:1, theory:'«Dues cares d\'una mateixa crisi» i «tractar els símptomes» argumenten la necessitat d\'un enfocament integrat.', example:'«Dues cares d\'una mateixa crisi» = interconnectats. «Tractar els símptomes» = abordar-los per separat és insuficient.' },
+    { id:'c1-crit3', type:'choice', level:'c1', category:'Comprensió crítica',
+      question:'Quin recurs argumentatiu usa l\'autor en: «Separar-los no és tan sols una simplificació: és un error estratègic»?',
+      options:['Una contradicció interna entre les dues afirmacions','Una gradació ascendent: l\'error va més enllà d\'una mera simplificació','Una concessió que reconeix la validesa de la posició contrària'],
+      correct:1, theory:'L\'estructura «no és tan sols X: és Y» on Y > X expressa una gradació ascendent que reforça la gravetat.', example:'«No és tan sols un error: és una irresponsabilitat.» → Y és pitjor que X.' },
+    { id:'c1-crit4', type:'reading', level:'c1', category:'Comprensió crítica',
+      text:'L\'anomenada «fatiga de compassió» afecta les professions d\'ajuda. Paradoxalment, les persones més empàtiques en són les primeres víctimes. Alguns experts proposen establir límits emocionals estrictes; d\'altres, en canvi, consideren que la solució no passa per la distància afectiva, sinó per una gestió emocional activa.',
+      question:'Quina és la tensió central que planteja el text?',
+      options:['Si la fatiga de compassió existeix realment','El debat entre distanciar-se emocionalment vs. gestionar activament les emocions','Si els professionals empàtics haurien de canviar de professió'],
+      correct:1, theory:'«Alguns experts... d\'altres, en canvi» presenta dues solucions enfrontades. La tensió és entre les dues propostes.', example:'«Alguns... d\'altres, en canvi» → dos bàndols en tensió.' },
+    { id:'c1-crit5', type:'choice', level:'c1', category:'Comprensió crítica',
+      question:'Quin to predomina en: «Podria semblar que les dades parlen per si soles. Res més lluny de la realitat»?',
+      options:['Optimista i confirmatiu','Crític i correctiu: refuta una visió ingènua sobre les dades','Dubitatiu: no sap si les dades són fiables'],
+      correct:1, theory:'«Res més lluny de la realitat» és una expressió correctiva molt forta. L\'autor primer presenta una posició i tot seguit la derriba completament.', example:'«Podria semblar X / Res més lluny» → refutació directa d\'una creença prèvia.' },
 
-    { id:'c1-6', type:'writing', level:'c1', category:'Producció formal',
-      question:'Redacta la introducció d\'un informe sobre l\'ús del català a les universitats. Ha d\'incloure: context, problema identificat i objectiu de l\'informe.',
-      keywords:['context institucional','problema','objectiu','registre acadèmic'],
-      sample:'La present anàlisi té per objecte examinar la situació del català en l\'àmbit universitari. Malgrat els avenços legislatius dels darrers anys, persisteixen desequilibris significatius en l\'ús de la llengua com a vehicle d\'ensenyament. L\'estudi pretén identificar els factors que condicionen aquesta situació i formular propostes per revertir-la.',
-      theory:'Una introducció formal inclou: marc contextual + identificació del problema + objectiu. Evita la 1a persona singular; usa impersonals i passives reflexes.',
-      example:'«La present anàlisi té per objecte...» / «El present informe examina...»' },
+    // PRODUCCIÓ FORMAL
+    { id:'c1-pro1', type:'writing', level:'c1', category:'Producció formal',
+      question:'Redacta la introducció d\'un informe sobre l\'ús del català a les universitats. Ha d\'incloure: context, problema i objectiu.',
+      keywords:['context institucional','problema identificat','objectiu de l\'informe','registre acadèmic impersonal'],
+      sample:'La present anàlisi té per objecte examinar la situació del català en l\'àmbit universitari. Malgrat els avenços legislatius, persisteixen desequilibris significatius en l\'ús de la llengua com a vehicle d\'ensenyament. L\'estudi pretén identificar els factors que condicionen aquesta situació i formular propostes per revertir-la.',
+      theory:'Una introducció formal: marc contextual + problema + objectiu. Evita la 1a persona singular.', example:'«La present anàlisi té per objecte...» / «El present informe examina...»' },
+    { id:'c1-pro2', type:'writing', level:'c1', category:'Producció formal',
+      question:'Redacta la conclusió d\'un informe sobre el mercat laboral juvenil. Ha d\'incloure: síntesi, valoració i recomanació.',
+      keywords:['síntesi: en definitiva / tot plegat','valoració objectiva','recomanació: es recomana / cal que'],
+      sample:'En definitiva, les dades analitzades posen de manifest desequilibris estructurals que no es poden atribuir exclusivament a factors conjunturals. La precarietat i la sobrequalificació constitueixen els reptes més urgents. Es recomana, per consegüent, l\'adopció de mesures que combinin formació, incentius a la contractació i polítiques actives d\'ocupació.',
+      theory:'Una conclusió formal: síntesi sense noves idees + valoració objectiva + recomanació accionable. Evita la 1a persona.', example:'En definitiva... / Les evidències indiquen... / Es recomana, per consegüent...' },
+    { id:'c1-pro3', type:'choice', level:'c1', category:'Producció formal',
+      question:'Quina expressió és la més adequada per referir-se a dades en un text acadèmic?',
+      options:['Com és obvi per a tothom...','D\'acord amb les evidències disponibles, cal concloure que...','Jo crec que les dades demostren que...'],
+      correct:1, theory:'Les dades s\'introdueixen amb expressions epistèmiques objectives: «D\'acord amb», «Segons», «Les evidències indiquen», «Les dades posen de manifest».', example:'D\'acord amb les evidències disponibles, es constata una millora significativa dels indicadors.' },
+    { id:'c1-pro4', type:'writing', level:'c1', category:'Producció formal',
+      question:'Transforma al registre acadèmic: «El problema és que la gent no fa cas de les normes i les coses van malament».',
+      keywords:['la gent → la ciutadania / els agents','fer cas → complir / acatar','van malament → es deterioren / presenten disfuncions'],
+      sample:'La manca de compliment de la normativa per part de la ciutadania genera disfuncions que comprometen l\'eficàcia del sistema.',
+      theory:'Eliminar «la gent», «fer cas», «anar malament»; incorporar nominalitzacions i vocabulari tècnic.', example:'La manca de compliment... genera disfuncions... compromet l\'eficàcia...' },
+    { id:'c1-pro5', type:'fill', level:'c1', category:'Producció formal',
+      question:'Omple amb l\'expressió impersonal formal adequada:',
+      sentence:'___ que les polítiques actuals no han assolit els resultats esperats en matèria d\'habitatge.',
+      display:'expressió impersonal epistèmica',
+      answers:['es fa palès','és evident','cal constatar','s\'observa','es constata'],
+      theory:'En registre acadèmic, s\'evita la 1a persona. Expressions impersonals: «es fa palès», «es constata», «s\'observa», «es posa de manifest».', example:'Es fa palès que la situació requereix una intervenció urgent.' },
 
-    { id:'c1-7', type:'choice', level:'c1', category:'Oracions de relatiu',
+    // ORACIONS DE RELATIU
+    { id:'c1-rel1', type:'choice', level:'c1', category:'Oracions de relatiu',
       question:'Tria la construcció de relatiu correcta en registre culte:',
-      text:'La proposta ___ es va presentar ahir no compleix els requisits.',
+      text:'La proposta ___ es va presentar ahir no compleix els requisits legals.',
       options:['que la qual','la qual','en la qual que','qui'],
-      correct:1,
-      theory:'En registre formal, «el qual / la qual» substitueix «que» quan va precedit de preposició o per evitar ambigüitat. «Qui» s\'usa per a persones com a subjecte.',
-      example:'El document al qual fas referència no és vàlid.' },
+      correct:1, theory:'En registre formal, «el qual / la qual» substitueix «que» quan pot crear ambigüitat o en prosa elaborada.', example:'El document al qual fas referència no és vàlid.' },
+    { id:'c1-rel2', type:'fill', level:'c1', category:'Oracions de relatiu',
+      question:'Completa amb el pronom relatiu formal correcte (amb preposició «en»):',
+      sentence:'El projecte ___ hem treballat durant mesos ha estat finalment aprovat.',
+      display:'en/al + qual', answers:['en el qual','al qual'],
+      theory:'Quan el relatiu va precedit de preposició, cal usar «el qual / la qual» en registre formal, no simplement «que».', example:'El comitè al qual pertanyo... / La reunió en la qual es va decidir...' },
+    { id:'c1-rel3', type:'choice', level:'c1', category:'Oracions de relatiu',
+      question:'Quina frase usa correctament les oracions de relatiu?',
+      options:['Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants que havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'],
+      correct:1, theory:'«Qui» s\'usa per a persones en funció de subjecte, preferentment en relativa sense antecedent. En relativa especificativa amb antecedent, s\'usa «que».', example:'Els qui vulguin participar que s\'apuntin. / Els estudiants que han aprovat...' },
+    { id:'c1-rel4', type:'fill', level:'c1', category:'Oracions de relatiu',
+      question:'Converteix la frase en relativa explicativa afegint comes:',
+      sentence:'Escriu la versió correcta de: El director que va signar el document és el responsable.',
+      display:'insereix comes per fer-la explicativa',
+      answers:['El director, que va signar el document, és el responsable.'],
+      theory:'Relativa especificativa (sense comes): identifica quin director. Relativa explicativa (amb comes): afegeix info sobre un director ja identificat.', example:'El professor, que sap japonès, és el millor. (explicativa)' },
+    { id:'c1-rel5', type:'choice', level:'c1', category:'Oracions de relatiu',
+      question:'Quina construcció de relatiu és la més formal i precisa per a un subjecte?',
+      text:'La comissió ___ va elaborar l\'informe presentarà les seves conclusions dimecres.',
+      options:['que','la qual','qui','on'],
+      correct:1, theory:'En registre formal, «la qual» s\'usa per a subjectes de relativa quan l\'antecedent és un nom, especialment en prosa elaborada.', example:'La comissió la qual va elaborar l\'informe... (formal).' },
 
-    { id:'c1-8', type:'fill', level:'c1', category:'Subjuntiu imperfet',
+    // SUBJUNTIU IMPERFET
+    { id:'c1-si1', type:'fill', level:'c1', category:'Subjuntiu imperfet',
       question:'Usa el subjuntiu imperfet per completar la frase:',
       sentence:'El director va demanar que tots els membres ___ puntuals a la reunió.',
-      display:'arribar (3a pers. pl. subj. imperfet)',
-      answers:['arribessin'],
-      theory:'Verb principal en passat → verb subordinat en imperfet de subjuntiu. 3a persona plural: -essin / -issin.',
-      example:'Va demanar que tots portessin la documentació. / Era necessari que vinguessin aviat.' },
+      display:'arribar (3a pers. pl. subj. imperfet)', answers:['arribessin'],
+      theory:'Verb principal en passat → verb subordinat en imperfet de subjuntiu. 3a persona plural: -essin.', example:'Va demanar que tots portessin la documentació.' },
+    { id:'c1-si2', type:'choice', level:'c1', category:'Subjuntiu imperfet',
+      question:'Quina frase usa correctament la concordança temporal?',
+      options:['Voldria que vingui aviat.','Voldria que vingués aviat.','Volia que vindrà aviat.'],
+      correct:1, theory:'Condicional (voldria) → subjuntiu imperfet (vingués). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
+    { id:'c1-si3', type:'fill', level:'c1', category:'Subjuntiu imperfet',
+      question:'Completa en estil indirecte al passat:',
+      sentence:'Va dir: «Vull que tots facin l\'exercici». → Va dir que volia que tots ___ l\'exercici.',
+      display:'fer (3a pers. pl. subj. imperfet)', answers:['fessin'],
+      theory:'Estil indirecte al passat: el present de subj. «facin» es transforma en imperfet «fessin» quan el verb introductori és en passat.', example:'Va dir que volia que fessin silenci.' },
+    { id:'c1-si4', type:'choice', level:'c1', category:'Subjuntiu imperfet',
+      question:'Quina forma verbal d\'imperfet de subjuntiu és incorrecta?',
+      options:['fos (ser)','tingués (tenir)','pugués (poder)'],
+      correct:2, theory:'La forma correcta de «poder» en imperfet de subjuntiu és «pogués». «Pugués» és una confusió amb el present de subj. «pugui».', example:'Si pogués venir, ho faria. (subj. imperfet)' },
+    { id:'c1-si5', type:'fill', level:'c1', category:'Subjuntiu imperfet',
+      question:'Usa «tant de bo» + imperfet de subjuntiu per a un desig difícil:',
+      sentence:'Tant de bo ___ més temps per dedicar-me als projectes que m\'agraden!',
+      display:'tenir (1a pers. sg. imperfet subj.)', answers:['tingués'],
+      theory:'«Tant de bo» + imperfet de subjuntiu: desig poc probable o impossible en el present.', example:'Tant de bo tingués temps! (poc probable)' },
+    { id:'c1-si6', type:'choice', level:'c1', category:'Subjuntiu imperfet',
+      question:'Quina opció completa correctament la condicional irreal en el passat?',
+      text:'Si hagués sabut la veritat, ___ d\'una altra manera.',
+      options:['actuaria','hauria actuat','hagués actuat'],
+      correct:1, theory:'Condicional irreal en el passat: si + plusquamperfet de subj. + condicional compost (hauria + participi).', example:'Si hagués estudiat més, hauria aprovat.' },
+
+    // PRONOMS FEBLES
+    { id:'c1-pf1', type:'choice', level:'c1', category:'Pronoms febles',
+      question:'Quin pronom feble substitueix correctament «de política» en la resposta?',
+      text:'«Parleu de política?» «Sí, ___ parleu sovint.»',
+      options:['la','hi','en','ho'],
+      correct:2, theory:'El pronom «en» substitueix complements introduïts per «de» (temes, matèries). «Parlar de X» → «en parlar».', example:'«Parles de la reunió?» «Sí, en parlo.»' },
+    { id:'c1-pf2', type:'fill', level:'c1', category:'Pronoms febles',
+      question:'Substitueix el sintagma subratllat pel pronom feble adequat:',
+      sentence:'Vaig al mercat demà. → ___ vaig demà.',
+      display:'pronom de lloc de destinació', answers:['hi'],
+      theory:'«Hi» substitueix complements de lloc on es va o on s\'és (complement introduït per «a» o «en»).', example:'«Vas a la reunió?» «Sí, hi vaig.»' },
+    { id:'c1-pf3', type:'choice', level:'c1', category:'Pronoms febles',
+      question:'Quina combinació de pronoms febles és correcta per a «Li explico el problema»?',
+      options:['Lo li explico.','Li ho explico.','El li explico.'],
+      correct:1, theory:'Quan el CD és una frase o concepte abstracte, s\'usa «ho» (neutre). Ordre: CI (li) + CD (ho) → li ho.', example:'«Li explico el que ha passat.» → «Li ho explico.»' },
+    { id:'c1-pf4', type:'fill', level:'c1', category:'Pronoms febles',
+      question:'Omple amb el pronom feble partitiu correcte:',
+      sentence:'Vols formatge? Sí, ___ vull una mica, si us plau.',
+      display:'pronom partitiu (quantitat indeterminada)', answers:['en'],
+      theory:'«En» s\'usa com a pronom partitiu quan el CD no porta article determinat o porta un quantificador.', example:'«Tens germanes?» «Sí, en tinc dues.»' },
+    { id:'c1-pf5', type:'choice', level:'c1', category:'Pronoms febles',
+      question:'Quina frase conté un ús incorrecte d\'un pronom feble?',
+      options:['Hi ha molts participants a la sala.','Hi han molts participants a la sala.','A la sala hi ha molts participants.'],
+      correct:1, theory:'«Hi ha» és invariable en nombre: mai «hi han». El verb «haver-hi» d\'existència no concorda amb el sintagma que el segueix.', example:'✓ Hi ha moltes persones. ✗ Hi han moltes persones.' },
+    { id:'c1-pf6', type:'fill', level:'c1', category:'Pronoms febles',
+      question:'Pronominalitza CD i CI: «Dóna el llibre a la Maria» → «Dóna-___»:',
+      sentence:'Escriu la combinació completa de pronoms amb guionet darrere el verb.',
+      display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dóna-li\'l'],
+      theory:'Ordre en imperatius: verb + CI + CD. «li» + «el» → «li\'l» (contracció). S\'uneix amb guionet al verb.', example:'Dóna-li\'l. / Porta-me\'l.' },
+
+    // FRASES FETES
+    { id:'c1-ff1', type:'choice', level:'c1', category:'Frases fetes',
+      question:'Quina és la frase feta catalana equivalent a «estar muy ocupado»?',
+      options:['Estar a les vores','Anar de bòlit','Tenir moltes mans'],
+      correct:1, theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
+    { id:'c1-ff2', type:'fill', level:'c1', category:'Frases fetes',
+      question:'Omple la frase feta: «No és moment de ___ la tovallola; cal continuar lluitant».',
+      display:'verb de la locució (abandonar la lluita)', answers:['tirar','llançar'],
+      theory:'«Tirar la tovallola» significa rendir-se. Prové del món de la boxa, on es llança la tovallola per reconèixer la derrota.', example:'Malgrat les dificultats, no hem de tirar la tovallola ara.' },
+    { id:'c1-ff3', type:'choice', level:'c1', category:'Frases fetes',
+      question:'Quina col·locació lèxica és correcta en català?',
+      options:['agafar una decisió','prendre una decisió','fer una decisió'],
+      correct:1, theory:'«Prendre una decisió» és la col·locació correcta en català. «Agafar» seria un calc incorrecte en aquest context.', example:'El consell va prendre la decisió d\'ajornar la reunió.' },
+    { id:'c1-ff4', type:'choice', level:'c1', category:'Frases fetes',
+      question:'Quina és la frase feta catalana per a «estar entre la espada y la pared»?',
+      options:['Estar entre martell i enclusa','Estar en la corda fluixa','Anar a poc a poc'],
+      correct:0, theory:'«Estar entre el martell i l\'enclusa» expressa una situació difícil sense bona sortida. Ambdues variants s\'usen en català.', example:'Es trobava entre el martell i l\'enclusa: tant si acceptava com si refusava, sortia perdent.' },
+    { id:'c1-ff5', type:'writing', level:'c1', category:'Frases fetes',
+      question:'Reformula les frases fetes col·loquials en registre formal per a un text professional.',
+      keywords:['«anar de bòlit» → registre formal','«fer els ulls grossos» → registre formal','«perdre el fil» → registre formal'],
+      sample:'"Anar de bòlit" → "trobar-se en una situació de càrrega de treball excepcional" / "Fer els ulls grossos" → "ignorar deliberadament les irregularitats" / "Perdre el fil" → "perdre el seguiment del raonament".',
+      theory:'Les frases fetes pertanyen sovint al registre col·loquial. En textos formals cal substituir-les per expressions neutres o tècniques.', example:'Col·loquial: «anar de bòlit» → Formal: «tenir una càrrega de treball excepcional».' },
+    { id:'c1-ff6', type:'choice', level:'c1', category:'Frases fetes',
+      question:'Quina frase feta s\'usa per expressar que algú viu còmodament sense fer-hi gaire res?',
+      options:['Fer la viu-viu','Estar a l\'aguait','Tirar la tovallola'],
+      correct:0, theory:'«Fer la viu-viu» significa viure sense gaire esforç, aprofitant-se de la situació.', example:'Mentre els companys treballaven, ell feia la viu-viu sense aportar res al grup.' },
+
+    // DERIVACIÓ I FLEXIÓ
+    { id:'c1-df1', type:'fill', level:'c1', category:'Derivació i flexió',
+      question:'Forma la nominalització (substantiu) del verb indicat:',
+      sentence:'La ___ de les mesures ha requerit la col·laboració de totes les parts implicades.',
+      display:'nominalització d\'«implementar»', answers:['implementació'],
+      theory:'El sufix «-ció / -ió» forma noms d\'acció: implementar → implementació; aplicar → aplicació.', example:'avaluar → avaluació; decidir → decisió; organitzar → organització.' },
+    { id:'c1-df2', type:'choice', level:'c1', category:'Derivació i flexió',
+      question:'Quina paraula derivada amb el prefix «des-» és correcta?',
+      options:['desconèixer (ignorar completament)','desconexar (mala formació)','desconexió (forma castellana)'],
+      correct:0, theory:'El prefix «des-» expressa negació o reversió: «desconèixer» (no conèixer), «desfer» (revertir «fer»). Cal usar les arrels catalanes.', example:'desfer / desconèixer / desaparèixer / desmuntar / desacord.' },
+    { id:'c1-df3', type:'fill', level:'c1', category:'Derivació i flexió',
+      question:'Forma el plural correcte del mot indicat:',
+      sentence:'Els ___ dels partits es reuniran dimecres per negociar l\'acord.',
+      display:'plural de «règim»', answers:['règims'],
+      theory:'Els mots plans acabats en consonant formen el plural afegint «-s»: «règim» → «règims». No «règimes».', example:'règim → règims; caràcter → caràcters; síntesi → síntesis.' },
+    { id:'c1-df4', type:'choice', level:'c1', category:'Derivació i flexió',
+      question:'Quina forma verbal d\'imperfet de subjuntiu és correcta per a «poder»?',
+      options:['pugués','pogués','pudés'],
+      correct:1, theory:'L\'imperfet de subjuntiu de «poder» és «pogués». La forma «pugués» és una confusió amb el present de subj. «pugui».', example:'Si pogués venir, ho faria. (imperfet subj.)' },
+    { id:'c1-df5', type:'fill', level:'c1', category:'Derivació i flexió',
+      question:'Forma l\'adjectiu derivat amb el sufix «-ble» a partir del verb indicat:',
+      sentence:'L\'objectiu és ___, però requerirà un esforç considerable.',
+      display:'adjectiu derivat d\'«assolir» (que es pot assolir)', answers:['assolible'],
+      theory:'El sufix «-ble» forma adjectius de possibilitat passiva: assolir → assolible; sostenir → sostenible.', example:'resoldre → resoluble; comprendre → comprensible.' },
+    { id:'c1-df6', type:'writing', level:'c1', category:'Derivació i flexió',
+      question:'A partir dels verbs donats, forma les nominalitzacions i usa-les en una frase acadèmica per a cadascuna.',
+      keywords:['avaluar → avaluació','implementar → implementació','analitzar → anàlisi'],
+      sample:'L\'avaluació dels resultats ha permès identificar àrees de millora. La implementació de les mesures ha resultat satisfactòria. L\'anàlisi de les dades evidencia una tendència positiva.',
+      theory:'Les nominalitzacions permeten condensar informació i elevar el registre. Són la marca principal del discurs acadèmic.', example:'avaluar → «l\'avaluació ha demostrat...» / implementar → «la implementació del projecte...»' },
   ]
 };
-
 /* ═══════════════════════════════════════════════════════════
    ESTAT I UTILITATS
 ═══════════════════════════════════════════════════════════ */
@@ -1443,7 +1883,7 @@ function renderWriting(q) {
   return `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
     <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-      <button class="ct-btn primary" onclick="checkWriting()">Avaluar amb IA</button>
+      <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
       <button class="ct-btn secondary" onclick="showSample()">Veure exemple</button>
     </div>`;
 }
@@ -1453,7 +1893,7 @@ function renderTransform(q) {
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
     <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-      <button class="ct-btn primary" onclick="checkTransform()">Avaluar amb IA</button>
+      <button class="ct-btn primary" onclick="checkTransform()">Comprovar reformulació</button>
       <button class="ct-btn secondary" onclick="showTransformSample()">Veure model</button>
     </div>`;
 }
@@ -1475,7 +1915,7 @@ function checkFill() {
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Correcte! La forma és: <strong>${q.answers[0]}</strong></div>`
     : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
-  showTheory(q); markDone(ok, 10);
+  showTheory(q); markDone(d'acord, 10);
 }
 function onDragStart(i) { dragIdx = i; }
 function onDragOver(e, i) {
@@ -1504,49 +1944,98 @@ function checkReorder() {
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Ordre perfecte!</div>`
     : `<div class="ct-feedback ko">✗ L'ordre correcte és:<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;">${correctOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
-  showTheory(q); markDone(ok, 15);
+  showTheory(q); markDone(d'acord, 15);
 }
 
-async function callAI(sys, usr) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:350, system:sys, messages:[{role:'user',content:usr}] })
+// ── AVALUACIÓ LOCAL (sense API) ─────────────────────────────
+function localFeedbackWriting(q, text) {
+  const t = normalize(text);
+  const lines = [];
+
+  // 1. Longitud mínima
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length < 5) {
+    return '✏️ La resposta és massa curta. Intenta desenvolupar-la amb una frase completa.';
+  }
+
+  // 2. Comprova paraules clau esperades
+  const hits = q.keywords.filter(k => {
+    const kn = normalize(k.replace(/→.*/, '').replace(/[«»]/g,'').trim());
+    return t.includes(kn.split(' ')[0]);
   });
-  const d = await res.json();
-  return d.content?.[0]?.text || '';
+  const pct = Math.round(hits.length / q.keywords.length * 100);
+
+  if (pct >= 66) {
+    lines.push('✓ La resposta incorpora els elements clau demanats.');
+  } else if (pct >= 33) {
+    lines.push('~ Has inclòs alguns elements, però en falten altres.');
+  } else {
+    lines.push('✗ La resposta no sembla incloure els elements clau demanats.');
+  }
+
+  // 3. Detecció bàsica de registre informal
+  const informal = ['coses','molt bo','molt gran','o sigui','vaja','home,','ei,','doncs,'];
+  const infFound = informal.filter(w => t.includes(normalize(w)));
+  if (infFound.length > 0) {
+    lines.push(`Atenció: algunes paraules poden ser massa informals per al registre demanat («${infFound[0]}»).`);
+  }
+
+  // 4. Mostra model
+  lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
+  return lines.join('<br>');
 }
 
-async function checkWriting() {
+function localFeedbackTransform(q, text) {
+  const t = normalize(text);
+  const lines = [];
+
+  if (text.trim().split(/\s+/).filter(Boolean).length < 4) {
+    return '✏️ La reformulació és massa curta. Escriu una frase completa en registre formal.';
+  }
+
+  // Comprova que no copii l'original
+  const origWords = normalize(q.original.replace(/[«»]/g,'')).split(/\s+/);
+  const textWords = t.split(/\s+/);
+  const shared = origWords.filter(w => w.length > 4 && textWords.includes(w));
+  const overlapRatio = shared.length / origWords.length;
+
+  if (overlapRatio > 0.6) {
+    lines.push("✗ La reformulació és molt similar a l'original. Intenta substituir els verbs i substantius genèrics.");
+  } else {
+    lines.push("✓ Has reformulat l'estructura. Comprova que el registre sigui prou formal.");
+  }
+
+  // Comprova pistes
+  const hintWords = q.hints.flatMap(h => {
+    const after = h.split('→')[1] || '';
+    return after.split('/').map(w => normalize(w.trim()).split(' ')[0]).filter(w => w.length > 3);
+  });
+  const hitsHint = hintWords.filter(w => t.includes(w));
+  if (hitsHint.length > 0) {
+    lines.push(`✓ Has usat vocabulari del registre formal (${hitsHint.slice(0,2).join(', ')}).`);
+  } else {
+    lines.push('Prova d'incorporar algun dels verbs o substantius formals suggerits a les pistes.');
+  }
+
+  lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
+  return lines.join('<br>');
+}
+
+function checkWriting() {
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('write-area').value.trim();
   if (!text) { alert('Escriu una resposta primer.'); return; }
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-loading"><div class="ct-dot"></div><div class="ct-dot"></div><div class="ct-dot"></div><span style="margin-left:4px;">Avaluant amb IA...</span></div>`;
-  try {
-    const txt = await callAI(
-      `Ets un professor de català de nivell ${q.level.toUpperCase()} expert i rigorós. Avalua la resposta de l'alumne en 3-4 frases, en català, constructivament: (1) si respon l'encàrrec, (2) un error concret si n'hi ha, (3) una millora possible. Sense markdown.`,
-      `Exercici: ${q.question}\nResposta de l'alumne: ${text}\nExemple de bona resposta: ${q.sample}`
-    );
-    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">🤖 ${txt}</div>`;
-  } catch(e) {
-    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">Exemple de resposta: <em>${q.sample}</em></div>`;
-  }
+  const fb = localFeedbackWriting(q, text);
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${fb}</div>`;
   showTheory(q); markDone(true, 20);
 }
 
-async function checkTransform() {
+function checkTransform() {
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('transform-area').value.trim();
   if (!text) { alert('Escriu una reformulació primer.'); return; }
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-loading"><div class="ct-dot"></div><div class="ct-dot"></div><div class="ct-dot"></div><span style="margin-left:4px;">Avaluant amb IA...</span></div>`;
-  try {
-    const txt = await callAI(
-      `Ets un professor de català C1 especialitzat en registre formal. Avalua la transformació en 3-4 frases: si el registre és adequat, un element a millorar i un elogi si és mereixedor. En català, sense markdown.`,
-      `Original informal: ${q.original}\nTransformació de l'alumne: ${text}\nModel: ${q.sample}`
-    );
-    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">🤖 ${txt}</div>`;
-  } catch(e) {
-    document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">Model: <em>${q.sample}</em></div>`;
-  }
+  const fb = localFeedbackTransform(q, text);
+  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${fb}</div>`;
   showTheory(q); markDone(true, 20);
 }
 
@@ -1569,7 +2058,7 @@ function showTheory(q) {
 }
 
 /* PROGRÉS */
-function markDone(ok, xp) {
+function markDone(d'acord, xp) {
   const q = currentSession.items[currentSession.idx];
   if (!progress.done.includes(q.id)) {
     progress.done.push(q.id);
@@ -1597,7 +2086,7 @@ function renderSummary() {
       <div class="big">${pct}%</div>
       <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">${msg}</p>
-      <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${(cat||items[0]?.category||'').replace(/'/g,"\\'")}')">Repetir exercicis</button>
+      <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${(cat||items[0]?.category||'').replace(/'/g,"\\'")}')">Repetir els exercicis</button>
       ${backBtn}
     </div>`;
 }
