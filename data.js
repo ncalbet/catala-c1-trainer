@@ -849,7 +849,197 @@ const THEORY = {
         ]
       }
     ]
-  }
+  },
+
+  'Temps verbals': {
+    level: 'b2',
+    icon: '⏱️',
+    subtitle: 'Usos dels temps verbals del passat, present i futur',
+    sections: [
+      {
+        title: 'El passat en català',
+        icon: '📌',
+        body: `<p>El català estàndard usa el <strong>passat perifràstic</strong> (vaig + infinitiu) per a accions passades acabades. El <strong>pretèrit perfet</strong> (he + participi) existeix però és menys freqüent en català central oral.</p>`
+      },
+      {
+        title: 'Passat perifràstic vs. Imperfet',
+        icon: '📊',
+        table: {
+          headers: ['Passat perifràstic', 'Imperfet', 'Ús'],
+          rows: [
+            ['Vaig menjar.', 'Menjava.', 'Acció puntual acabada vs. acció en curs/habitual'],
+            ['Va trucar tres vegades.', 'Trucava cada dia.', 'Acció comptada/delimitada vs. hàbit'],
+            ['Quan va entrar...', '...plorava (de fons)', 'Acció nova vs. acció de fons'],
+          ]
+        }
+      },
+      {
+        title: 'Futur, condicional i plusquamperfet',
+        icon: '📋',
+        rules: [
+          { label: 'Futur irregular', example: 'fer → faré, poder → podré, voler → voldré, saber → sabré, haver → hauré, ser → seré' },
+          { label: 'Condicional irregular', example: 'fer → faria, poder → podria, voler → voldria, haver → hauria' },
+          { label: 'Plusquamperfet', example: '«Havia acabat quan va arribar.» → havia/havies/havia/havíem/havíeu/havien + participi' },
+        ]
+      }
+    ]
+  },
+
+  'Preposicions': {
+    level: 'b2',
+    icon: '🔧',
+    subtitle: 'Usos de per/per a i altres preposicions catalanes',
+    sections: [
+      {
+        title: 'Per vs. Per a',
+        icon: '📊',
+        table: {
+          headers: ['Per', 'Per a'],
+          rows: [
+            ['Causa: «Ho dic per amor.»', 'Destinació: «Aquesta carta és per a tu.»'],
+            ['Durada: «per una setmana»', 'Termini: «per a divendres»'],
+            ['Mitjà: «per telèfon»', 'Opinió: «Per a mi, és clar.»'],
+            ['A través de: «per la finestra»', 'Finalitat: «Estudio per a millorar.»'],
+          ]
+        }
+      },
+      {
+        title: 'Règim preposicional de verbs freqüents',
+        icon: '📋',
+        rules: [
+          { label: 'dependre de', example: '«Depèn de tu.» (no *dependre en)' },
+          { label: 'quedar amb', example: '«Quedo amb ella demà.»' },
+          { label: 'pensar en', example: '«Penso en tu.» / «Penso a fer-ho.» (infinitiu)' },
+          { label: 'insistir a + inf.', example: '«Insisteix a venir.» (no *insistir en + inf.)' },
+        ]
+      },
+      {
+        title: 'Des de vs. De — A vs. En',
+        icon: '📌',
+        rules: [
+          { label: 'Des de (origen temporal)', example: '«Treballo aquí des de fa tres anys.» → fins ara' },
+          { label: 'De (procedència puntual)', example: '«Vinc de Barcelona.» → procedència, sense continuïtat' },
+          { label: 'A (moviment / lloc fix)', example: '«Vaig a Barcelona.» / «Sóc a casa.» / «A classe.»' },
+          { label: 'En (lloc abstracte/general)', example: '«Treballo en un hospital.» / «En reunió.»' },
+        ]
+      }
+    ]
+  },
+
+  'Construccions comparatives': {
+    level: 'b2',
+    icon: '⚖️',
+    subtitle: 'Comparatius d\'igualtat, superioritat, inferioritat i superlatius',
+    sections: [
+      {
+        title: 'Tipus de comparatius',
+        icon: '📊',
+        table: {
+          headers: ['Tipus', 'Estructura', 'Exemple'],
+          rows: [
+            ['Superioritat', 'més + adj./adv. + que', 'És més alt que el seu germà.'],
+            ['Inferioritat', 'menys + adj./adv. + que', 'Parla menys fluïdament.'],
+            ['Igualtat (adj./adv.)', 'tan + adj./adv. + com', 'És tan intel·ligent com diuen.'],
+            ['Igualtat (verb/nom)', 'tant com / tanta/tants/tantes + nom + com', 'Treballa tant com pot.'],
+          ]
+        }
+      },
+      {
+        title: 'Comparatius irregulars',
+        icon: '📋',
+        rules: [
+          { label: 'bo → millor', example: '«És millor que l\'anterior.» (preferit en registre formal sobre «més bo»)' },
+          { label: 'dolent → pitjor', example: '«El resultat és pitjor del que esperava.»' },
+          { label: 'gran → major / més gran', example: '«El major repte...» (formal/abstracte) / «És més gran que jo» (mida/edat)' },
+          { label: 'petit → menor / més petit', example: '«El menor dels mals.» / «És més petit que la seva germana.»' },
+        ]
+      },
+      {
+        title: 'Superlatiu absolut',
+        icon: '✨',
+        rules: [
+          { label: 'Molt + adjectiu', example: '«És molt important.» — forma analítica (freqüent)' },
+          { label: 'Adjectiu + -íssim', example: '«És importantíssim.» — forma sintètica (registre elevat)' },
+          { label: 'Tan i tant', example: '«tan» davant adj./adv. / «tant/tanta/tants/tantes» davant nom o verb.' },
+        ]
+      }
+    ]
+  },
+
+  'Estil indirecte': {
+    level: 'c1',
+    icon: '💬',
+    subtitle: 'Transformar el discurs directe en indirecte',
+    sections: [
+      {
+        title: 'Canvis de temps verbal',
+        icon: '📊',
+        table: {
+          headers: ['Estil directe', 'Estil indirecte (verb en passat)'],
+          rows: [
+            ['Present: «Parlo»', 'Imperfet: ...que parlava'],
+            ['Passat perifràstic: «Vaig parlar»', 'Plusquamperfet: ...que havia parlat'],
+            ['Futur: «Parlaré»', 'Condicional: ...que parlaria'],
+            ['Present de subj.: «Parli»', 'Imperfet de subj.: ...que parlés'],
+            ['Imperatiu: «Parla!»', 'Que + subj. imperfet: ...que parlés'],
+          ]
+        }
+      },
+      {
+        title: 'Canvis de pronoms i adverbis',
+        icon: '📋',
+        rules: [
+          { label: 'Pronoms personals', example: '«jo» → ell/ella; «tu» → jo; «nosaltres» → ells/elles' },
+          { label: 'Adverbis de temps', example: '«avui» → aquell dia; «demà» → l\'endemà; «ahir» → el dia anterior' },
+          { label: 'Adverbis de lloc', example: '«aquí» → allà; «aquest» → aquell' },
+        ]
+      },
+      {
+        title: 'Marcadors introductors',
+        icon: '📌',
+        rules: [
+          { label: 'Declarativa', example: '«dir que», «afirmar que», «explicar que», «comentar que»' },
+          { label: 'Interrogativa', example: '«preguntar si» (sí/no) / «preguntar on/quan/com/per què»' },
+          { label: 'Imperativa', example: '«demanar que», «ordenar que», «proposar que» + subj. imperfet' },
+        ]
+      }
+    ]
+  },
+
+  'Passiva i impersonal': {
+    level: 'c1',
+    icon: '🔄',
+    subtitle: 'Veu passiva, passiva reflexa i construccions impersonals',
+    sections: [
+      {
+        title: 'Tres construccions passives/impersonals',
+        icon: '📊',
+        table: {
+          headers: ['Construcció', 'Estructura', 'Exemple'],
+          rows: [
+            ['Passiva perifràstica', 'ser + participi (concordat)', 'El document va ser signat pel director.'],
+            ['Passiva reflexa', 'es + verb (concorda amb CD)', 'Es van vendre molts llibres.'],
+            ['Impersonal', 'es + verb (singular, sense subjecte)', 'Es parla de canvis. / No es pot aparcar.'],
+          ]
+        }
+      },
+      {
+        title: 'Quan usar cada construcció',
+        icon: '📋',
+        rules: [
+          { label: 'Perifràstica', example: 'Quan l\'agent és important: «Va ser aprovat pel consell.»' },
+          { label: 'Reflexa', example: 'Quan l\'agent és irrellevant o desconegut: «Es van prendre mesures.»' },
+          { label: 'Impersonal', example: 'Per a instruccions o normes generals: «S\'ha d\'entregar avui.»' },
+        ]
+      },
+      {
+        title: 'Preferència del català',
+        icon: '📌',
+        body: `<p>El català prefereix la passiva reflexa i les construccions impersonals sobre la passiva perifràstica, que és poc freqüent en registre oral i periodístic. En textos formals, la passiva perifràstica s'usa quan l'agent és rellevant.</p>`
+      }
+    ]
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -1102,6 +1292,106 @@ const DATA = {
       text:'Espera, ___ sortir. No marxis encara.',
       options:['acabo de','vaig a','solia','haig de'],
       correct:1, theory:'«Anar a + infinitiu» expressa un futur immediat o una acció a punt de produir-se.', example:'Vés preparant-te, que anem a sortir.' },
+
+    // TEMPS VERBALS
+    { id:'b2-tv1', type:'choice', level:'b2', category:'Temps verbals',
+      question:'Quina forma verbal expressa una acció puntual i acabada en el passat?',
+      text:'Ahir ___ al cinema amb els meus amics.',
+      options:['anava','vaig anar','he anat','hagués anat'],
+      correct:1, theory:'El passat perifràstic (vaig + infinitiu) expressa accions passades puntuals i acabades. L\'imperfet «anava» indicaria un hàbit o acció de fons en curs.', example:'Vaig trucar tres vegades però no va respondre.' },
+    { id:'b2-tv2', type:'choice', level:'b2', category:'Temps verbals',
+      question:'Quin temps verbal s\'usa per a una acció habitual en el passat?',
+      text:'De petit, ___ a la platja cada estiu amb la família.',
+      options:['vaig anar','havia anat','anava','aniré'],
+      correct:2, theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Cada estiu» indica repetició habitual → imperfet.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
+    { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
+      question:'Completa amb la forma correcta del passat perifràstic:',
+      sentence:'Quan el professor ___ a classe, tots els alumnes s\'aixecaren.',
+      display:'entrar (3a pers. sing. passat perifràstic)', answers:['va entrar'],
+      theory:'Passat perifràstic: anar conjugat (vaig/vas/va/vam/vau/van) + infinitiu. 3a pers. sing.: «va» + infinitiu.', example:'Va entrar sense trucar. / Vas dir la veritat?' },
+    { id:'b2-tv4', type:'choice', level:'b2', category:'Temps verbals',
+      question:'Quina oració usa correctament el plusquamperfet?',
+      options:['Quan va arribar, ja vam menjar.','Quan va arribar, ja havíem menjat.','Quan va arribar, ja mengem.'],
+      correct:1, theory:'El plusquamperfet (havia + participi) expressa una acció passada anterior a una altra acció passada. «Ja havíem menjat» és anterior a «va arribar».', example:'Quan va trucar, ja havia sortit. / L\'informe que havia escrit era excel·lent.' },
+    { id:'b2-tv5', type:'fill', level:'b2', category:'Temps verbals',
+      question:'Omple amb el futur simple del verb indicat:',
+      sentence:'Si el temps ho permet, ___ una excursió diumenge.',
+      display:'fer (1a pers. pl. futur simple)', answers:['farem'],
+      theory:'El futur simple de «fer» és irregular: faré, faràs, farà, farem, fareu, faran. Altres irregulars: poder → podré, voler → voldré, saber → sabré.', example:'Demà faré el sopar jo. / Quan acabi, t\'ho diré.' },
+    { id:'b2-tv6', type:'reading', level:'b2', category:'Temps verbals',
+      text:'De jove, la Maria escrivia en el seu diari cada nit. Un dia, però, va perdre el quadern i mai més va tornar a agafar el costum. Ara diu que escriurà les seves memòries quan es jubili.',
+      question:'Quina funció té cada temps verbal del text?',
+      options:['Un sol temps per a totes les accions passades','Imperfet per a hàbits, perifràstic per a accions puntuals, futur per a plans futurs','Perifràstic per a tot el passat i futur per al futur'],
+      correct:1, theory:'«Escrivia» (hàbit), «va perdre / va tornar» (accions puntuals), «escriurà» (futur). Cada temps té una funció aspectual específica.', example:'Imperfet → hàbit/fons / Perifràstic → puntual / Futur → prospectiu.' },
+    { id:'b2-tv7', type:'choice', level:'b2', category:'Temps verbals',
+      question:'Quina forma del condicional és correcta?',
+      text:'Si tingués més temps, ___ al gimnàs cada dia.',
+      options:['anava','aniré','aniria','anés'],
+      correct:2, theory:'En condicionals hipotètiques (si + imperfet subj.), el resultat va en condicional simple: -ia. «Aniria» = condicional d\'«anar».', example:'Si pogués, ho faria de seguida. / Ho compraria si fos més barat.' },
+
+    // PREPOSICIONS
+    { id:'b2-prep1', type:'choice', level:'b2', category:'Preposicions',
+      question:'Tria la preposició correcta:',
+      text:'Aquesta documentació és ___ el departament de recursos humans.',
+      options:['per','per a','a','de'],
+      correct:1, theory:'«Per a» indica destinació o destinatari. «Per» indica causa, durada o mitjà. La documentació «és per a» (destinada a) el departament.', example:'Aquesta carta és per a tu. / Ho faig per amor (causa).' },
+    { id:'b2-prep2', type:'fill', level:'b2', category:'Preposicions',
+      question:'Omple amb «per» o «per a»:',
+      sentence:'Haurem d\'entregar el projecte ___ la setmana que ve.',
+      display:'«per» o «per a» (termini de temps)', answers:['per a'],
+      theory:'Termini (data límit) → «per a»: «per a divendres», «per a la setmana que ve». Durada → «per»: «estaré fora per dues setmanes».', example:'Ho necessito per a demà. / Estaré fora per dues setmanes.' },
+    { id:'b2-prep3', type:'choice', level:'b2', category:'Preposicions',
+      question:'Quin verb porta la preposició «en»?',
+      options:['Consisteix ___ tres fases.','Depèn ___ nosaltres.','Insisteix ___ venir.'],
+      correct:0, theory:'«Consistir en» és el règim fix. «Dependre de» (no «dependre en»). «Insistir a + infinitiu» (no «insistir en + infinitiu» amb persones).', example:'El projecte consisteix en tres etapes. / Insisteix a participar.' },
+    { id:'b2-prep4', type:'fill', level:'b2', category:'Preposicions',
+      question:'Tria la preposició correcta per al verb «quedar»:',
+      sentence:'He quedat ___ la Núria per dinar avui.',
+      display:'preposició de companyia (quedar amb algú)', answers:['amb'],
+      theory:'«Quedar amb» algú = quedar per trobar-se (companyia). «Amb» expressa companyia o instrument.', example:'Quedo amb ella a les dues. / Ho escriu amb llapis.' },
+    { id:'b2-prep5', type:'choice', level:'b2', category:'Preposicions',
+      question:'Quina frase usa correctament «des de»?',
+      options:['Treballo aquí des de fa tres anys.','Treballo aquí de fa tres anys.','Treballo aquí desde tres anys.'],
+      correct:0, theory:'«Des de» expressa l\'origen en el temps fins al present: «des de fa tres anys». «De» indica procedència puntual. «Desde» és la forma castellana.', example:'Visc aquí des de fa cinc anys. / Vinc de Barcelona.' },
+    { id:'b2-prep6', type:'fill', level:'b2', category:'Preposicions',
+      question:'Completa amb «a» o «en»:',
+      sentence:'Ara no pot atendre\'t, és ___ reunió.',
+      display:'«a» o «en» (situació/context)', answers:['en','en reunió'],
+      theory:'«En reunió», «en formació», «en pràctiques» → contextos abstractes o situations sense article. «A» + lloc físic concret: «a l\'oficina», «a classe».', example:'Estic en reunió. / Vaig a la reunió. / Treballo a casa.' },
+    { id:'b2-prep7', type:'choice', level:'b2', category:'Preposicions',
+      question:'Per a quin cas s\'usa «per» (i no «per a»)?',
+      options:['Indicar el destinatari d\'un regal','Indicar la causa d\'una acció','Indicar un termini de lliurament'],
+      correct:1, theory:'«Per» indica causa («ho dic per amor»), mitjà («per correu»), durada («per un mes») i «a través de» («per la finestra»). «Per a» indica destinació, finalitat i termini.', example:'Ho faig per tu (causa: amor). / Ho faig per a tu (destinació: t\'ho done).' },
+
+    // CONSTRUCCIONS COMPARATIVES
+    { id:'b2-cmp1', type:'fill', level:'b2', category:'Construccions comparatives',
+      question:'Omple amb la forma d\'igualtat correcta:',
+      sentence:'Aquesta proposta és ___ bona ___ l\'anterior.',
+      display:'tan ... com (igualtat amb adjectiu)', answers:['tan','com'],
+      theory:'Igualtat amb adjectiu o adverbi: «tan + adj./adv. + com». No «igual de» ni «tanto» en català formal.', example:'És tan ràpid com el vent. / Parla tan bé com la seva professora.' },
+    { id:'b2-cmp2', type:'choice', level:'b2', category:'Construccions comparatives',
+      question:'Quina forma comparativa és correcta?',
+      options:['Aquest mètode és más eficient que l\'altre.','Aquest mètode és més eficient que l\'altre.','Aquest mètode és major d\'eficient que l\'altre.'],
+      correct:1, theory:'Superioritat: «més + adj. + que». «Más» és castellà. «Major» és comparatiu irregular de «gran», no aplicable a tots els adjectius.', example:'És més clar que la versió anterior. / Parla més lentament.' },
+    { id:'b2-cmp3', type:'choice', level:'b2', category:'Construccions comparatives',
+      question:'Quin és el comparatiu de superioritat correcte de «bo»?',
+      options:['més bo','millor','major'],
+      correct:1, theory:'«Bo» té comparatiu irregular: «millor». En registre formal s\'evita «més bo» (col·loquial). «Major» és comparatiu de «gran» (en sentit abstracte o formal).', example:'Aquesta opció és millor que la primera. / El millor resultat possible.' },
+    { id:'b2-cmp4', type:'fill', level:'b2', category:'Construccions comparatives',
+      question:'Completa amb «tant» o «tan»:',
+      sentence:'No havia vist mai ___ gent junta en un mateix lloc.',
+      display:'tant/tanta/tants/tantes davant nom', answers:['tanta'],
+      theory:'Davant de nom: «tant/tanta/tants/tantes + nom» (concorda en gènere i nombre). Davant d\'adjectiu o adverbi: «tan + adj./adv.».', example:'Tanta gent! / Tants problemes! / Tan aviat! / Tan bé!' },
+    { id:'b2-cmp5', type:'choice', level:'b2', category:'Construccions comparatives',
+      question:'Quin superlatiu absolut és correcte en registre formal?',
+      options:['És importantíssim.','És la cosa más important.','És molt millor.'],
+      correct:0, theory:'Superlatiu absolut sintètic: adj. + -íssim (registre elevat). «Más» és castellà. «Molt millor» és un doble comparatiu (ja que «millor» ja és comparatiu); millor dir «molt bo» o simplement «millor».', example:'Un resultat excel·lentíssim. / Un text claríssim.' },
+    { id:'b2-cmp6', type:'reading', level:'b2', category:'Construccions comparatives',
+      text:'El nou sistema és menys complex que l\'anterior, però no tan intuïtiu com esperàvem. Tot i que el rendiment és millor, la interfície resulta pitjor pel que fa a l\'ergonomia. En definitiva, cap dels dos és perfecte.',
+      question:'Quants tipus de comparació s\'usen al text?',
+      options:['Només superioritat','Inferioritat, igualtat i comparatius irregulars (millor/pitjor)','Només igualtat i superioritat regular'],
+      correct:1, theory:'«menys complex» (inferioritat), «tan intuïtiu com» (igualtat), «millor» i «pitjor» (superioritat/inferioritat irregulars de bo/dolent).', example:'Identifica cada estructura comparativa i el seu tipus.' },
+
   ],
 
   c1: [
@@ -1423,5 +1713,99 @@ const DATA = {
       keywords:['avaluar → avaluació','implementar → implementació','analitzar → anàlisi'],
       sample:'L\'avaluació dels resultats ha permès identificar àrees de millora. La implementació de les mesures ha resultat satisfactòria. L\'anàlisi de les dades evidencia una tendència positiva.',
       theory:'Les nominalitzacions permeten condensar informació i elevar el registre. Són la marca principal del discurs acadèmic.', example:'avaluar → «l\'avaluació ha demostrat...» / implementar → «la implementació del projecte...»' },
+
+    // ESTIL INDIRECTE
+    { id:'c1-ei1', type:'transform', level:'c1', category:'Estil indirecte',
+      question:'Transforma en estil indirecte (verb introductor en passat):',
+      original:'«La directora va dir: El projecte s\'entregarà demà.»',
+      hints:['futur → condicional: s\'entregaria','demà → l\'endemà','La directora va dir que...'],
+      sample:'La directora va dir que el projecte s\'entregaria l\'endemà.',
+      theory:'Futur → condicional en estil indirecte passat. «Demà» → «l\'endemà» (adverbi de temps adaptat).', example:'«Vindré» → va dir que vindria. / «Ho faré» → va prometre que ho faria.' },
+    { id:'c1-ei2', type:'fill', level:'c1', category:'Estil indirecte',
+      question:'Completa la transformació en estil indirecte:',
+      sentence:'Va dir: «Estic cansat.» → Va dir que ___ cansat.',
+      display:'estar (imperfet, 3a pers. sing.)', answers:['estava'],
+      theory:'Present → imperfet en estil indirecte (verb introductor en passat). «Estic» → «estava».', example:'«Treballo molt» → va dir que treballava molt.' },
+    { id:'c1-ei3', type:'choice', level:'c1', category:'Estil indirecte',
+      question:'Quina transformació a estil indirecte és correcta?',
+      options:['Va preguntar: «On vius?» → Va preguntar on vivies.','Va preguntar: «On vius?» → Va preguntar que on vius.','Va preguntar: «On vius?» → Va preguntar on viuràs.'],
+      correct:0, theory:'Interrogatives indirectes: «preguntar si/on/quan/com...» (sense «que»). El verb passa a imperfet si el verb introductor és en passat.', example:'«Quan arribes?» → Va preguntar quan arribava.' },
+    { id:'c1-ei4', type:'transform', level:'c1', category:'Estil indirecte',
+      question:'Transforma l\'imperatiu en estil indirecte:',
+      original:'«El cap va dir: Envieu l\'informe avui!»',
+      hints:['Imperatiu → que + subjuntiu imperfet','«avui» → aquell dia','El cap va demanar/ordenar que...'],
+      sample:'El cap va demanar que enviessin l\'informe aquell dia.',
+      theory:'Imperatius → «demanar/ordenar que + subjuntiu imperfet» en estil indirecte (verb en passat).', example:'«Veniu!» → Va demanar que vinguessin. / «Escriu-me!» → Va demanar que li escrigués.' },
+    { id:'c1-ei5', type:'choice', level:'c1', category:'Estil indirecte',
+      question:'Quina transformació de l\'adverbi de temps és correcta?',
+      options:['Va dir que vindria avui.','Va dir que vindria aquell dia.','Va dir que venia avui.'],
+      correct:1, theory:'«Avui» en estil indirecte (passat) → «aquell dia». «Demà» → «l\'endemà». «Ahir» → «el dia anterior». «Aquí» → «allà».', example:'«Avui» → aquell dia. / «Demà» → l\'endemà. / «Aquí» → allà.' },
+    { id:'c1-ei6', type:'fill', level:'c1', category:'Estil indirecte',
+      question:'Tria el marcador introductori correcte:',
+      sentence:'«Tens el document?» → Me ___ si tenia el document.',
+      display:'marcador d\'interrogativa indirecta de sí/no', answers:['va preguntar','va demanar'],
+      theory:'Interrogatives indirectes de sí/no → «preguntar si». Parcials → «preguntar on/quan/com». No s\'usa «dir que» per a preguntes.', example:'Va preguntar si havia acabat. / Va preguntar quan vindria.' },
+    { id:'c1-ei7', type:'reading', level:'c1', category:'Estil indirecte',
+      text:'En la roda de premsa, la ministra va afirmar que les mesures entrarien en vigor el mes següent. Va explicar que el govern havia treballat durant mesos en la proposta i que confiava que els resultats serien positius. Quan un periodista li va preguntar si hi hauria exempcions, va respondre que aquella decisió s\'estudiava encara.',
+      question:'Quins canvis s\'han produït en passar de discurs directe a indirecte?',
+      options:['Cap canvi: el text ja era en estil indirecte original','Futur → condicional, present/passat → imperfet/plusquamperfet, adverbis adaptats («el mes següent»)','Només han canviat els pronoms personals'],
+      correct:1, theory:'«Entraran» → «entrarien» (cond.); «hem treballat» → «havia treballat» (plusq.); «el proper mes» → «el mes següent» (adverbi adaptat).', example:'Identifica cada canvi de temps verbal al text.' },
+
+    // PASSIVA I IMPERSONAL
+    { id:'c1-pi1', type:'choice', level:'c1', category:'Passiva i impersonal',
+      question:'Quina és la construcció preferida en català per expressar passiva sense agent?',
+      text:'«El projecte fue aprobado» → En català formal:',
+      options:['El projecte va ser aprovat.','Es va aprovar el projecte.','El projecte ha sigut aprovat.'],
+      correct:1, theory:'El català prefereix la passiva reflexa (es + verb) quan l\'agent és irrellevant. «Va ser aprovat» és correcte però menys habitual; «ha sigut» és híbrid incorrecte.', example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
+    { id:'c1-pi2', type:'fill', level:'c1', category:'Passiva i impersonal',
+      question:'Completa amb la forma de passiva reflexa correcta:',
+      sentence:'___ moltes entrades per al concert en poques hores.',
+      display:'vendre (passiva reflexa, plural)', answers:['Es van vendre','S\'han venut'],
+      theory:'Passiva reflexa: «es + verb». Quan el CD és plural, el verb concorda: «Es van vendre moltes entrades» (plural).', example:'Es van vendre totes les entrades. / Es van aprovar les mesures.' },
+    { id:'c1-pi3', type:'choice', level:'c1', category:'Passiva i impersonal',
+      question:'Quina construcció és la més adequada per a una norma general en text institucional?',
+      options:['Els estudiants han d\'entregar els treballs abans del dia 15.','S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.'],
+      correct:1, theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dóna un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
+    { id:'c1-pi4', type:'transform', level:'c1', category:'Passiva i impersonal',
+      question:'Reformula en passiva perifràstica formal amb l\'agent explícit:',
+      original:'«El jurat va concedir el premi a la millor novel·la.»',
+      hints:['el premi → subjecte de la passiva','va ser concedit pel jurat','participi concordat amb el subjecte femení'],
+      sample:'El premi va ser concedit pel jurat a la millor novel·la.',
+      theory:'Passiva perifràstica: subjecte pacient + ser conjugat + participi (concordat en gènere i nombre) + per + agent.', example:'El document va ser signat pel president.' },
+    { id:'c1-pi5', type:'choice', level:'c1', category:'Passiva i impersonal',
+      question:'Quina frase usa incorrectament la passiva?',
+      options:['Es van publicar els resultats ahir.','Va ser decidit no fer canvis.','Es van ser aprovades les mesures.'],
+      correct:2, theory:'«Es van ser aprovades» combina impropriament passiva reflexa i perifràstica. Cal usar-ne una sola: «Es van aprovar» O «Van ser aprovades».', example:'Correcte: Es van aprovar / Van ser aprovades. Incorrecte: *Es van ser aprovades.' },
+    { id:'c1-pi6', type:'fill', level:'c1', category:'Passiva i impersonal',
+      question:'Omple amb la forma impersonal correcta:',
+      sentence:'En aquest museu no ___ fer fotografies amb flaix.',
+      display:'impersonal amb «es» + infinitiu (no permetre)', answers:['es permet','es deixa','es pot'],
+      theory:'Impersonal normativa: «no es + verb conjugat» o «no es pot + infinitiu». El verb va en singular quan no hi ha subjecte gramatical explícit.', example:'No es permet fumar. / Es recomana reservar. / No es pot aparcar aquí.' },
+    { id:'c1-pi7', type:'reading', level:'c1', category:'Passiva i impersonal',
+      text:'L\'acord va ser signat per tots els membres del consell. En la mateixa sessió, es van aprovar tres resolucions addicionals i es va decidir convocar una nova reunió. Cal destacar que no es va plantejar cap objecció formal per part dels assistents.',
+      question:'Quines construccions passives i impersonals s\'usen al text i per a quina funció?',
+      options:['Només passiva perifràstica','Passiva perifràstica per ressaltar l\'agent; passiva reflexa/impersonal per a accions generals sense agent','Només construccions impersonals'],
+      correct:1, theory:'«Va ser signat pel consell» (perifràstica: agent rellevant) / «Es van aprovar», «es va decidir», «es va plantejar» (reflexa: agent irrellevant).', example:'Perifràstica quan l\'agent és important; reflexa quan no ho és.' },
+
+    // +1 exercici per a categories existents amb 5 exercicis
+    { id:'c1-arg6', type:'choice', level:'c1', category:'Argumentació',
+      question:'Quina estratègia argumentativa s\'usa en: «Certament, hi ha arguments a favor. Tanmateix, les evidències apunten en la direcció contrària»?',
+      options:['Refutació directa sense concessions','Concessió retòrica seguida de contraargument','Simple enumeració de dues posicions'],
+      correct:1, theory:'La concessió retòrica («certament») reconeix la posició contrària sense abandonar la pròpia, i el contraargument («tanmateix») reorienta el discurs. És una marca de maduresa argumentativa.', example:'«És cert que X. No obstant, cal tenir present que Y.»' },
+    { id:'c1-crit6', type:'choice', level:'c1', category:'Comprensió crítica',
+      question:'Quin recurs usa l\'autor en: «Paradoxalment, com menys s\'hi pensa, millor es resol»?',
+      options:['Una contradicció lògica sense fonament','Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent','Una conclusió basada en dades empíriques'],
+      correct:1, theory:'La paradoxa aparent («paradoxalment + afirmació contraintuïtiva») és un recurs que capta l\'atenció i suggereix una veritat no òbvia. Al C1 cal identificar la intenció darrere del recurs retòric.', example:'«Paradoxalment, la simplicitat és el concepte més complex d\'assolir.»' },
+    { id:'c1-pro6', type:'choice', level:'c1', category:'Producció formal',
+      question:'Quina fórmula de tancament és la més adequada per a un informe acadèmic?',
+      options:['Espero que us hagi agradat el que he explicat.','Les consideracions anteriors permeten concloure que cal adoptar un enfocament integral.','Bé, ja ho teniu. Espero que serveixi.'],
+      correct:1, theory:'El tancament d\'un informe formal recull la tesi amb un verb epistèmic impersonal, sense referències personals ni registre col·loquial.', example:'«Les dades permeten afirmar que...» / «Es conclou, per tant, que...»' },
+    { id:'c1-rel6', type:'fill', level:'c1', category:'Oracions de relatiu',
+      question:'Completa amb el pronom relatiu adequat per a lloc en registre formal:',
+      sentence:'La sala ___ es va celebrar la cerimònia era d\'un luxe inusitat.',
+      display:'en la qual / on (relatiu de lloc)', answers:['en la qual','on','a la qual'],
+      theory:'Relatius de lloc: «on» (estàndard i col·loquial), «en la qual / a la qual» (registre culte formal). En textos acadèmics es prefereix «en la qual».', example:'La ciutat on va néixer. / La sala en la qual es va celebrar.' },
+
+
   ]
 };
