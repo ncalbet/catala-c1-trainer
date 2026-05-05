@@ -167,6 +167,43 @@
     .ct-mastery-dot { width:7px; height:7px; border-radius:50%; background:#e5e7eb; display:inline-block; }
     .ct-mastery-dot.filled { background:var(--c1); }
     .ct-mastery-dot.mastered { background:#059669; }
+
+    /* LEVEL BADGE al header */
+    .ct-level-badge {
+      font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+      background:#fef3c7; color:#92400e; border:1px solid #fcd34d; white-space:nowrap;
+    }
+    /* LEVEL-UP OVERLAY */
+    .ct-levelup-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.55);
+      display:flex; align-items:center; justify-content:center;
+      z-index:9999; animation:fadeIn 0.3s ease;
+    }
+    .ct-levelup-box {
+      background:#fff; border-radius:20px; padding:40px 32px;
+      text-align:center; max-width:320px; width:90%;
+      animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .ct-levelup-emoji { font-size:64px; margin-bottom:8px; }
+    .ct-levelup-title { font-family:'Fraunces',serif; font-size:26px; color:var(--c1); margin-bottom:6px; }
+    .ct-levelup-sub { font-size:14px; color:var(--muted); margin-bottom:20px; line-height:1.5; }
+    /* CONFETTI */
+    .ct-confetti-piece {
+      position:fixed; width:8px; height:8px; border-radius:2px;
+      animation:confettiFall linear forwards; pointer-events:none; z-index:10000;
+    }
+    @keyframes confettiFall {
+      0%   { transform:translateY(-20px) rotate(0deg); opacity:1; }
+      100% { transform:translateY(100vh) rotate(720deg); opacity:0; }
+    }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes popIn   { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+    /* MISSATGE D'ÀNIM */
+    .ct-encouragement {
+      background:#fef9ec; border-left:3px solid #f59e0b;
+      border-radius:0 8px 8px 0; padding:10px 14px;
+      font-size:13px; color:#78350f; margin-top:10px; animation:fadeIn 0.4s ease;
+    }
   </style>
 </head>
 <body>
@@ -174,6 +211,7 @@
 <div class="ct-header">
   <div class="ct-logo">Català <span>Trainer</span></div>
   <div class="ct-stats">
+    <span class="ct-level-badge" id="ct-level-badge">Aprenent</span>
     <span class="ct-streak" id="ct-streak">🔥 0</span>
     <span class="ct-xp" id="ct-xp">0 XP</span>
   </div>
@@ -183,6 +221,7 @@
   <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
   <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
   <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
+  <button onclick="showTab('achievements')" id="nav-achievements">🏅 Assoliments</button>
   <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
 </div>
 <div class="ct-body" id="ct-body"></div>
@@ -190,23 +229,66 @@
 <script src="data.js"></script>
 <script>
 // ══ PROGRÉS amb SRS ══
+// ══ SISTEMA DE NIVELLS ══
+const LEVELS = [
+  { min:0,    max:99,   name:'Aprenent',     emoji:'🌱', title:'Acabes de començar!' },
+  { min:100,  max:249,  name:'Estudiant',    emoji:'📖', title:'Ja coneixes les bases.' },
+  { min:250,  max:499,  name:'Parlant',      emoji:'💬', title:'Ja et defenses en català!' },
+  { min:500,  max:999,  name:'Avançat',      emoji:'🎓', title:'Domini sòlid de la llengua.' },
+  { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Gairebé un expert!' },
+  { min:2000, max:Infinity, name:'Mestre del Català', emoji:'🏆', title:'Has assolit el màxim nivell!' },
+];
+function getLevel(xp) { return LEVELS.find(l => xp >= l.min && xp <= l.max) || LEVELS[0]; }
+function getNextLevel(xp) { const i = LEVELS.findIndex(l => xp >= l.min && xp <= l.max); return LEVELS[i+1] || null; }
+
+// ══ MISSATGES D'ÀNIM PER CATEGORIA ══
+const ENCOURAGEMENT = {
+  'Connectors':               "💪 Els connectors fan textos molt més rics. Practica-les en veu alta!",
+  'Subjuntiu':                "🔀 El subjuntiu és un dels reptes més grans del català. Poc a poc!",
+  'Cohesió textual':          "🧩 La cohesió es nota molt en textos escrits. Segueix endavant!",
+  'Comprensió lectora':       "📖 Llegir bé és una habilitat que millora amb el temps. No t'aturis!",
+  'Producció escrita':        "✏️ Escriure és la millor manera de consolidar tot el que aprens.",
+  'Lèxic formal':             "📚 El lèxic precís marca la diferència en textos professionals.",
+  'Interferències':           "🚧 Les interferències del castellà costen, però amb pràctica s'eviten!",
+  'Perífrasis verbals':       "⚙️ Les perífrasis donen molta riquesa expressiva. Continua!",
+  'Temps verbals':            "⏱️ Els temps verbals en català tenen matisos únics. Quasi!",
+  'Preposicions':             "🔧 El règim preposicional s'aprèn amb la pràctica. Endavant!",
+  'Construccions comparatives':"⚖️ Els comparatius irregulars cal memoritzar-los. Tu pots!",
+  'Subjuntiu avançat':        "🔀 El subjuntiu avançat és complex fins i tot per a nadius. Molt bé pel fet d'intentar-ho!",
+  'Connectors concessius':    "🔗 Els concessius marquen un nivell alt de domini. Segueix!",
+  'Argumentació':             "🧠 Argumentar bé en català és una habilitat molt valorada.",
+  'Comprensió crítica':       "🔍 Llegir entre línies és la clau del C1. No et rendeixis!",
+  'Producció formal':         "🖊️ El registre acadèmic es domina amb molta lectura i pràctica.",
+  'Oracions de relatiu':      "🔗 Les relatives cultes distingeixen un C1 de veritat. Ànims!",
+  'Subjuntiu imperfet':       "🔀 La concordança temporal és dels punts més delicats. Persevera!",
+  'Pronoms febles':           "🔵 Els pronoms febles del català no tenen equivalent en castellà. Paciència!",
+  'Frases fetes':             "💬 La fraseologia és el toc final d'un català natural. Genial!",
+  'Derivació i flexió':       "🧬 La morfologia és la base de tot. Molt bé pel treball!",
+  'Estil indirecte':          "💬 L'estil indirecte requereix molt de control gramatical. Segueix!",
+  'Passiva i impersonal':     "🔄 La passiva reflexa és la marca del català genuí. Quasi!",
+  'default':                  "💪 Cada error és una oportunitat d'aprendre. Continua practicant!",
+};
+
 let progress = (function() {
-  const raw = JSON.parse(localStorage.getItem('cat_prog_v6') || 'null');
+  const raw = JSON.parse(localStorage.getItem('cat_prog_v7') || 'null');
   if (raw && raw.mastery) return raw;
-  // Migra del format antic (v5)
-  const old = JSON.parse(localStorage.getItem('cat_prog_v5') || 'null');
-  if (old) {
+  // Migra de v6
+  const v6 = JSON.parse(localStorage.getItem('cat_prog_v6') || 'null');
+  if (v6 && v6.mastery) return { ...v6 };
+  // Migra de v5
+  const v5 = JSON.parse(localStorage.getItem('cat_prog_v5') || 'null');
+  if (v5) {
     const mastery = {};
-    (old.done || []).forEach(id => { mastery[id] = 3; });
-    return { xp: old.xp || 0, streak: old.streak || 0, mastery, lastDay: old.lastDay || null };
+    (v5.done || []).forEach(id => { mastery[id] = 3; });
+    return { xp: v5.xp || 0, streak: v5.streak || 0, mastery, lastDay: v5.lastDay || null };
   }
-  return { xp: 0, streak: 0, mastery: {}, lastDay: null };
+  return { xp: 0, streak: 0, mastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [] };
 })();
 
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 
-function saveProgress() { localStorage.setItem('cat_prog_v6', JSON.stringify(progress)); }
+function saveProgress() { localStorage.setItem('cat_prog_v7', JSON.stringify(progress)); }
 
 // ══ SRS ══
 function getMastery(id) { return progress.mastery[id] || 0; }
@@ -225,12 +307,53 @@ function sortBySRS(items) {
 function updateHeader() {
   document.getElementById('ct-xp').textContent = progress.xp + ' XP';
   document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
+  const lv = getLevel(progress.xp);
+  const badge = document.getElementById('ct-level-badge');
+  if (badge) badge.textContent = lv.emoji + ' ' + lv.name;
 }
 function showXPPop(n) {
   const el = document.createElement('div');
   el.className = 'ct-xp-pop'; el.textContent = '+' + n + ' XP';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 2000);
+}
+function showConfetti() {
+  const colors = ['#f59e0b','#10b981','#3b82f6','#8b5cf6','#ef4444','#f97316'];
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'ct-confetti-piece';
+    p.style.cssText = `left:${Math.random()*100}vw; top:-10px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${1.2 + Math.random()*1.5}s;
+      animation-delay:${Math.random()*0.5}s;
+      transform:rotate(${Math.random()*360}deg);`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 3000);
+  }
+}
+function showLevelUp(newLevel) {
+  showConfetti();
+  const overlay = document.createElement('div');
+  overlay.className = 'ct-levelup-overlay';
+  overlay.innerHTML = `
+    <div class="ct-levelup-box">
+      <div class="ct-levelup-emoji">${newLevel.emoji}</div>
+      <div class="ct-levelup-title">Nou nivell!</div>
+      <div style="font-size:22px;font-weight:700;color:var(--c1);margin-bottom:6px;">${newLevel.name}</div>
+      <div class="ct-levelup-sub">${newLevel.title}</div>
+      <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
+        Continuar 🎉
+      </button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+function showEncouragement(category) {
+  const msg = ENCOURAGEMENT[category] || ENCOURAGEMENT['default'];
+  const el = document.createElement('div');
+  el.className = 'ct-encouragement';
+  el.textContent = msg;
+  const fa = document.getElementById('feedback-area');
+  if (fa) fa.appendChild(el);
 }
 function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
 
@@ -242,11 +365,13 @@ function showTab(tab) {
   else if (tab === 'b2') renderLevelMenu('b2');
   else if (tab === 'c1') renderLevelMenu('c1');
   else if (tab === 'review') renderReview();
+  else if (tab === 'achievements') renderAchievements();
   else renderProgress();
 }
 
 // ══ MENU PRINCIPAL ══
 function renderMenu() {
+  const lv = getLevel(progress.xp);
   const total = DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
@@ -259,8 +384,8 @@ function renderMenu() {
       </p>
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:#eff6ff;border-radius:12px;padding:16px 22px;min-width:100px;">
-          <div style="font-size:26px;font-weight:700;color:#1e40af;">${progress.xp}</div>
-          <div style="font-size:12px;color:#3b82f6;margin-top:2px;">XP totals</div>
+          <div style="font-size:22px;font-weight:700;color:#1e40af;">${lv.emoji} ${lv.name}</div>
+          <div style="font-size:12px;color:#3b82f6;margin-top:2px;">${progress.xp} XP</div>
         </div>
         <div style="background:#f0fdf4;border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:26px;font-weight:700;color:#065f46;">${mastered}/${total}</div>
@@ -273,6 +398,13 @@ function renderMenu() {
       </div>
       <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:24px;">${pct}% dominat</div>
+      ${(()=>{
+        const dc = getDailyChallenge();
+        const dcDone = dc.completed.length === dc.ids.length;
+        return dcDone
+          ? `<div style="background:#f0fdf4;border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:#065f46;font-weight:600;">✅ Repte diari completat! +50 XP</div>`
+          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
+      })()}
       <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
@@ -679,6 +811,7 @@ function showTheory(q) {
 function markDone(ok, xp) {
   const q = currentSession.items[currentSession.idx];
   const prev = getMastery(q.id);
+  const prevLevel = getLevel(progress.xp);
 
   // Actualitza domini
   if (prev === 0) {
@@ -686,17 +819,61 @@ function markDone(ok, xp) {
   } else {
     progress.mastery[q.id] = ok ? Math.min(5, prev + 1) : Math.max(1, prev - 1);
   }
-
   const newM = getMastery(q.id);
 
-  // XP només si millora el domini
-  if (ok && newM > prev) { progress.xp += xp; showXPPop(xp); }
+  // XP + comprovació de pujada de nivell
+  if (ok && newM > prev) {
+    progress.xp += xp;
+    showXPPop(xp);
+    const newLevel = getLevel(progress.xp);
+    if (newLevel.name !== prevLevel.name) showLevelUp(newLevel);
+  }
 
-  // Ratxa diària
+  // Missatge d'ànim si falla
+  if (!ok) setTimeout(() => showEncouragement(q.category), 300);
+
+  // Encerts consecutius
+  if (ok) { progress.consec = (progress.consec || 0) + 1; }
+  else     { progress.consec = 0; }
+
+  // Ratxa diària + historial
   const today = new Date().toDateString();
-  if (progress.lastDay !== today) { progress.streak++; progress.lastDay = today; }
+  if (progress.lastDay !== today) {
+    progress.streak++;
+    progress.lastDay = today;
+    if (!progress.practiceHistory) progress.practiceHistory = [];
+    if (!progress.practiceHistory.includes(today)) {
+      progress.practiceHistory.push(today);
+      // Conserva només els últims 30 dies
+      if (progress.practiceHistory.length > 30) progress.practiceHistory.shift();
+    }
+  }
 
+  // Comprova si l'exercici forma part del repte diari
+  const dc = progress.dailyChallenge;
+  if (dc && dc.date === today && dc.ids.includes(q.id) && !dc.completed.includes(q.id)) {
+    dc.completed.push(q.id);
+    if (dc.completed.length === dc.ids.length) {
+      // Tots completats! Bonus XP
+      setTimeout(() => {
+        progress.xp += 50;
+        showXPPop(50);
+        const el = document.createElement('div');
+        el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+          background:#059669;color:#fff;padding:14px 22px;border-radius:12px;
+          font-size:14px;font-weight:700;z-index:9998;animation:popIn 0.4s ease;
+          display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+        el.innerHTML = `<span style="font-size:26px;">🎯</span><div><div style="font-size:11px;opacity:0.85;margin-bottom:2px;">REPTE DIARI COMPLETAT</div>+50 XP de bonus!</div>`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+        saveProgress(); updateHeader();
+      }, 600);
+    }
+  }
+
+  const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
   saveProgress(); updateHeader();
+  checkNewAchievements(_prevUnlocked);
   if (ok) currentSession.correct++;
   document.getElementById('nav-row').style.display = 'flex';
 
@@ -715,6 +892,7 @@ function goNext() { currentSession.idx++; renderExercise(); }
 function renderSummary() {
   const { items, correct, level, returnTo, cat } = currentSession;
   const pct = Math.round(correct / items.length * 100);
+  if (pct === 100 && items.length >= 3) { progress.perfectSessions = (progress.perfectSessions||0)+1; saveProgress(); }
   const emoji = pct>=80?'🏆':pct>=60?'👍':'📚';
   const msg = pct>=80?'Excel·lent feina! Domines bé aquest contingut.':pct>=60?'Bon resultat! Continua practicant per consolidar.':'Repassa la teoria i torna-ho a intentar.';
   const backBtn = returnTo === 'cat'
@@ -733,6 +911,396 @@ function renderSummary() {
     </div>`;
 }
 
+// ══ ASSOLIMENTS ══
+const ACHIEVEMENTS = [
+  // ── INICI ──────────────────────────────────────────
+  { id:'first_exercise', group:'inici', icon:'🌱', name:'Primer pas',
+    desc:'Completa el teu primer exercici.',
+    check: p => Object.keys(p.mastery).length >= 1 },
+  { id:'first_correct', group:'inici', icon:'✅', name:'Primera encertada',
+    desc:'Encerta el teu primer exercici.',
+    check: p => p.xp > 0 },
+  { id:'level2', group:'inici', icon:'📖', name:'Estudiant',
+    desc:'Arriba al nivell Estudiant (100 XP).',
+    check: p => p.xp >= 100 },
+
+  // ── RATXA ───────────────────────────────────────────
+  { id:'streak3', group:'ratxa', icon:'🔥', name:'Ratxa de 3 dies',
+    desc:'Practica 3 dies seguits.',
+    check: p => (p.streak||0) >= 3 },
+  { id:'streak7', group:'ratxa', icon:'🔥🔥', name:'Ratxa de 7 dies',
+    desc:'Practica 7 dies seguits.',
+    check: p => (p.streak||0) >= 7 },
+  { id:'streak14', group:'ratxa', icon:'🔥🔥🔥', name:'Ratxa de 2 setmanes',
+    desc:'Practica 14 dies seguits.',
+    check: p => (p.streak||0) >= 14 },
+  { id:'streak30', group:'ratxa', icon:'⚡', name:'Ratxa de 30 dies',
+    desc:'Practica 30 dies seguits. Increïble!',
+    check: p => (p.streak||0) >= 30 },
+
+  // ── ENCERTS CONSECUTIUS ─────────────────────────────
+  { id:'consec5', group:'encerts', icon:'🎯', name:'Cinc seguides',
+    desc:'Encerta 5 exercicis seguits sense errors.',
+    check: p => (p.consec||0) >= 5 },
+  { id:'consec10', group:'encerts', icon:'🎯🎯', name:'Deu seguides',
+    desc:'Encerta 10 exercicis seguits sense errors.',
+    check: p => (p.consec||0) >= 10 },
+  { id:'consec20', group:'encerts', icon:'💫', name:'Vint seguides',
+    desc:'Encerta 20 exercicis seguits. Ets increïble!',
+    check: p => (p.consec||0) >= 20 },
+
+  // ── VOLUM ───────────────────────────────────────────
+  { id:'tried10', group:'volum', icon:'📝', name:'En marxa',
+    desc:'Intenta 10 exercicis.',
+    check: p => Object.keys(p.mastery).length >= 10 },
+  { id:'tried25', group:'volum', icon:'📝📝', name:'Persistent',
+    desc:'Intenta 25 exercicis.',
+    check: p => Object.keys(p.mastery).length >= 25 },
+  { id:'tried50', group:'volum', icon:'🏅', name:'Mig camí',
+    desc:'Intenta 50 exercicis.',
+    check: p => Object.keys(p.mastery).length >= 50 },
+  { id:'tried100', group:'volum', icon:'🏆', name:'Centenari',
+    desc:'Intenta 100 exercicis. Tot un repte!',
+    check: p => Object.keys(p.mastery).length >= 100 },
+
+  // ── PERFECCIÓ ───────────────────────────────────────
+  { id:'perfect1', group:'perfeccio', icon:'⭐', name:'Sessió perfecta',
+    desc:"Completa una sessió amb el 100% d'encerts (mínim 3 exercicis).",
+    check: p => (p.perfectSessions||0) >= 1 },
+  { id:'perfect5', group:'perfeccio', icon:'⭐⭐', name:'Perfeccionista',
+    desc:"Aconsegueix 5 sessions perfectes.",
+    check: p => (p.perfectSessions||0) >= 5 },
+
+  // ── XP ──────────────────────────────────────────────
+  { id:'xp100', group:'xp', icon:'💛', name:'100 XP',
+    desc:"Acumula 100 punts d'experiència.",
+    check: p => p.xp >= 100 },
+  { id:'xp500', group:'xp', icon:'🧡', name:'500 XP',
+    desc:"Acumula 500 punts d'experiència.",
+    check: p => p.xp >= 500 },
+  { id:'xp1000', group:'xp', icon:'❤️', name:'1000 XP',
+    desc:"Acumula 1000 punts d'experiència.",
+    check: p => p.xp >= 1000 },
+  { id:'xp2000', group:'xp', icon:'💜', name:'2000 XP — Mestre',
+    desc:"Acumula 2000 punts. Ets un mestre del català!",
+    check: p => p.xp >= 2000 },
+];
+
+const ACHIEVEMENT_GROUPS = [
+  { id:'inici',     label:'🌱 Primeres passes' },
+  { id:'ratxa',     label:'🔥 Ratxa diària' },
+  { id:'encerts',   label:'🎯 Encerts consecutius' },
+  { id:'volum',     label:'📝 Volum de pràctica' },
+  { id:'perfeccio', label:'⭐ Perfecció' },
+  { id:'xp',        label:'💛 Experiència' },
+];
+
+function getUnlockedAchievements() {
+  return ACHIEVEMENTS.filter(a => a.check(progress)).map(a => a.id);
+}
+
+
+// ══ MEDALLES DE GRAMÀTICA ══
+function buildGrammarMedals() {
+  const medals = [];
+  const b2cats = [...new Set(DATA.b2.map(q => q.category))];
+  b2cats.forEach(cat => {
+    const th = THEORY[cat];
+    medals.push({
+      id: 'b2__' + cat, level:'b2', category:cat,
+      icon: th ? th.icon : '🥉', name: cat,
+      desc: `Domina tots els exercicis de ${cat} al nivell B2.`,
+      check: p => {
+        const exs = DATA.b2.filter(q => q.category === cat);
+        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+      }
+    });
+  });
+  const c1cats = [...new Set(DATA.c1.map(q => q.category))];
+  c1cats.forEach(cat => {
+    const th = THEORY[cat];
+    medals.push({
+      id: 'c1__' + cat, level:'c1', category:cat,
+      icon: th ? th.icon : '🥇', name: cat,
+      desc: `Domina tots els exercicis de ${cat} al nivell C1.`,
+      check: p => {
+        const exs = DATA.c1.filter(q => q.category === cat);
+        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+      }
+    });
+  });
+  // Supermedalles
+  medals.push({ id:'master_b2', level:'super', icon:'🏅', name:'Mestre del B2',
+    desc:'Domina totes les categories del nivell B2.',
+    check: p => DATA.b2.every(q => (p.mastery[q.id]||0) >= 4) });
+  medals.push({ id:'master_c1', level:'super', icon:'🏆', name:'Mestre del C1',
+    desc:'Domina totes les categories del nivell C1.',
+    check: p => DATA.c1.every(q => (p.mastery[q.id]||0) >= 4) });
+  medals.push({ id:'master_all', level:'super', icon:'👑', name:'Mestre del Català',
+    desc:'Domina absolutament tots els exercicis de B2 i C1. Felicitats!',
+    check: p => [...DATA.b2,...DATA.c1].every(q => (p.mastery[q.id]||0) >= 4) });
+  return medals;
+}
+
+function getAllMedals() { return buildGrammarMedals(); }
+
+function getUnlockedMedals() {
+  return getAllMedals().filter(m => m.check(progress)).map(m => m.id);
+}
+
+function renderMedalGrid(medals, unlocked) {
+  return medals.map(m => {
+    const done = unlocked.has(m.id);
+    const exs = m.level !== 'super'
+      ? (DATA[m.level]||[]).filter(q => q.category === m.category)
+      : [];
+    const dominated = exs.length > 0
+      ? exs.filter(q => (progress.mastery[q.id]||0) >= 4).length
+      : null;
+    return `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+        <div style="font-size:28px;min-width:38px;text-align:center;${done ? '' : 'filter:grayscale(1);opacity:0.3;'}">${m.icon}</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${done ? m.name : '???'}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:1px;">${done ? m.desc : 'Medalla blocada 🔒'}</div>
+          ${!done && dominated !== null ? `<div style="margin-top:5px;background:#e5e7eb;border-radius:4px;height:4px;overflow:hidden;width:100px;"><div style="background:var(--c1);height:100%;width:${Math.round(dominated/exs.length*100)}%;"></div></div><div style="font-size:10px;color:var(--muted);margin-top:2px;">${dominated}/${exs.length} exercicis dominats</div>` : ''}
+        </div>
+        ${done ? '<span style="font-size:20px;">🏅</span>' : ''}
+      </div>`;
+  }).join('');
+}
+
+
+// ══ REPTE DIARI ══
+function seededRand(seed, n) {
+  const x = Math.sin(seed * 9301 + n * 49297 + 233) * 10000;
+  return x - Math.floor(x);
+}
+
+function getDailyChallenge() {
+  const today = new Date().toDateString();
+  if (progress.dailyChallenge && progress.dailyChallenge.date === today) {
+    return progress.dailyChallenge;
+  }
+  // Genera repte nou basat en la data (consistent per a tots els usuaris)
+  const all = [...DATA.b2, ...DATA.c1];
+  const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const indices = [];
+  let attempts = 0;
+  while (indices.length < 3 && attempts < 200) {
+    const i = Math.floor(seededRand(seed, attempts++) * all.length);
+    if (!indices.includes(i)) indices.push(i);
+  }
+  const ids = indices.map(i => all[i].id);
+  const challenge = { date: today, ids, completed: [] };
+  progress.dailyChallenge = challenge;
+  saveProgress();
+  return challenge;
+}
+
+function startDailySession() {
+  const dc = getDailyChallenge();
+  const all = [...DATA.b2, ...DATA.c1];
+  const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
+  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
+  renderExercise();
+  document.getElementById('nav-review').click();
+}
+
+function getMidnightCountdown() {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  return `${h}h ${m}m`;
+}
+
+function render7DayHistory() {
+  const history = new Set(progress.practiceHistory || []);
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(d);
+  }
+  return `
+    <div style="display:flex;gap:8px;justify-content:center;margin:16px 0;">
+      ${days.map(d => {
+        const ds = d.toDateString();
+        const done = history.has(ds);
+        const label = d.toLocaleDateString('ca', { weekday: 'short' });
+        const isToday = ds === new Date().toDateString();
+        return `<div style="text-align:center;flex:1;">
+          <div style="height:36px;border-radius:8px;background:${done ? '#059669' : '#e5e7eb'};
+            display:flex;align-items:center;justify-content:center;font-size:18px;
+            border:${isToday ? '2px solid var(--c1)' : '2px solid transparent'};">
+            ${done ? '✓' : (isToday ? '·' : '')}
+          </div>
+          <div style="font-size:9px;color:var(--muted);margin-top:4px;text-transform:capitalize;">${label}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderDailyChallengeSection() {
+  const dc = getDailyChallenge();
+  const all = [...DATA.b2, ...DATA.c1];
+  const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
+  const nDone = dc.completed.length;
+  const allDone = nDone === items.length;
+  const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
+  const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
+
+  return `
+    <div style="background:${allDone ? 'linear-gradient(135deg,#065f46,#059669)' : 'linear-gradient(135deg,#1a2f4e,#2d4a7a)'};
+      border-radius:14px;padding:20px;color:#fff;margin-bottom:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:11px;opacity:0.75;letter-spacing:1px;margin-bottom:4px;">REPTE D'AVUI</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;">
+            ${allDone ? '🎯 Repte completat!' : '🎯 Repte diari'}
+          </div>
+        </div>
+        <div style="text-align:right;font-size:11px;opacity:0.7;">
+          ${allDone ? '<span style="font-size:28px;">✅</span>' : `Reinicia en<br><strong>${getMidnightCountdown()}</strong>`}
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.15);border-radius:6px;height:6px;margin-bottom:12px;overflow:hidden;">
+        <div style="background:#fbbf24;height:100%;width:${Math.round(nDone/items.length*100)}%;border-radius:6px;transition:width 0.5s;"></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        ${items.map(q => {
+          const done = dc.completed.includes(q.id);
+          return `<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;">
+            <span style="font-size:18px;">${done ? '✅' : typeIcons[q.type]}</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:600;${done ? 'text-decoration:line-through;opacity:0.6;' : ''}">${q.category}</div>
+              <div style="font-size:11px;opacity:0.7;">${typeNames[q.type]} · ${q.level.toUpperCase()}</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+
+      ${!allDone
+        ? `<button class="ct-btn primary" style="width:100%;background:#fbbf24;color:#1a2f4e;border:none;font-weight:700;"
+            onclick="startDailySession()">▶ Fer el repte ara</button>`
+        : `<div style="text-align:center;font-size:13px;opacity:0.85;">+50 XP de bonus guanyats! 🎉</div>`
+      }
+    </div>`;
+}
+
+function renderAchievements() {
+  const unlocked = new Set(getUnlockedAchievements());
+  const medals    = getAllMedals();
+  const unlockedM = new Set(getUnlockedMedals());
+
+  const totalAll   = ACHIEVEMENTS.length + medals.length;
+  const nAll       = unlocked.size + unlockedM.size;
+
+  // ── Assoliments generals ──
+  const groupsHTML = ACHIEVEMENT_GROUPS.map(group => {
+    const items = ACHIEVEMENTS.filter(a => a.group === group.id);
+    const cards = items.map(a => {
+      const done = unlocked.has(a.id);
+      return `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+          <div style="font-size:28px;min-width:38px;text-align:center;${done ? '' : 'filter:grayscale(1);opacity:0.35;'}">${a.icon}</div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${done ? a.name : '???'}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">${done ? a.desc : 'Assoliment blocat 🔒'}</div>
+          </div>
+          ${done ? '<span style="font-size:18px;">✅</span>' : ''}
+        </div>`;
+    }).join('');
+    const groupDone = items.filter(a => unlocked.has(a.id)).length;
+    return `
+      <div style="margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <div style="font-weight:700;font-size:15px;">${group.label}</div>
+          <div style="font-size:12px;color:var(--muted);">${groupDone}/${items.length}</div>
+        </div>
+        ${cards}
+      </div>`;
+  }).join('');
+
+  // ── Medalles de gramàtica B2 ──
+  const b2medals  = medals.filter(m => m.level === 'b2');
+  const b2done    = b2medals.filter(m => unlockedM.has(m.id)).length;
+  const c1medals  = medals.filter(m => m.level === 'c1');
+  const c1done    = c1medals.filter(m => unlockedM.has(m.id)).length;
+  const superMs   = medals.filter(m => m.level === 'super');
+  const superDone = superMs.filter(m => unlockedM.has(m.id)).length;
+
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:600px;margin:0 auto;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--c1);margin-bottom:20px;">🏅 Assoliments i Medalles</div>
+
+      ${renderDailyChallengeSection()}
+
+      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--c1);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
+      ${render7DayHistory()}
+
+      <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
+      <div style="background:#f0fdf4;border-radius:10px;height:8px;margin-bottom:28px;overflow:hidden;">
+        <div style="background:#059669;height:100%;width:${Math.round(nAll/totalAll*100)}%;border-radius:10px;transition:width 0.5s;"></div>
+      </div>
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--c1);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);">
+        ⭐ Assoliments generals
+      </div>
+      ${groupsHTML}
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#1e40af;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
+        🥉 Medalles B2 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b2done}/${b2medals.length}</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B2.</p>
+      ${renderMedalGrid(b2medals, unlockedM)}
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#d97706;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #fef3c7;">
+        🥇 Medalles C1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${c1done}/${c1medals.length}</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell C1.</p>
+      ${renderMedalGrid(c1medals, unlockedM)}
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#7c3aed;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #ede9fe;">
+        🏆 Supermedalles <span style="font-size:13px;font-weight:400;color:var(--muted);">${superDone}/${superMs.length}</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">El repte final. Reservades per als millors.</p>
+      ${renderMedalGrid(superMs, unlockedM)}
+    </div>`;
+}
+
+// Mostra notificació d'assoliment nou
+function checkNewAchievements(prevUnlocked) {
+  // Assoliments generals
+  const nowUnlocked = getUnlockedAchievements();
+  const newOnes = nowUnlocked.filter(id => !prevUnlocked.includes(id));
+  // Medalles de gramàtica
+  const prevMedals = prevUnlocked.filter(id => id.startsWith('b2__') || id.startsWith('c1__') || id.startsWith('master_'));
+  const nowMedals  = getUnlockedMedals();
+  const newMedals  = nowMedals.filter(id => !prevMedals.includes(id));
+  const allNew = [...newOnes, ...newMedals];
+  allNew.forEach((id, i) => {
+    const a = ACHIEVEMENTS.find(x => x.id === id) || getAllMedals().find(x => x.id === id);
+    if (!a) return;
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+        background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
+        font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
+        display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+      el.innerHTML = `<span style="font-size:22px;">${a.icon}</span><div><div style="font-size:11px;opacity:0.7;margin-bottom:1px;">ASSOLIMENT DESBLOQUEJAT</div>${a.name}</div>`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3500);
+    }, i * 800);
+  });
+}
+
+
 function renderProgress() {
   const all = [...DATA.b2, ...DATA.c1];
   const masteries = all.map(q => getMastery(q.id));
@@ -744,9 +1312,31 @@ function renderProgress() {
   const c1done  = DATA.c1.filter(q => getMastery(q.id) >= 4).length;
   const b2total = DATA.b2.length, c1total = DATA.c1.length, total = all.length;
 
+  const lv = getLevel(progress.xp);
+  const nextLv = getNextLevel(progress.xp);
+  const xpInLevel = progress.xp - lv.min;
+  const xpToNext = nextLv ? (nextLv.min - lv.min) : 1;
+  const lvPct = nextLv ? Math.round(xpInLevel / xpToNext * 100) : 100;
+
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--c1);margin-bottom:20px;">El teu progrés</div>
+      <div style="background:linear-gradient(135deg,#1a2f4e,#2d4a7a);border-radius:14px;padding:20px 24px;color:#fff;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <span style="font-size:40px;">${lv.emoji}</span>
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:20px;">${lv.name}</div>
+            <div style="font-size:12px;opacity:0.75;">${lv.title}</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:6px;height:8px;overflow:hidden;">
+          <div style="background:#fbbf24;height:100%;width:${lvPct}%;border-radius:6px;transition:width 0.5s;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;margin-top:5px;">
+          <span>${progress.xp} XP</span>
+          <span>${nextLv ? nextLv.name + ' a ' + nextLv.min + ' XP' : 'Nivell màxim assolit! 🏆'}</span>
+        </div>
+      </div>
       <div style="margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
           <span style="font-weight:500;">Nivell B2</span>
@@ -795,15 +1385,28 @@ function renderProgress() {
         </div>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
-      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},lastDay:null};saveProgress();updateHeader();renderProgress();}">
+      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[]};saveProgress();updateHeader();renderProgress();}">
         Reiniciar progrés
       </button>
     </div>`;
 }
 
 /* INICI */
-updateHeader();
-renderMenu();
+if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:480px;margin:0 auto;text-align:center;padding:32px;">
+      <div style="font-size:40px;margin-bottom:12px;">⚠️</div>
+      <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--c1);margin-bottom:12px;">Error carregant les dades</div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+        El fitxer <code>data.js</code> no s'ha pogut carregar.<br>
+        Prova de recarregar la pàgina o buida la caché del navegador.
+      </p>
+      <button class="ct-btn primary" onclick="location.reload(true)">🔄 Recarregar</button>
+    </div>`;
+} else {
+  updateHeader();
+  renderMenu();
+}
 
 /* ══ PWA: Registre del Service Worker ══ */
 if ('serviceWorker' in navigator) {
