@@ -377,12 +377,12 @@ function renderMenu() {
   const total = (DATA.a2||[]).length + DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
-  const needsReview = [...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
+  const needsReview = [...(DATA.a2||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--c1);margin-bottom:8px;">Benvingut/da!</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
-        Exercicis de nivell B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
+        Exercicis de nivell A2, B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
       </p>
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:#eff6ff;border-radius:12px;padding:16px 22px;min-width:100px;">
@@ -415,9 +415,15 @@ function renderMenu() {
 }
 
 function renderLevelMenu(level) {
-  const items = DATA[level];
+  const items = DATA[level] || [];
+  if (!items.length) {
+    document.getElementById('ct-body').innerHTML = '<div class="ct-card" style="text-align:center;padding:32px;"><p style="color:var(--muted);">Nivell no disponible. Comprova que data.js s\'ha carregat correctament.</p></div>';
+    return;
+  }
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
-  const desc = level === 'b2'
+  const desc = level === 'a2'
+    ? 'Contingut bàsic: verbs essencials, adjectius i estructures fonamentals del català. Ideal per començar.'
+    : level === 'b2'
     ? 'Cada tema inclou una lliçó de teoria i exercicis pràctics. Comença per la teoria per preparar-te millor.'
     : 'Contingut avançat: argumentació, precisió lèxica i producció formal. Llegeix la teoria abans de practicar.';
 
