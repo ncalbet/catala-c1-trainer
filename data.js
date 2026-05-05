@@ -1,4 +1,1317 @@
 const THEORY = {
+  // ── NIVELL A2 ──────────────────────────────────────────────
+// ── NIVELL A2 ──────────────────────────────────────────────
+
+  'Ser, estar i semblar': {
+    level: 'a2',
+    icon: '🔵',
+    subtitle: 'Quan usar cada verb per descriure persones i estats',
+    sections: [
+      {
+        title: 'La diferència fonamental',
+        icon: '📌',
+        body: `<p>En català, <strong>ser</strong>, <strong>estar</strong> i <strong>semblar</strong> no s'intercanvien lliurement. Cada verb té un valor semàntic específic que cal respectar per comunicar-se correctament.</p>`
+      },
+      {
+        title: "Usos de ser, estar i semblar",
+        icon: '📊',
+        table: {
+          headers: ['Verb', "S'usa per a...", 'Exemple'],
+          rows: [
+            ['ser', "Característiques permanents d'una persona", 'La Maria és molt divertida.'],
+            ['estar', "Estats transitoris o d'ànim", 'Avui el Biel està trist.'],
+            ['semblar', "L'aparença que dona una persona", "La Conxa sembla tímida, però és molt oberta."],
+          ]
+        }
+      },
+      {
+        title: 'El pronom HO amb ser, estar i semblar',
+        icon: '🔵',
+        body: `<p>El pronom <strong>ho</strong> substitueix un adjectiu o atribut ja esmentat. S'usa obligatòriament amb aquests tres verbs; no es pot ometre ni substituir per «el» o «la».</p>`,
+        rules: [
+          { label: 'ho + ser', example: "«La Gina és tímida i la seva germana també ho és.»" },
+          { label: 'ho + estar', example: "«La Marta diu que no està trista, però realment ho està.»" },
+          { label: 'ho + semblar', example: "«Semblen seriosos, però no ho semblen quan els coneixes bé.»" },
+        ]
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        rules: [
+          { bad: 'Estic molt simpàtic avui.', good: "Soc molt simpàtic. (característica) / Estic de molt bon humor. (estat d'avui)" },
+          { bad: 'És nerviós ara mateix.', good: 'Està nerviós ara mateix. (estat transitori)' },
+          { bad: 'Ell és cansat.', good: 'Ell està cansat. (estat passatger)' },
+        ]
+      }
+    ]
+  },
+
+  'Adjectius de caràcter': {
+    level: 'a2',
+    icon: '😊',
+    subtitle: 'Vocabulari i flexió per descriure la manera de ser',
+    sections: [
+      {
+        title: 'Gènere i nombre dels adjectius',
+        icon: '📌',
+        body: `<p>Els adjectius catalans concorden en gènere (masculí/femení) i nombre (singular/plural) amb el nom que acompanyen. Cal conèixer els patrons de flexió principals.</p>`
+      },
+      {
+        title: 'Patrons principals de flexió',
+        icon: '📊',
+        table: {
+          headers: ['Patró', 'Masc. sing.', 'Fem. sing.', 'Masc. pl.', 'Fem. pl.'],
+          rows: [
+            ['-a / -es', 'sincer', 'sincera', 'sincers', 'sinceres'],
+            ['-t / -da', 'divertit', 'divertida', 'divertits', 'divertides'],
+            ['-c / -ca', 'simpàtic', 'simpàtica', 'simpàtics', 'simpàtiques'],
+            ['-l / -l·la', 'tranquil', 'tranquil·la', 'tranquils', 'tranquil·les'],
+            ['invariable (-ble, -nt)', 'amable', 'amable', 'amables', 'amables'],
+            ['-ós / -osa', 'generós', 'generosa', 'generosos', 'generoses'],
+          ]
+        }
+      },
+      {
+        title: 'Adjectius de caràcter essencials A2',
+        icon: '📋',
+        examples: [
+          { text: 'Positius: simpàtic/a, amable, alegre, sociable, obert/a, generós/osa, tranquil/·la, sincer/a, divertit/ida, valent/a' },
+          { text: 'Negatius: antipàtic/a, tímid/a, reservat/ada, impacient, egocèntric/a, distant' },
+          { text: 'Neutres: introvertit/ida, extravertit/ida, seriós/osa, formal, espontani/ània' },
+        ]
+      }
+    ]
+  },
+
+  'Passat perifràstic': {
+    level: 'a2',
+    icon: '⏮️',
+    subtitle: "Com explicar accions passades amb anar + infinitiu",
+    sections: [
+      {
+        title: 'Què és el passat perifràstic?',
+        icon: '📌',
+        body: `<p>El passat perifràstic és el temps del passat més usat en el català oral. S'usa per parlar d'accions acabades en un moment concret del passat. Es forma amb <strong>anar (present) + infinitiu</strong>: «vaig menjar», «vas sortir», «va arribar»...</p>`
+      },
+      {
+        title: "Conjugació de l'auxiliar «anar»",
+        icon: '📊',
+        table: {
+          headers: ['Persona', "Forma d'«anar»", 'Exemple complet'],
+          rows: [
+            ['jo', 'vaig', 'vaig arribar'],
+            ['tu', 'vas', 'vas sortir'],
+            ['ell/ella', 'va', 'va menjar'],
+            ['nosaltres', 'vam', 'vam estudiar'],
+            ['vosaltres', 'vau', 'vau parlar'],
+            ['ells/elles', 'van', 'van venir'],
+          ]
+        }
+      },
+      {
+        title: 'Expressions temporals habituals',
+        icon: '📋',
+        examples: [
+          { text: "ahir, ahir al matí, ahir a la tarda, ahir a la nit" },
+          { text: "fa una setmana, fa dos dies, fa un any, abans-d'ahir" },
+          { text: "el mes passat, l'any passat, la setmana passada" },
+          { text: 'al principi, llavors, aleshores, després, finalment' },
+        ]
+      },
+      {
+        title: "Diferència amb el perfet d'indicatiu",
+        icon: '⚖️',
+        rules: [
+          { label: 'Passat perifràstic', example: "«Ahir vaig menjar pizza.» → Acció acabada en un moment allunyat del present." },
+          { label: "Perfet d'indicatiu", example: "«Avui he menjat pizza.» → Acció en un període que inclou el present (avui, aquest mes...)." },
+        ]
+      }
+    ]
+  },
+
+  'Pronoms febles A2': {
+    level: 'a2',
+    icon: '🟢',
+    subtitle: "Els pronoms el, la, els, les, ho i en en contextos bàsics",
+    sections: [
+      {
+        title: 'Per a què serveixen els pronoms febles?',
+        icon: '📌',
+        body: `<p>Els pronoms febles eviten la repetició d'un complement ja esmentat. En català van <strong>davant del verb</strong> en frases declaratives, però <strong>darrere i units</strong> amb guionet quan segueixen un infinitiu, un imperatiu o un gerundi.</p>`
+      },
+      {
+        title: 'Pronoms de complement directe (CD)',
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Substitueix', 'Exemple'],
+          rows: [
+            ['el', 'nom masculí singular determinat', "«On és el llibre?» «El tinc jo.»"],
+            ['la', 'nom femení singular determinat', "«Has vist la Maria?» «Sí, la he vista.»"],
+            ['els', 'nom masculí plural determinat', "«On has posat els documents?» «Els he deixat a la taula.»"],
+            ['les', 'nom femení plural determinat', "«Has trucat les amigues?» «Sí, les he trucat.»"],
+            ['ho', 'atribut o idea abstracta/neutra', "«És simpàtic?» «Sí, ho és.»"],
+            ['en', 'CD sense article / quantitat indeterminada', "«Vols pa?» «Sí, en vull.»"],
+          ]
+        }
+      },
+      {
+        title: 'Posició: davant o darrere del verb',
+        icon: '📋',
+        rules: [
+          { label: 'Davant del verb conjugat', example: "«El veig cada dia.» / «La truco ara.» / «No els entenc.»" },
+          { label: "Darrere d'un infinitiu (unit amb guionet)", example: "«Vull veure-la.» / «Cal fer-ho avui.» / «He de trucar-los.»" },
+          { label: "Darrere d'un imperatiu (unit amb guionet)", example: "«Porta'l aquí!» / «Fes-ho ara!» / «Menja'n més!»" },
+        ]
+      }
+    ]
+  },
+
+  "Imperfet d'indicatiu": {
+    level: 'a2',
+    icon: '🔄',
+    subtitle: "Descriure hàbits, rutines i estats en el passat",
+    sections: [
+      {
+        title: "Quan s'usa l'imperfet?",
+        icon: '📌',
+        body: `<p>L'imperfet d'indicatiu s'usa per descriure situacions, hàbits o rutines del passat que no es perceben com a acabades en un moment concret. És el temps de les descripcions, dels estats i de les accions repetides.</p>`
+      },
+      {
+        title: "Terminacions de l'imperfet",
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Verbs -ar (parlar)', 'Verbs -er/-re (tenir)', 'Verbs -ir (dormir)'],
+          rows: [
+            ['jo', 'parlava', 'tenia', 'dormia'],
+            ['tu', 'parlaves', 'tenies', 'dormies'],
+            ['ell/ella', 'parlava', 'tenia', 'dormia'],
+            ['nosaltres', 'parlàvem', 'teníem', 'dormíem'],
+            ['vosaltres', 'parlàveu', 'teníeu', 'dormíeu'],
+            ['ells/elles', 'parlaven', 'tenien', 'dormien'],
+          ]
+        }
+      },
+      {
+        title: 'Irregulars importants a A2',
+        icon: '📋',
+        table: {
+          headers: ['Infinitiu', 'Jo', 'Tu', 'Ell/ella', 'Nosaltres'],
+          rows: [
+            ['ser', 'era', 'eres', 'era', 'érem'],
+            ['fer', 'feia', 'feies', 'feia', 'fèiem'],
+            ['tenir', 'tenia', 'tenies', 'tenia', 'teníem'],
+            ['anar', 'anava', 'anaves', 'anava', 'anàvem'],
+            ['venir', 'venia', 'venies', 'venia', 'veníem'],
+          ]
+        }
+      },
+      {
+        title: 'Usos i expressions típiques',
+        icon: '✨',
+        rules: [
+          { label: 'Hàbits del passat', example: "«De petit, sempre jugava a futbol.» / «Cada estiu anàvem a la platja.»" },
+          { label: 'Descripcions', example: "«Era una noia molt alegre i tenia els cabells llargs.»" },
+          { label: 'soler / acostumar a + infinitiu', example: "«Solia anar a peu a l'escola.» / «Acostumava a llegir cada nit.»" },
+        ]
+      }
+    ]
+  },
+
+  "Lèxic A2: caràcter i emocions": {
+    level: 'a2',
+    icon: '💬',
+    subtitle: "Vocabulari per expressar estats d'ànim i reaccions emocionals",
+    sections: [
+      {
+        title: 'Expressar com et trobes',
+        icon: '📌',
+        body: `<p>Per expressar l'estat d'ànim a l'A2 usem <strong>estar + adjectiu</strong> per als estats transitoris, i <strong>posar-se + adjectiu</strong> per als canvis bruscos d'estat.</p>`
+      },
+      {
+        title: "Adjectius d'estat i reaccions",
+        icon: '📊',
+        table: {
+          headers: ['Adjectiu', 'Masculí/Femení', 'Exemple'],
+          rows: [
+            ['nerviós/osa', 'nerviós / nerviosa', "Estic nerviosa abans dels exàmens."],
+            ['content/a', 'content / contenta', "Estan contents amb el resultat."],
+            ['trist/a', 'trist / trista', "Avui estic una mica trist."],
+            ['avergonyit/ida', 'avergonyit / avergonyida', "Em vaig posar molt avergonyida."],
+            ['enfadat/ada', 'enfadat / enfadada', "El director estava molt enfadat."],
+            ['sorprès/esa', 'sorprès / sorpresa', "Va quedar molt sorpresa."],
+          ]
+        }
+      },
+      {
+        title: 'Reaccions en situacions compromeses',
+        icon: '😅',
+        examples: [
+          { text: "em poso vermell/a → sentir vergonya intensa" },
+          { text: "em vull fondre → vergonya màxima, voler desaparèixer" },
+          { text: "em disculpo → demanar perdó per un error" },
+          { text: "em poso a riure → riure de manera sobtada i incontrolada" },
+          { text: "em quedo callat/ada → no saber què dir per sorpresa o vergonya" },
+        ]
+      },
+      {
+        title: 'Connectors temporals narratius',
+        icon: '🔗',
+        body: `<p>Per explicar anècdotes i situacions del passat, s'usen connectors que organitzen la seqüència temporal.</p>`,
+        examples: [
+          { text: "«quan» → el moment en què passa alguna cosa: «Quan vaig arribar, no hi havia ningú.»" },
+          { text: "«al principi» → el moment inicial: «Al principi, no entenia res.»" },
+          { text: "«llavors / aleshores» → continuació: «Llavors vaig decidir marxar.»" },
+          { text: "«després» → posterioritat: «Després vam anar a sopar tots junts.»" },
+          { text: "«finalment» → el desenllaç: «Finalment, tot va anar bé.»" },
+        ]
+      }
+    ]
+  },
+
+
+  // ── NIVELL B2 ──────────────────────────────────────────────
+
+  'Connectors': {
+    level: 'b2',
+    icon: '🔗',
+    subtitle: 'Connecta idees i estructura el discurs',
+    sections: [
+      {
+        title: 'Què són els connectors?',
+        icon: '📌',
+        body: `<p>Els connectors (o marcadors discursius) són paraules o expressions que estableixen relacions lògiques entre les parts d'un text. Sense ells, el discurs seria una successió d'idees sense cohesió.</p>
+               <p>Al nivell B2 cal dominar els connectors més habituals i saber triar-ne el més adequat segons la relació que es vol expressar.</p>`
+      },
+      {
+        title: 'Connectors per funció',
+        icon: '📊',
+        table: {
+          headers: ['Funció', 'Connectors principals', 'Exemple'],
+          rows: [
+            ['Addició', 'a més (a més), també, fins i tot, d\'altra banda', 'A més, cal tenir en compte els costos.'],
+            ['Causa', 'perquè, ja que, atès que, donat que, com que', 'No va venir perquè estava malalt.'],
+            ['Conseqüència', 'per tant, per consegüent, és per això que, així doncs', 'Va treballar molt; per tant, va tenir èxit.'],
+            ['Oposició', 'però, tanmateix, no obstant això, malgrat tot', 'És difícil; tanmateix, és possible.'],
+            ['Concessió', 'tot i que, encara que, malgrat que, per bé que', 'Tot i que plovia, van sortir.'],
+            ['Ordre', 'en primer lloc, a continuació, finalment, per acabar', 'En primer lloc, analitzarem...'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        body: `<p>Evita repetir sempre el mateix connector. «Però» i «i» s'usen massa sovint en registres informals.</p>`,
+        rules: [
+          { bad: 'Però, és difícil.', good: 'Tanmateix, és difícil. / No obstant això, és difícil.' },
+          { bad: 'I també, cal dir que...', good: 'A més, cal dir que... / Addicionalment, cal dir que...' },
+          { bad: 'Però malgrat tot, va continuar.', good: 'Tot i les dificultats, va continuar. (No acumulis connectors de contrast.)' },
+        ]
+      }
+    ]
+  },
+
+  'Subjuntiu': {
+    level: 'b2',
+    icon: '🔀',
+    subtitle: 'Quan i com usar el mode subjuntiu',
+    sections: [
+      {
+        title: 'Quan s\'usa el subjuntiu?',
+        icon: '📌',
+        body: `<p>El subjuntiu és el mode de la incertesa, el desig, la hipòtesi i la valoració. S'usa quan l'acció de la frase subordinada no és un fet real i objectiu, sinó que depèn de la perspectiva del parlant.</p>
+               <p>La clau per detectar-lo: si el verb principal expressa <strong>desig, dubte, valoració, ordre o possibilitat</strong>, el verb subordinat sol anar en subjuntiu.</p>`
+      },
+      {
+        title: 'Contexts que exigeixen subjuntiu',
+        icon: '📋',
+        rules: [
+          { label: 'Desig i voluntat', example: '«Vull que vinguis.» «Espero que pugui ser.»' },
+          { label: 'Valoració', example: '«És important que ho entenguis.» «Cal que ho facis ara.»' },
+          { label: 'Ordre i petició', example: '«Et demano que ho revisis.» «Insisteix que venguin.»' },
+          { label: 'Dubte i negació d\'existència', example: '«Dubto que sigui veritat.» «No hi ha ningú que sàpiga.»' },
+          { label: 'Concessió (hipotètica)', example: '«Encara que plogui, sortirem.»' },
+        ]
+      },
+      {
+        title: 'Formes del present de subjuntiu',
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er/-re (poder)', 'Verbs en -ir (venir)'],
+          rows: [
+            ['jo', 'parli', 'pugui', 'vingui'],
+            ['tu', 'parlis', 'puguis', 'vinguis'],
+            ['ell/ella', 'parli', 'pugui', 'vingui'],
+            ['nosaltres', 'parlem', 'puguem', 'vinguem'],
+            ['vosaltres', 'parleu', 'pugueu', 'vingueu'],
+            ['ells/elles', 'parlin', 'puguin', 'vinguin'],
+          ]
+        }
+      },
+      {
+        title: 'Indicatiu vs. Subjuntiu',
+        icon: '⚖️',
+        body: `<p>La diferència entre indicatiu i subjuntiu pot canviar el significat radicalment:</p>`,
+        examples: [
+          { text: '«Busco un treballador que parla anglès.» → n\'existeix un de concret (indicatiu)' },
+          { text: '«Busco un treballador que parli anglès.» → no sé si existeix (subjuntiu)' },
+          { text: '«Sé que ve demà.» → fet cert (indicatiu)' },
+          { text: '«Vull que vingui demà.» → desig (subjuntiu)' },
+        ]
+      }
+    ]
+  },
+
+  'Cohesió textual': {
+    level: 'b2',
+    icon: '🧩',
+    subtitle: 'Com estructurar i donar coherència a un text',
+    sections: [
+      {
+        title: 'Coherència vs. Cohesió',
+        icon: '📌',
+        body: `<p><strong>Coherència</strong> és la lògica interna del text: les idees han de tenir sentit i progressar de manera ordenada.</p>
+               <p><strong>Cohesió</strong> és l'ús dels mecanismes lingüístics que lliguen les frases i els paràgrafs entre si: pronoms, sinònims, el·lipsis, connectors, etc.</p>`
+      },
+      {
+        title: 'Mecanismes de cohesió',
+        icon: '🔧',
+        rules: [
+          { label: 'Referència pronominal', example: 'El president va parlar. Ell va dir que... → «Ell» evita repetir «el president».' },
+          { label: 'Sinònims i perífrasis', example: '«L\'escriptor... l\'autor... el novel·lista...» → Evita repetir la mateixa paraula.' },
+          { label: 'El·lipsi', example: '«En Joan va arribar tard i (ell) va demanar perdó.» → El subjecte s\'omet per no repetir-lo.' },
+          { label: 'Connectors d\'ordre', example: '«En primer lloc... A continuació... Finalment...» → Guien el lector per l\'argument.' },
+        ]
+      },
+      {
+        title: 'Estructura d\'un paràgraf',
+        icon: '📐',
+        body: `<p>Un bon paràgraf té tres parts:</p>`,
+        examples: [
+          { text: '1. Frase topic: presenta la idea principal del paràgraf.' },
+          { text: '2. Desenvolupament: arguments, exemples, dades que la sostenen.' },
+          { text: '3. Frase de tancament: sintetitza o connecta amb el paràgraf següent.' },
+        ]
+      }
+    ]
+  },
+
+  'Comprensió lectora': {
+    level: 'b2',
+    icon: '📖',
+    subtitle: 'Estratègies per entendre textos complexos',
+    sections: [
+      {
+        title: 'Llegir en dos passos',
+        icon: '📌',
+        body: `<p>Al B2, els textos requereixen una lectura estratègica. Llegir tot dues vegades és la clau:</p>`,
+        rules: [
+          { label: 'Primera lectura (global)', example: 'Llegeix ràpid per captar el tema general, el to i l\'estructura.' },
+          { label: 'Segona lectura (detall)', example: 'Focalitza en les preguntes: cerca les respostes al text, no suposicions.' },
+        ]
+      },
+      {
+        title: 'Com identificar la idea principal',
+        icon: '🎯',
+        body: `<p>La idea principal no sempre és la primera frase. Pregunta't: <em>«Quin missatge vol transmetre l'autor?»</em></p>
+               <p>Descarta les idees secundàries (exemples, detalls, comparacions) i busca l'afirmació més general que engloba tot el text.</p>`
+      },
+      {
+        title: 'Trampes habituals',
+        icon: '⚠️',
+        examples: [
+          { text: 'Opcions que usen paraules del text però canvien el significat → llegeix amb atenció.' },
+          { text: 'Opcions massa extremes («sempre», «mai», «tots») → solen ser incorrectes.' },
+          { text: 'Opcions que barregen informació verídica del text però que no responen la pregunta.' },
+        ]
+      }
+    ]
+  },
+
+  'Producció escrita': {
+    level: 'b2',
+    icon: '🖊️',
+    subtitle: 'Com redactar textos clars i ben estructurats',
+    sections: [
+      {
+        title: 'Planifica abans d\'escriure',
+        icon: '📌',
+        body: `<p>Mai comencis directament a escriure. Dedica 2-3 minuts a:</p>`,
+        rules: [
+          { label: '1. Entendre l\'encàrrec', example: 'Quina és la tasca exacta? (carta, informe, article, opinió...)' },
+          { label: '2. Identificar el registre', example: 'Formal, informal, acadèmic? A qui va dirigit el text?' },
+          { label: '3. Fer un esquema breu', example: 'Introducció → punt 1 → punt 2 → conclusió.' },
+        ]
+      },
+      {
+        title: 'Estructura bàsica',
+        icon: '📐',
+        examples: [
+          { text: 'Introducció: presenta el tema i l\'objectiu.' },
+          { text: 'Desenvolupament: 2-3 paràgrafs amb arguments o informació. Un paràgraf = una idea.' },
+          { text: 'Conclusió: resum o valoració final. No introdueixis idees noves.' },
+        ]
+      },
+      {
+        title: 'Recursos per millorar el text',
+        icon: '✨',
+        body: `<p>Usa varietat lèxica (sinònims), connectors variats i revisa sempre la concordança i els accents.</p>`,
+        rules: [
+          { label: 'Evita repeticions', example: '«dir» → afirmar, manifestar, assenyalar, apuntar.' },
+          { label: 'Usa perífrasis d\'obligació', example: '«Cal + infinitiu», «s\'ha de + infinitiu», «és necessari que + subjuntiu».' },
+          { label: 'Revisa la concordança', example: 'El verb ha de concordar amb el subjecte: «Les mesures són eficaces».' },
+        ]
+      }
+    ]
+  },
+
+  'Lèxic formal': {
+    level: 'b2',
+    icon: '📚',
+    subtitle: 'Ampliar el vocabulari i ajustar el registre',
+    sections: [
+      {
+        title: 'Per què el registre és important?',
+        icon: '📌',
+        body: `<p>El registre és l'adequació del llenguatge al context. Usar un registre inadequat (massa informal en un text formal, o massa rígid en una conversa) és un error comunicatiu greu, igual que una falta gramatical.</p>`
+      },
+      {
+        title: 'Substitucions clau',
+        icon: '🔄',
+        table: {
+          headers: ['Registre informal/genèric', 'Registre formal/precís', 'Exemple'],
+          rows: [
+            ['dir', 'afirmar, manifestar, declarar, anunciar', 'La directora va declarar que...'],
+            ['fer', 'dur a terme, realitzar, executar, impulsar', 'Van dur a terme les reformes.'],
+            ['tenir', 'disposar de, comptar amb, posseir', 'El centre disposa d\'equipament modern.'],
+            ['coses', 'elements, aspectes, qüestions, factors', 'Cal analitzar tots els factors.'],
+            ['molt gran', 'considerable, substancial, notable, d\'envergadura', 'Un creixement considerable.'],
+            ['bo/bona', 'adequat, òptim, satisfactori, positiu', 'Un resultat satisfactori.'],
+          ]
+        }
+      },
+      {
+        title: 'Calcs del castellà a evitar',
+        icon: '⚠️',
+        table: {
+          headers: ['Incorrecte (calc)', 'Correcte en català'],
+          rows: [
+            ['donar-se compte', 'adonar-se'],
+            ['realitzar un treball', 'fer un treball / dur a terme un treball'],
+            ['a nivell de', 'quant a / pel que fa a / en matèria de'],
+            ['de cara a', 'per a / amb vista a / de cara a (admès en alguns contextos)'],
+            ['tenir en compte', 'tenir en compte (correcte) / considerar'],
+          ]
+        }
+      }
+    ]
+  },
+
+  'Interferències': {
+    level: 'b2',
+    icon: '🚧',
+    subtitle: 'Evitar calcs i errors per influència del castellà',
+    sections: [
+      {
+        title: 'Què és una interferència?',
+        icon: '📌',
+        body: `<p>Una interferència lingüística és un error causat per la influència d'una altra llengua (en aquest cas, el castellà). Els calcs poden ser lèxics (paraules), sintàctics (estructures) o semàntics (significats).</p>`
+      },
+      {
+        title: 'Interferències lèxiques freqüents',
+        icon: '📊',
+        table: {
+          headers: ['Forma incorrecta', 'Forma correcta', 'Tipus d\'error'],
+          rows: [
+            ['*donar-se compte', 'adonar-se', 'calc del castellà «darse cuenta»'],
+            ['*lo important', 'allò important / el que és important', 'article neutre inexistent en català'],
+            ['*el/la mateix/a', 'el mateix / la mateixa (cuidar l\'ús)', 'calc anafòric excessiu'],
+            ['*en base a', 'basant-se en / a partir de', 'preposició calcada'],
+            ['*a nivell de', 'quant a / pel que fa a', 'calc preposicional'],
+            ['*moltes gràcies per tot', 'moltes gràcies per tot (correcte)', 'notar que «per» funciona aquí'],
+          ]
+        }
+      },
+      {
+        title: 'Interferències sintàctiques',
+        icon: '⚠️',
+        rules: [
+          { label: 'Passiva amb «ser» + participi', example: '«El projecte va ser aprovat» → correcte, però millor: «El projecte es va aprovar» o «Van aprovar el projecte».' },
+          { label: 'Gerundi de posterioritat', example: '«Va arribar, agafant el cotxe» → Incorrecte. «Va arribar i va agafar el cotxe».' },
+          { label: 'Relatiu «que» per «del qual»', example: '«El tema que hem parlat» → «El tema del qual hem parlat».' },
+        ]
+      }
+    ]
+  },
+
+  'Perífrasis verbals': {
+    level: 'b2',
+    icon: '⚙️',
+    subtitle: 'Construccions verb + infinitiu per expressar aspecte i modalitat',
+    sections: [
+      {
+        title: 'Què és una perífrasi verbal?',
+        icon: '📌',
+        body: `<p>Una perífrasi verbal és la combinació d'un verb auxiliar (conjugat) + infinitiu, gerundi o participi. L'auxiliar perd el seu significat original i aporta un valor aspectual o modal.</p>`
+      },
+      {
+        title: 'Perífrasis d\'obligació i necessitat',
+        icon: '📋',
+        rules: [
+          { label: 'Cal + infinitiu', example: '«Cal estudiar cada dia.» (obligació impersonal)' },
+          { label: 'S\'ha de + infinitiu', example: '«S\'ha de lliurar el treball.» (obligació impersonal)' },
+          { label: 'Haver de + infinitiu', example: '«He de marxar.» (obligació personal)' },
+          { label: 'Cal que + subjuntiu', example: '«Cal que ho estudieu.» (obligació impersonal + persona concreta)' },
+        ]
+      },
+      {
+        title: 'Perífrasis d\'aspecte',
+        icon: '📊',
+        table: {
+          headers: ['Perífrasi', 'Valor', 'Exemple'],
+          rows: [
+            ['Acabar de + inf.', 'Acció recentment acabada', 'Acabo d\'arribar.'],
+            ['Estar + gerundi', 'Acció en curs', 'Estic escrivint l\'informe.'],
+            ['Anar a + inf.', 'Futur immediat', 'Vaig a presentar els resultats.'],
+            ['Tornar a + inf.', 'Repetició', 'Va tornar a cometre el mateix error.'],
+            ['Deixar de + inf.', 'Interrupció', 'Ha deixat de fumar.'],
+          ]
+        }
+      }
+    ]
+  },
+
+  /* ─── C1 CATEGORIES ─── */
+
+  'Subjuntiu avançat': {
+    level: 'c1',
+    icon: '🔀',
+    subtitle: 'Subjuntiu imperfet, condicionals irrels i usos complexos',
+    sections: [
+      {
+        title: 'El subjuntiu imperfet',
+        icon: '📌',
+        body: `<p>El subjuntiu imperfet s'usa quan el verb principal és en passat o condicional, i la subordinada exigeix subjuntiu. És equivalent temporal al condicional: mentre el present de subj. correspon al futur, l'imperfet de subj. correspon al condicional.</p>`
+      },
+      {
+        title: 'Terminacions del subjuntiu imperfet',
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er (tenir)', 'Verbs en -ir (venir)'],
+          rows: [
+            ['jo', 'parlés', 'tingués', 'vingués'],
+            ['tu', 'parlessis', 'tinguessis', 'vinguessis'],
+            ['ell/ella', 'parlés', 'tingués', 'vingués'],
+            ['nosaltres', 'parléssim', 'tinguéssim', 'vinguéssim'],
+            ['vosaltres', 'parléssiu', 'tinguéssiu', 'vinguéssiu'],
+            ['ells/elles', 'parlessin', 'tinguessin', 'vinguessin'],
+          ]
+        }
+      },
+      {
+        title: 'Condicionals (reals vs. hipotètiques vs. irrels)',
+        icon: '⚖️',
+        table: {
+          headers: ['Tipus', 'Estructura', 'Exemple'],
+          rows: [
+            ['Real (possible)', 'Si + present ind. + futur', 'Si estudies, aprovaràs.'],
+            ['Hipotètica (poc probable)', 'Si + imperfet subj. + condicional', 'Si tingués diners, viatjaria.'],
+            ['Irreal (passat)', 'Si + plusquamperfet subj. + condicional perifràstic', 'Si hagués estudiat, hauria aprovat.'],
+          ]
+        }
+      },
+      {
+        title: 'Altres usos del subjuntiu al C1',
+        icon: '📋',
+        rules: [
+          { label: 'Sense que (verb directe)', example: '«Vull que vingui» → formal: «Li demano que prengui nota.»' },
+          { label: 'Relatives amb antecedent negatiu', example: '«No hi ha ningú que sàpiga respondre.»' },
+          { label: 'Oracions temporals de futur', example: '«Quan arribi, l\'avisa.» → NO «quan arribarà».' },
+          { label: 'Per bé que / si bé (concessives)', example: '«Per bé que sigui difícil, cal intentar-ho.»' },
+        ]
+      }
+    ]
+  },
+
+  'Connectors concessius': {
+    level: 'c1',
+    icon: '🔗',
+    subtitle: 'Connectors avançats per expressar oposició i concessió',
+    sections: [
+      {
+        title: 'La concessió: expressar un obstacle que no impedeix',
+        icon: '📌',
+        body: `<p>Les construccions concessives expressen que un obstacle o circumstància adversa <strong>no impedeix</strong> la realització de l'acció principal. Són essencials en l'argumentació formal i acadèmica.</p>
+               <p>Estructura bàsica: <em>Malgrat [l'obstacle], [l'acció es produeix].</em></p>`
+      },
+      {
+        title: 'Connectors concessius i el seu ús',
+        icon: '📊',
+        table: {
+          headers: ['Connector', 'Segueix de...', 'Exemple'],
+          rows: [
+            ['malgrat', 'nom / pronom / infinitiu', 'Malgrat les dificultats, va continuar.'],
+            ['tot i', 'nom / pronom / infinitiu', 'Tot i ploure, van sortir. / Tot i la crisi...'],
+            ['tot i que', 'indicatiu o subjuntiu', 'Tot i que era tard, va trucar.'],
+            ['encara que', 'indicatiu (fet) / subjuntiu (hipòtesi)', 'Encara que sigui difícil, cal fer-ho.'],
+            ['per bé que', 'subjuntiu (registre formal)', 'Per bé que els resultats siguin positius...'],
+            ['si bé', 'indicatiu (registre formal)', 'Si bé els resultats milloren, cal prudència.'],
+            ['malgrat que', 'indicatiu o subjuntiu', 'Malgrat que va protestar, va acceptar.'],
+          ]
+        }
+      },
+      {
+        title: 'Connectors d\'oposició vs. concessió',
+        icon: '⚖️',
+        body: `<p>Oposició simple (contrast directe) i concessió (obstacle que no impedeix) no són el mateix:</p>`,
+        rules: [
+          { label: 'Oposició (però, tanmateix)', example: '«És difícil, però és possible.» → Contrast directe entre dos fets.' },
+          { label: 'Concessió (tot i que, malgrat)', example: '«Tot i que és difícil, ho aconseguirem.» → La dificultat no impedeix l\'èxit.' },
+        ]
+      }
+    ]
+  },
+
+  'Lèxic formal': {
+    level: 'c1',
+    icon: '📚',
+    subtitle: 'Precisió lèxica, sinonímia i registre acadèmic',
+    sections: [
+      {
+        title: 'Precisió vs. genericitat',
+        icon: '📌',
+        body: `<p>Al C1, el lèxic genèric és un dels errors més penalitzats. Cada paraula ha d'aportar informació precisa. Els verbs «fer», «dir», «tenir» i els noms «cosa», «aspecte», «tema» (quan no és necessari) solen ser senyals d'imprecisió lèxica.</p>`
+      },
+      {
+        title: 'Famílies lèxiques per a la producció formal',
+        icon: '📊',
+        table: {
+          headers: ['Camp semàntic', 'Verbs precisos', 'Noms associats'],
+          rows: [
+            ['Comunicació', 'manifestar, declarar, anunciar, expressar, al·ludir, subratllar', 'declaració, afirmació, discurs, al·locució'],
+            ['Acció / Execució', 'dur a terme, executar, impulsar, promoure, implementar', 'implementació, execució, desplegament'],
+            ['Anàlisi', 'examinar, avaluar, constatar, determinar, evidenciar', 'anàlisi, diagnosi, avaluació, estudi'],
+            ['Problema', 'sorgir, agreujar-se, persistir, resoldre, abordar', 'problemàtica, mancança, dèficit, repte'],
+            ['Millora', 'optimitzar, reforçar, consolidar, enfortir, actualitzar', 'millora, avenç, progrés, optimització'],
+          ]
+        }
+      },
+      {
+        title: 'Construccions nominals formals',
+        icon: '✨',
+        body: `<p>En textos acadèmics i formals, es prefereix el sintagma nominal a la frase verbal senzilla. Això aporta densitat informativa i registre elevat.</p>`,
+        rules: [
+          { label: 'Verbalitzar → Nominalitzar', example: '«Han analitzat el problema» → «L\'anàlisi del problema ha posat de manifest...»' },
+          { label: 'Estructures recurrents', example: '«La present anàlisi té per objecte...» / «Cal destacar que...» / «S\'observa una tendència a...»' },
+          { label: 'Marques d\'objectivitat', example: '«Segons les dades disponibles...» / «D\'acord amb les evidències...» / «Com s\'ha esmentat anteriorment...»' },
+        ]
+      }
+    ]
+  },
+
+  'Argumentació': {
+    level: 'c1',
+    icon: '🧠',
+    subtitle: 'Construir arguments acadèmics sòlids i ben estructurats',
+    sections: [
+      {
+        title: 'Estructura de l\'argumentació al C1',
+        icon: '📌',
+        body: `<p>Un text argumentatiu C1 no es limita a presentar una opinió: ha de sostenir-la amb arguments, anticipar objeccions i respondre-hi. Aquest diàleg intern entre posicions és el que distingeix un text de nivell avançat.</p>`
+      },
+      {
+        title: 'Model d\'argumentació acadèmica',
+        icon: '📐',
+        examples: [
+          { text: '1. Tesi: Presenta l\'argument central de manera clara i directa.' },
+          { text: '2. Fonamentació: Argumenta la tesi amb raons, dades o exemples.' },
+          { text: '3. Contraargument: Reconeix una posició contrària («Tot i això, alguns autors...»).' },
+          { text: '4. Refutació o matís: Respon al contraargument o el matises.' },
+          { text: '5. Conclusió: Reforça la tesi inicial integrant els matisos.' },
+        ]
+      },
+      {
+        title: 'Connectors per a l\'argumentació avançada',
+        icon: '🔗',
+        table: {
+          headers: ['Funció', 'Connectors C1'],
+          rows: [
+            ['Presentar tesi', 'Cal tenir present que... / Convé subratllar que... / Es fa palès que...'],
+            ['Afegir argument', 'Així mateix, / D\'altra banda, / En aquest sentit, / Igualment,'],
+            ['Contraargument', 'Tot i això, / No obstant, / Malgrat el que s\'ha dit,'],
+            ['Matís', 'Ara bé, / Dit això, / Sense negar que... / Cal matisar que...'],
+            ['Conclusió', 'Per consegüent, / En definitiva, / Podem concloure que... / Tot plegat,'],
+          ]
+        }
+      }
+    ]
+  },
+
+  'Comprensió crítica': {
+    level: 'c1',
+    icon: '🔍',
+    subtitle: 'Interpretar textos complexos i detectar implicatures',
+    sections: [
+      {
+        title: 'Més enllà del contingut explícit',
+        icon: '📌',
+        body: `<p>Al C1, la comprensió lectora no és qüestió de trobar la informació al text: és qüestió d'<strong>interpretar</strong> el que l'autor implica, insinua o pressuposa sense dir-ho directament.</p>
+               <p>Cal llegir entre línies: quin to adopta l'autor? Quines paraules tria i per què? Quina posició implícita defensa?</p>`
+      },
+      {
+        title: 'Pistes per a la interpretació',
+        icon: '🔎',
+        rules: [
+          { label: 'Paraules valoratives', example: '«Paradoxa», «anomalia», «necessitat fonamental» → L\'autor pren posició.' },
+          { label: 'Negacions significatives', example: '«No és una anomalia» → L\'autor refuta una visió negativa, per tant la justifica.' },
+          { label: 'Modalitat epistèmica', example: '«Sembla que», «és probable que», «cal considerar» → Grau de certesa.' },
+          { label: 'Relació causa-efecte implícita', example: 'Si l\'autor descriu A i B sense connector explícit, pot estar insinuant que A causa B.' },
+        ]
+      },
+      {
+        title: 'Trampes en les opcions de resposta',
+        icon: '⚠️',
+        examples: [
+          { text: 'Opció "massa forta": generalitza en excés el que diu el text («sempre», «inevitablement»).' },
+          { text: 'Opció "verídica però irrellevant": conté informació correcta del text però no respon la pregunta.' },
+          { text: 'Opció "contrària al to": usa les mateixes paraules però amb valoració oposada a la de l\'autor.' },
+        ]
+      }
+    ]
+  },
+
+  'Producció formal': {
+    level: 'c1',
+    icon: '🖊️',
+    subtitle: 'Redactar textos acadèmics i professionals de nivell avançat',
+    sections: [
+      {
+        title: 'El registre acadèmic',
+        icon: '📌',
+        body: `<p>El registre acadèmic i professional al C1 té trets propis: objectivitat, impersonalitat, densitat informativa i precisió lèxica. No és simplement «escriure correctament»: és adoptar les convencions discursives del gènere textual.</p>`
+      },
+      {
+        title: 'Estructura d\'un informe o text formal',
+        icon: '📐',
+        examples: [
+          { text: 'Títol i encapçalament: breu, informatiu, sense article al titular.' },
+          { text: 'Introducció: «La present anàlisi té per objecte...» / «L\'objectiu d\'aquest informe és...»' },
+          { text: 'Cos: paràgrafs temàtics, un per idea. Cada paràgraf comença amb la idea principal.' },
+          { text: 'Conclusió: síntesi i, si escau, recomanacions. «En definitiva...» / «Cal concloure que...»' },
+        ]
+      },
+      {
+        title: 'Impersonalitat i objectivitat',
+        icon: '⚖️',
+        rules: [
+          { label: 'Evita la 1a persona singular', example: '«Crec que» → «Cal considerar que» / «Sembla evident que».' },
+          { label: 'Usa la passiva reflexa', example: '«S\'han observat canvis significatius.» / «Es constata una millora.»' },
+          { label: 'Modalitat epistèmica', example: '«Cal tenir en compte» / «Convé subratllar» / «Es fa palès que».' },
+          { label: 'Referència al document', example: '«Com s\'ha assenyalat anteriorment» / «D\'acord amb les dades presentades».' },
+        ]
+      },
+      {
+        title: 'Fórmules d\'informe útils',
+        icon: '📋',
+        examples: [
+          { text: '«La present anàlisi posa de manifest que...»' },
+          { text: '«D\'acord amb les evidències disponibles, cal concloure que...»' },
+          { text: '«Es recomana, per consegüent, que...»' },
+          { text: '«L\'estudi constata l\'existència d\'una relació directa entre X i Y.»' },
+        ]
+      }
+    ]
+  },
+
+  'Oracions de relatiu': {
+    level: 'c1',
+    icon: '🔗',
+    subtitle: 'Ús culte dels pronoms relatius i construccions de relatiu',
+    sections: [
+      {
+        title: 'El relatiu «que» i les seves limitacions',
+        icon: '📌',
+        body: `<p>«Que» és el relatiu més freqüent, però en registre culte i formal és insuficient quan va precedit de preposició o quan pot crear ambigüitat. En aquests casos s'usa «el qual / la qual / els quals / les quals».</p>`
+      },
+      {
+        title: 'Pronoms relatius al C1',
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Ús', 'Exemple'],
+          rows: [
+            ['que', 'Subjecte o objecte directe (sense preposició)', 'El document que has enviat...'],
+            ['el qual / la qual...', 'Amb preposició o per evitar ambigüitat', 'El tema del qual hem parlat... / La comissió la qual va redactar...'],
+            ['qui', 'Persones, quan és subjecte de la subordinada', 'Els qui vulguin participar que ho comuniquin.'],
+            ['on', 'Lloc', 'La ciutat on va néixer és Barcelona.'],
+            ['quan', 'Temps (registre literari)', 'En el moment en què es va produir...'],
+            ['com', 'Mode', 'La manera com ho ha resolt és exemplar.'],
+          ]
+        }
+      },
+      {
+        title: 'Relatives explicatives vs. especificatives',
+        icon: '⚖️',
+        rules: [
+          { label: 'Especificativa (sense comes)', example: '«El professor que sap molt de sintaxi és el nostre.» → Identifica quin professor.' },
+          { label: 'Explicativa (amb comes)', example: '«El professor, que sap molt de sintaxi, ens ha ajudat molt.» → Afegeix informació sobre un professor ja identificat.' },
+        ]
+      }
+    ]
+  },
+
+  'Subjuntiu imperfet': {
+    level: 'c1',
+    icon: '🔀',
+    subtitle: 'Usos del subjuntiu imperfet en contextos formals i literaris',
+    sections: [
+      {
+        title: 'Quan s\'usa el subjuntiu imperfet?',
+        icon: '📌',
+        body: `<p>El subjuntiu imperfet s'usa quan el verb de la principal és en temps passat (pretèrit perfet perifràstic, imperfet, plusquamperfet) o en condicional, i la subordinada exigeix subjuntiu.</p>
+               <p>Regla de la concordança temporal: present de subj. → present/futur; imperfet de subj. → passat/condicional.</p>`
+      },
+      {
+        title: 'Concordança de temps',
+        icon: '📊',
+        table: {
+          headers: ['Verb principal (temps)', 'Verb subordinat', 'Exemple'],
+          rows: [
+            ['Present / Futur', 'Present de subj.', 'Vull que vingui. / Voldré que vingui.'],
+            ['Passat (perifràstic)', 'Imperfet de subj.', 'Vaig voler que vingués.'],
+            ['Imperfet', 'Imperfet de subj.', 'Volia que vingués.'],
+            ['Condicional', 'Imperfet de subj.', 'Voldria que vingués.'],
+            ['Plusquamperfet subj.', 'Per a irreals en el passat', 'Si hagués vingut, hauria estat millor.'],
+          ]
+        }
+      },
+      {
+        title: 'Usos específics de l\'imperfet de subjuntiu',
+        icon: '📋',
+        rules: [
+          { label: 'Estil indirecte en passat', example: '«Va demanar que tots arribessin puntuals.»' },
+          { label: 'Desig hipotètic (amb ojala, tant de bo)', example: '«Tant de bo ho sabés!» → desig difícil d\'acomplir.' },
+          { label: 'Fórmules de cortesia', example: '«Voldria que m\'expliqués...» → condicional + subj. imperfet.' },
+        ]
+      }
+    ]
+  },
+
+  'Pronoms febles': {
+    level: 'c1',
+    icon: '🔵',
+    subtitle: 'El sistema de pronoms febles del català: combinació i col·locació',
+    sections: [
+      {
+        title: 'Què són els pronoms febles?',
+        icon: '📌',
+        body: `<p>Els pronoms febles (o àtons) substitueixen sintagmes nominals per evitar repeticions. El català té un sistema de pronoms febles especialment ric i complex, molt diferent del castellà, amb pronoms sense equivalent directe com «en», «hi» i els reflexius.</p>
+               <p>Es col·loquen <strong>davant del verb</strong> (proclítics) en frases no imperatives i <strong>darrere del verb</strong> (enclítics, units amb guionet) en imperatius, infinitius i gerundis.</p>`
+      },
+      {
+        title: 'Quadre dels pronoms febles principals',
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Funció', 'Exemple clàssic'],
+          rows: [
+            ['el, la, els, les', 'CD (cosa o persona determinada)', 'El veig. / La truco. / Els crido.'],
+            ['em, et, es, ens, us', 'CD persona / reflexiu / recíproc', 'Em veuen. / Es pentina. / Ens estimem.'],
+            ['li, els (li)', 'CI (persona)', 'Li explico el problema. / Els ho dono.'],
+            ['en', 'CD partitiu / complement de «de» / quantitat', 'En vull tres. / En parlem. / En vinc, de París.'],
+            ['hi', 'Complement de «a/en/amb» (lloc o altre) / substitut CI amb certes estructures', 'Hi vaig demà. / Hi penso molt. / No hi estic d\'acord.'],
+            ['ho', 'Atribut / CD neutre / substitut d\'una frase sencera', 'Ho és, president. / Ho sé. / Ho diu sempre.'],
+          ]
+        }
+      },
+      {
+        title: 'El pronom «en»: usos principals',
+        icon: '🔵',
+        rules: [
+          { label: 'CD partitiu (sense article o amb indefinit)', example: '«Vols formatge?» «Sí, en vull.» / «En tinc molt.»' },
+          { label: 'Substitut de complement amb «de»', example: '«Parleu de política?» «Sí, en parlem.»' },
+          { label: 'Procedència (lloc d\'origen)', example: '«Véns de Barcelona?» «Sí, en vinc.»' },
+          { label: 'Quantitat com a complement', example: '«Quants llibres tens?» «En tinc cinc.»' },
+        ]
+      },
+      {
+        title: 'El pronom «hi»: usos principals',
+        icon: '🟢',
+        rules: [
+          { label: 'Lloc on es va o on s\'és', example: '«Vas al mercat?» «Sí, hi vaig.» / «Hi sóc, a casa.»' },
+          { label: 'Substitut de complement amb «en/a/amb»', example: '«Hi confio, en ell.» / «Hi estic d\'acord.»' },
+          { label: '«Hi ha» (existència)', example: '«Hi ha molts participants.» (mai «Hay» sense hi!)' },
+        ]
+      },
+      {
+        title: 'Combinació de dos pronoms',
+        icon: '📋',
+        body: `<p>Quan dos pronoms febles van junts, l'ordre és fix: <strong>reflexiu/CI + CD/«en»/«hi»</strong>.</p>`,
+        table: {
+          headers: ['Combinació', 'Exemple', 'Nota'],
+          rows: [
+            ['me\'l, me la, me\'ls, me les', '«Me\'l dóna»', 'em + el → me\'l'],
+            ['te\'l, te la, te\'ls, te les', '«Te la porto»', 'et + la → te la'],
+            ['li\'l, li la, li\'ls, li les', '«Li\'ls envia»', 'li + els → li\'ls'],
+            ['me\'n, te\'n, se\'n, ens-en, us-en', '«Me\'n vaig»', 'em + en → me\'n (fui de allí!)'],
+            ['m\'hi, t\'hi, s\'hi, ens-hi, us-hi', '«M\'hi trobo bé»', 'em + hi → m\'hi'],
+            ['li ho, els ho', '«Li ho explico»', 'li + ho (sense contracció)'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents per interferència del castellà',
+        icon: '⚠️',
+        rules: [
+          { bad: '«Se lo digo» → *Li ho dic (correcte, però no «se lo»)', good: 'Li ho dic. / Li ho explico.' },
+          { bad: '«Hay muchos» → *Hi han molts', good: 'Hi ha molts participants. («hi ha» és invariable!)' },
+          { bad: 'Omissió del «hi»: «Vaig demà» (per dir «hi vaig»)', good: 'Hi vaig demà. / Demà hi vaig.' },
+          { bad: '«Se me olvidó» → *Se m\'ha oblidat', good: 'Se m\'ha oblidat. / Me n\'he oblidat.' },
+        ]
+      }
+    ]
+  },
+
+  'Frases fetes': {
+    level: 'c1',
+    icon: '💬',
+    subtitle: 'Unitats fraseològiques, col·locacions i expressions idiomàtiques',
+    sections: [
+      {
+        title: 'Fraseologia: més que «expressions curioses»',
+        icon: '📌',
+        body: `<p>Les frases fetes (o unitats fraseològiques) inclouen locucions, refranys, col·locacions i expressions idiomàtiques. El seu significat no es dedueix de les paraules per separat. Dominar-les és una marca clara de competència avançada.</p>
+               <p>Al C1, no n'hi ha prou amb saber-les: cal saber <strong>quan i com</strong> usar-les sense caure en el registre massa col·loquial en contextos formals.</p>`
+      },
+      {
+        title: 'Locucions verbals freqüents',
+        icon: '📋',
+        table: {
+          headers: ['Expressió', 'Significat', 'Exemple'],
+          rows: [
+            ['anar de bòlit', 'estar molt ocupat, sense temps', 'Aquesta setmana anem de bòlit amb el projecte.'],
+            ['fer els ulls grossos', 'ignorar deliberadament una falta', 'El director hi va fer els ulls grossos.'],
+            ['posar-se les piles', 'esforçar-se, activar-se', 'Ja és hora que et poses les piles.'],
+            ['perdre el fil', 'perdre el seguiment d\'un raonament', 'He perdut el fil de l\'explicació.'],
+            ['tenir molta barra', 'tenir molt de descaro', 'Té molta barra per demanar un augment ara.'],
+            ['fer la viu-viu', 'viure sense treballar gaire', 'Sempre fa la viu-viu i els altres ho fan tot.'],
+            ['estar a l\'aguait', 'estar atent, vigilant', 'Hem d\'estar a l\'aguait de qualsevol canvi.'],
+            ['tirar la tovallola', 'rendir-se, abandonar', 'No és moment de tirar la tovallola.'],
+          ]
+        }
+      },
+      {
+        title: 'Col·locacions lèxiques',
+        icon: '🔗',
+        body: `<p>Les col·locacions són combinacions de paraules que «sonen bé» per convencions de la llengua. Aprendre-les és essencial perquè sovint no coincideixen amb el castellà.</p>`,
+        table: {
+          headers: ['Verb', 'Col·locació correcta', 'Incorrecte (calc)'],
+          rows: [
+            ['fer', 'fer una pregunta', '*realitzar una pregunta'],
+            ['prendre', 'prendre una decisió', '*agafar una decisió'],
+            ['dur', 'dur a terme', '*llevar a terme'],
+            ['tenir', 'tenir en compte', '*agafar en compte'],
+            ['donar', 'donar les gràcies', 'ok en castellà: «dar las gracias»'],
+            ['fer', 'fer cas', '*posar atenció'],
+          ]
+        }
+      },
+      {
+        title: 'Refranys i expressions amb context',
+        icon: '📚',
+        examples: [
+          { text: '«Qui no vulgui pols, que no vagi a l\'era.» → Qui vol fer alguna cosa ha d\'acceptar-ne les conseqüències.' },
+          { text: '«Ja plourà!» → Expressió d\'indiferència o escepticisme davant una promesa o amenaça.' },
+          { text: '«Estar entre l\'espasa i la paret.» → Estar en una situació difícil sense bona sortida.' },
+          { text: '«Fer de tripas cor» → *calc castellà. En català: «fer de necessitat virtut» o «armar-se de coratge».' },
+        ]
+      },
+      {
+        title: 'Registre i adequació',
+        icon: '⚖️',
+        body: `<p>Moltes frases fetes pertanyen al registre col·loquial. Al C1 cal saber quan és adequat usar-les i quan cal substituir-les per expressions formals.</p>`,
+        rules: [
+          { label: 'Col·loquial', example: '«Anem de bòlit» → Formal: «Ens trobem en una situació de gran càrrega de treball».' },
+          { label: 'Col·loquial', example: '«Tirar la tovallola» → Formal: «Abandonar el projecte» / «Renunciar a la iniciativa».' },
+          { label: 'Admesa en tots els registres', example: '«Tenir en compte», «donar suport a», «fer referència a».' },
+        ]
+      }
+    ]
+  },
+
+  'Derivació i flexió': {
+    level: 'c1',
+    icon: '🧬',
+    subtitle: 'Morfologia derivativa i flexiva del català avançat',
+    sections: [
+      {
+        title: 'Morfologia al C1: per què és important?',
+        icon: '📌',
+        body: `<p>Dominar la morfologia permet <strong>crear paraules noves</strong> a partir d\'elements coneguts (derivació) i <strong>adaptar-les al context gramatical</strong> (flexió). Al C1, errors morfològics en textos formals penalitzen molt.</p>
+               <p>La derivació i la composició amplien el lèxic; la flexió correcta garanteix la concordança i el registre adequat.</p>`
+      },
+      {
+        title: 'Prefixos productius en català',
+        icon: '📊',
+        table: {
+          headers: ['Prefix', 'Significat', 'Exemples'],
+          rows: [
+            ['des-', 'negació, reversió', 'desfer, desconèixer, desacord, desmuntar'],
+            ['re-', 'repetició, intensitat', 'refer, rellegir, reforçar, reorganitzar'],
+            ['sub-', 'inferioritat, insuficiència', 'subestimar, subordinat, subconjunt'],
+            ['pre-', 'anterioritat', 'preveure, predeterminar, precedent'],
+            ['co-/con-', 'conjunció, participació', 'coautoria, coexistir, conviure, corresponsabilitat'],
+            ['anti-', 'oposició', 'antidemocràtic, anticossos, antisocial'],
+            ['inter-', 'entre, mutuament', 'intercanvi, interacció, interdisciplinari'],
+            ['multi-', 'multiplicitat', 'multicultural, multidisciplinari, multilingüe'],
+          ]
+        }
+      },
+      {
+        title: 'Sufixos nominals productius',
+        icon: '📊',
+        table: {
+          headers: ['Sufix', 'Valor', 'Exemples'],
+          rows: [
+            ['-ció / -ió', 'acció o resultat', 'formació, aplicació, decisió, revisió'],
+            ['-ment', 'acció (des de verb) / mode (des de adj.)', 'desenvolupament, tractament / ràpidament'],
+            ['-tat / -itat', 'qualitat abstracta', 'llibertat, qualitat, complexitat, diversitat'],
+            ['-isme', 'doctrina, tendència', 'catalanisme, feminisme, liberalisme'],
+            ['-ista', 'adherent, professional', 'periodista, especialista, activista'],
+            ['-dor/-dora', 'agent', 'investigador, gestora, coordinador'],
+            ['-ble', 'possibilitat passiva', 'assolible, sostenible, inqüestionable'],
+            ['-atge', 'col·lectiu, procés', 'aprenentatge, rodatge, personatge'],
+          ]
+        }
+      },
+      {
+        title: 'Flexió verbal: irregularitats freqüents al C1',
+        icon: '🔀',
+        body: `<p>Al C1 és fonamental dominar les formes verbals irregulars, especialment en el subjuntiu i els temps de passat.</p>`,
+        table: {
+          headers: ['Infinitiu', 'Ind. present (1a sg)', 'Subj. present (1a sg)', 'Perf. perifràstic (1a sg)'],
+          rows: [
+            ['ser', 'sóc', 'sigui', 'vaig ser'],
+            ['haver', 'he', 'hagi', 'vaig haver'],
+            ['poder', 'puc', 'pugui', 'vaig poder'],
+            ['voler', 'vull', 'vulgui', 'vaig voler'],
+            ['saber', 'sé', 'sàpiga', 'vaig saber'],
+            ['venir', 'vinc', 'vingui', 'vaig venir'],
+            ['fer', 'faig', 'faci', 'vaig fer'],
+            ['dir', 'dic', 'digui', 'vaig dir'],
+          ]
+        }
+      },
+      {
+        title: 'Flexió nominal: gènere i nombre especials',
+        icon: '📋',
+        rules: [
+          { label: 'Noms amb gènere no predictible', example: '«el mar / la mar» (ambdós); «el terra» (no «la terra» en sentit de sòl).' },
+          { label: 'Plurals irregulars', example: '«el règim → els règims»; «el caràcter → els caràcters»; «la síntesi → les síntesis».' },
+          { label: 'Substantius invariables en gènere', example: '«el/la cantant», «el/la testimoni», «el/la còmplice».' },
+          { label: 'Adjectius amb formes especials', example: '«bo → bona → bons → bones» (però «bon» davant masc. sg.); «gran → gran → grans».' },
+        ]
+      },
+      {
+        title: 'Nominalitzacions: de verb a nom',
+        icon: '✨',
+        body: `<p>La nominalització (convertir verbs en noms) és una marca de registre acadèmic. Cal dominar-la per produir textos formals.</p>`,
+        examples: [
+          { text: '«analitzar» → «l\'anàlisi» / «la tasca d\'anàlisi»' },
+          { text: '«implementar» → «la implementació» / «el desplegament de»' },
+          { text: '«avaluar» → «l\'avaluació» / «el procés d\'avaluació»' },
+          { text: '«Han decidit reduir costos» → «La decisió de reducció de costos implica...»' },
+        ]
+      }
+    ]
+  },
+
+  'Temps verbals': {
+    level: 'b2',
+    icon: '⏱️',
+    subtitle: 'Usos dels temps verbals del passat, present i futur',
+    sections: [
+      {
+        title: 'El passat en català',
+        icon: '📌',
+        body: `<p>El català estàndard usa el <strong>passat perifràstic</strong> (vaig + infinitiu) per a accions passades acabades. El <strong>pretèrit perfet</strong> (he + participi) existeix però és menys freqüent en català central oral.</p>`
+      },
+      {
+        title: 'Passat perifràstic vs. Imperfet',
+        icon: '📊',
+        table: {
+          headers: ['Passat perifràstic', 'Imperfet', 'Ús'],
+          rows: [
+            ['Vaig menjar.', 'Menjava.', 'Acció puntual acabada vs. acció en curs/habitual'],
+            ['Va trucar tres vegades.', 'Trucava cada dia.', 'Acció comptada/delimitada vs. hàbit'],
+            ['Quan va entrar...', '...plorava (de fons)', 'Acció nova vs. acció de fons'],
+          ]
+        }
+      },
+      {
+        title: 'Futur, condicional i plusquamperfet',
+        icon: '📋',
+        rules: [
+          { label: 'Futur irregular', example: 'fer → faré, poder → podré, voler → voldré, saber → sabré, haver → hauré, ser → seré' },
+          { label: 'Condicional irregular', example: 'fer → faria, poder → podria, voler → voldria, haver → hauria' },
+          { label: 'Plusquamperfet', example: '«Havia acabat quan va arribar.» → havia/havies/havia/havíem/havíeu/havien + participi' },
+        ]
+      }
+    ]
+  },
+
+  'Preposicions': {
+    level: 'b2',
+    icon: '🔧',
+    subtitle: 'Usos de per/per a i altres preposicions catalanes',
+    sections: [
+      {
+        title: 'Per vs. Per a',
+        icon: '📊',
+        table: {
+          headers: ['Per', 'Per a'],
+          rows: [
+            ['Causa: «Ho dic per amor.»', 'Destinació: «Aquesta carta és per a tu.»'],
+            ['Durada: «per una setmana»', 'Termini: «per a divendres»'],
+            ['Mitjà: «per telèfon»', 'Opinió: «Per a mi, és clar.»'],
+            ['A través de: «per la finestra»', 'Finalitat: «Estudio per a millorar.»'],
+          ]
+        }
+      },
+      {
+        title: 'Règim preposicional de verbs freqüents',
+        icon: '📋',
+        rules: [
+          { label: 'dependre de', example: '«Depèn de tu.» (no *dependre en)' },
+          { label: 'quedar amb', example: '«Quedo amb ella demà.»' },
+          { label: 'pensar en', example: '«Penso en tu.» / «Penso a fer-ho.» (infinitiu)' },
+          { label: 'insistir a + inf.', example: '«Insisteix a venir.» (no *insistir en + inf.)' },
+        ]
+      },
+      {
+        title: 'Des de vs. De — A vs. En',
+        icon: '📌',
+        rules: [
+          { label: 'Des de (origen temporal)', example: '«Treballo aquí des de fa tres anys.» → fins ara' },
+          { label: 'De (procedència puntual)', example: '«Vinc de Barcelona.» → procedència, sense continuïtat' },
+          { label: 'A (moviment / lloc fix)', example: '«Vaig a Barcelona.» / «Sóc a casa.» / «A classe.»' },
+          { label: 'En (lloc abstracte/general)', example: '«Treballo en un hospital.» / «En reunió.»' },
+        ]
+      }
+    ]
+  },
+
+  'Construccions comparatives': {
+    level: 'b2',
+    icon: '⚖️',
+    subtitle: 'Comparatius d\'igualtat, superioritat, inferioritat i superlatius',
+    sections: [
+      {
+        title: 'Tipus de comparatius',
+        icon: '📊',
+        table: {
+          headers: ['Tipus', 'Estructura', 'Exemple'],
+          rows: [
+            ['Superioritat', 'més + adj./adv. + que', 'És més alt que el seu germà.'],
+            ['Inferioritat', 'menys + adj./adv. + que', 'Parla menys fluïdament.'],
+            ['Igualtat (adj./adv.)', 'tan + adj./adv. + com', 'És tan intel·ligent com diuen.'],
+            ['Igualtat (verb/nom)', 'tant com / tanta/tants/tantes + nom + com', 'Treballa tant com pot.'],
+          ]
+        }
+      },
+      {
+        title: 'Comparatius irregulars',
+        icon: '📋',
+        rules: [
+          { label: 'bo → millor', example: '«És millor que l\'anterior.» (preferit en registre formal sobre «més bo»)' },
+          { label: 'dolent → pitjor', example: '«El resultat és pitjor del que esperava.»' },
+          { label: 'gran → major / més gran', example: '«El major repte...» (formal/abstracte) / «És més gran que jo» (mida/edat)' },
+          { label: 'petit → menor / més petit', example: '«El menor dels mals.» / «És més petit que la seva germana.»' },
+        ]
+      },
+      {
+        title: 'Superlatiu absolut',
+        icon: '✨',
+        rules: [
+          { label: 'Molt + adjectiu', example: '«És molt important.» — forma analítica (freqüent)' },
+          { label: 'Adjectiu + -íssim', example: '«És importantíssim.» — forma sintètica (registre elevat)' },
+          { label: 'Tan i tant', example: '«tan» davant adj./adv. / «tant/tanta/tants/tantes» davant nom o verb.' },
+        ]
+      }
+    ]
+  },
+
+  'Estil indirecte': {
+    level: 'c1',
+    icon: '💬',
+    subtitle: 'Transformar el discurs directe en indirecte',
+    sections: [
+      {
+        title: 'Canvis de temps verbal',
+        icon: '📊',
+        table: {
+          headers: ['Estil directe', 'Estil indirecte (verb en passat)'],
+          rows: [
+            ['Present: «Parlo»', 'Imperfet: ...que parlava'],
+            ['Passat perifràstic: «Vaig parlar»', 'Plusquamperfet: ...que havia parlat'],
+            ['Futur: «Parlaré»', 'Condicional: ...que parlaria'],
+            ['Present de subj.: «Parli»', 'Imperfet de subj.: ...que parlés'],
+            ['Imperatiu: «Parla!»', 'Que + subj. imperfet: ...que parlés'],
+          ]
+        }
+      },
+      {
+        title: 'Canvis de pronoms i adverbis',
+        icon: '📋',
+        rules: [
+          { label: 'Pronoms personals', example: '«jo» → ell/ella; «tu» → jo; «nosaltres» → ells/elles' },
+          { label: 'Adverbis de temps', example: '«avui» → aquell dia; «demà» → l\'endemà; «ahir» → el dia anterior' },
+          { label: 'Adverbis de lloc', example: '«aquí» → allà; «aquest» → aquell' },
+        ]
+      },
+      {
+        title: 'Marcadors introductors',
+        icon: '📌',
+        rules: [
+          { label: 'Declarativa', example: '«dir que», «afirmar que», «explicar que», «comentar que»' },
+          { label: 'Interrogativa', example: '«preguntar si» (sí/no) / «preguntar on/quan/com/per què»' },
+          { label: 'Imperativa', example: '«demanar que», «ordenar que», «proposar que» + subj. imperfet' },
+        ]
+      }
+    ]
+  },
+
+  'Passiva i impersonal': {
+    level: 'c1',
+    icon: '🔄',
+    subtitle: 'Veu passiva, passiva reflexa i construccions impersonals',
+    sections: [
+      {
+        title: 'Tres construccions passives/impersonals',
+        icon: '📊',
+        table: {
+          headers: ['Construcció', 'Estructura', 'Exemple'],
+          rows: [
+            ['Passiva perifràstica', 'ser + participi (concordat)', 'El document va ser signat pel director.'],
+            ['Passiva reflexa', 'es + verb (concorda amb CD)', 'Es van vendre molts llibres.'],
+            ['Impersonal', 'es + verb (singular, sense subjecte)', 'Es parla de canvis. / No es pot aparcar.'],
+          ]
+        }
+      },
+      {
+        title: 'Quan usar cada construcció',
+        icon: '📋',
+        rules: [
+          { label: 'Perifràstica', example: 'Quan l\'agent és important: «Va ser aprovat pel consell.»' },
+          { label: 'Reflexa', example: 'Quan l\'agent és irrellevant o desconegut: «Es van prendre mesures.»' },
+          { label: 'Impersonal', example: 'Per a instruccions o normes generals: «S\'ha d\'entregar avui.»' },
+        ]
+      },
+      {
+        title: 'Preferència del català',
+        icon: '📌',
+        body: `<p>El català prefereix la passiva reflexa i les construccions impersonals sobre la passiva perifràstica, que és poc freqüent en registre oral i periodístic. En textos formals, la passiva perifràstica s'usa quan l'agent és rellevant.</p>`
+      }
+    ]
+  },
+
   'Connectors': {
     level: 'b2',
     icon: '🔗',
@@ -1046,6 +2359,232 @@ const THEORY = {
    EXERCICIS (5+ per categoria)
 ═══════════════════════════════════════════════════════════ */
 const DATA = {
+  a2: [
+    // ── SER, ESTAR I SEMBLAR ──
+    { id:'a2-ses1', type:'choice', level:'a2', category:'Ser, estar i semblar',
+      question:'Quin verb és el correcte per a una característica permanent?',
+      text:'La Berta ___ una persona molt alegre i sociable.',
+      options:['està','és','sembla molt'],
+      correct:1, theory:"«Ser» s'usa per a característiques definitòries d'una persona. «Estar» s'usa per a estats transitoris.", example:"La Maria és molt divertida, però avui està trista." },
+
+    { id:'a2-ses2', type:'choice', level:'a2', category:'Ser, estar i semblar',
+      question:"Quin verb expressa un estat d'ànim transitori?",
+      text:'Avui el Martí ___ molt nerviós perquè té un examen important.',
+      options:['és','sembla','està'],
+      correct:2, theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. «Ser» seria incorrecte aquí.", example:"Avui estic nerviós. / Normalment soc força tranquil." },
+
+    { id:'a2-ses3', type:'fill', level:'a2', category:'Ser, estar i semblar',
+      question:'Omple amb el verb correcte (ser, estar o semblar):',
+      sentence:"L'Aniol ___ tímid, però en realitat és molt obert quan el coneixes.",
+      display:"verb d'aparença (la impressió que dona)",
+      answers:['sembla'],
+      theory:"«Semblar» expressa l'aparença que una persona dona als altres, sense implicar que sigui una característica real.", example:"En Martí sembla tímid, però és molt obert." },
+
+    { id:'a2-ses4', type:'choice', level:'a2', category:'Ser, estar i semblar',
+      question:'Tria la frase correcta amb el pronom «ho»:',
+      options:["La Gina és simpàtica i la seva amiga també la és.","La Gina és simpàtica i la seva amiga també ho és.","La Gina és simpàtica i la seva amiga també és."],
+      correct:1, theory:"El pronom «ho» substitueix l'atribut ja esmentat amb els verbs ser, estar i semblar. No es pot ometre ni usar «la/el».", example:"La Marta és tímida i la seva germana també ho és." },
+
+    { id:'a2-ses5', type:'fill', level:'a2', category:'Ser, estar i semblar',
+      question:'Omple amb ser o estar:',
+      sentence:'El Josep ___ cansat avui perquè ha treballat moltes hores.',
+      display:'ser o estar?',
+      answers:['està'],
+      theory:"El cansament és un estat temporal → «estar». «Ser cansat» implicaria que és una característica permanent del caràcter.", example:"Avui estic cansat. / Normalment soc molt actiu." },
+
+    { id:'a2-ses6', type:'reading', level:'a2', category:'Ser, estar i semblar',
+      text:"L'Emma és una persona molt sociable i alegre. Avui, però, està una mica trista perquè la seva amiga no ha pogut venir. Tot i així, sembla contenta quan parla amb nosaltres.",
+      question:'Quines afirmacions són correctes?',
+      options:["L'Emma és normalment trista i avui sembla alegre.","L'Emma normalment és alegre, però avui està trista tot i que sembla contenta.","L'Emma sempre està trista i sembla sociable."],
+      correct:1, theory:"«És» (permanent), «està» (avui), «sembla» (aparença). Cada verb té una funció diferent.", example:"Ser: permanent. Estar: transitori. Semblar: aparença." },
+
+    // ── ADJECTIUS DE CARÀCTER ──
+    { id:'a2-adc1', type:'choice', level:'a2', category:'Adjectius de caràcter',
+      question:'Quina és la forma femenina correcta de «simpàtic»?',
+      options:['simpàtique','simpàtica','simpàtics'],
+      correct:1, theory:"Els adjectius acabats en -c fan el femení en -ca: simpàtic → simpàtica, antipàtic → antipàtica.", example:"En Santi sembla antipàtic, però la Berta és molt simpàtica." },
+
+    { id:'a2-adc2', type:'fill', level:'a2', category:'Adjectius de caràcter',
+      question:"Omple amb la forma correcta de l'adjectiu:",
+      sentence:"La Conxa és molt ___ (extravertit): li encanta conèixer gent nova.",
+      display:"forma femenina d'«extravertit»",
+      answers:['extravertida'],
+      theory:"Els adjectius acabats en -t fan el femení en -da: extravertit → extravertida, divertit → divertida.", example:"La Berta és extravertida i el seu germà és introvertit." },
+
+    { id:'a2-adc3', type:'choice', level:'a2', category:'Adjectius de caràcter',
+      question:'Quina paraula significa el contrari de «tímid»?',
+      options:['introvertit','obert','seriós'],
+      correct:1, theory:"«Obert» s'usa per a persones que es comuniquen sense reserves ni dificultat.", example:"Sembla tímida, però quan la coneixes és molt oberta i parladora." },
+
+    { id:'a2-adc4', type:'fill', level:'a2', category:'Adjectius de caràcter',
+      question:'Forma el plural correcte:',
+      sentence:'Els meus companys de classe són molt ___ (sociable).',
+      display:"plural d'«sociable»",
+      answers:['sociables'],
+      theory:"Els adjectius acabats en -ble (amable, sociable) no canvien entre masculí i femení. El plural afegeix -s.", example:"Són persones molt amables i sociables." },
+
+    { id:'a2-adc5', type:'reading', level:'a2', category:'Adjectius de caràcter',
+      text:"Soc un noi amb ganes de conèixer gent nova. Soc valent, decidit, obert i generós. M'agrada la feina que faig i col·laborar per tenir un món millor. M'encanta fer activitats a l'aire lliure.",
+      question:'Quins adjectius usa per descriure el seu caràcter?',
+      options:['tímid, reservat, introvertit','valent, decidit, obert, generós','alegre, espontani, sociable'],
+      correct:1, theory:"Llegeix atentament i identifica els adjectius. Tots quatre apareixen explícitament en la descripció.", example:"«valent, decidit, obert i generós» → quatre adjectius de caràcter." },
+
+    { id:'a2-adc6', type:'choice', level:'a2', category:'Adjectius de caràcter',
+      question:'Quina forma plural és correcta?',
+      options:['tranquils i tranquil·les','tranquiles i tranquilas','tranquils i tranquiles'],
+      correct:0, theory:"«Tranquil» fa femení «tranquil·la» (l·l geminada) i plurals «tranquils» (masc.) i «tranquil·les» (fem.).", example:"Ells són molt tranquils. / Elles són molt tranquil·les." },
+
+    // ── PASSAT PERIFRÀSTIC ──
+    { id:'a2-pas1', type:'fill', level:'a2', category:'Passat perifràstic',
+      question:'Omple amb la forma correcta del passat perifràstic:',
+      sentence:"Ahir la Joana ___ (arribar) tard a la feina.",
+      display:'passat perifràstic, 3a pers. sing.',
+      answers:['va arribar'],
+      theory:"Passat perifràstic = anar (present) + infinitiu. Per a «ella»: va + arribar = va arribar.", example:"Ahir va arribar tard. / Fa una setmana vaig veure'l." },
+
+    { id:'a2-pas2', type:'choice', level:'a2', category:'Passat perifràstic',
+      question:'Quina forma de passat perifràstic és correcta per a «nosaltres»?',
+      options:['anem menjar','vam menjar','vem menjar'],
+      correct:1, theory:"Conjugació: jo vaig, tu vas, ell/ella va, nosaltres vam, vosaltres vau, ells/elles van + infinitiu.", example:"Ahir vam menjar tots junts a casa de l'àvia." },
+
+    { id:'a2-pas3', type:'reorder', level:'a2', category:'Passat perifràstic',
+      question:'Ordena les parts per formar una frase de passat correcta:',
+      parts:['Quan vaig arribar del Pakistan,','a classes de català.','em vaig matricular','el primer dia'],
+      correct:[0,2,1,3],
+      theory:"En frases amb «quan + passat», l'ordre habitual és: quan + passat perifràstic + acció principal + circumstàncies.", example:"Quan vaig arribar, em vaig posar a estudiar de seguida." },
+
+    { id:'a2-pas4', type:'choice', level:'a2', category:'Passat perifràstic',
+      question:"Quin connector s'usa per indicar una acció posterior en una narració?",
+      text:"Vaig entrar a l'aula. ___ vaig veure que era la classe equivocada.",
+      options:['Al principi','Llavors','Finalment'],
+      correct:1, theory:"«Llavors» i «aleshores» introdueixen una acció posterior o una conseqüència en una seqüència narrativa.", example:"Vaig obrir la porta. Llavors vaig veure que no hi havia ningú." },
+
+    { id:'a2-pas5', type:'fill', level:'a2', category:'Passat perifràstic',
+      question:'Omple amb el passat perifràstic correcte:',
+      sentence:"Ahir els meus amics ___ (venir) a casa i ___ (fer) un sopar.",
+      display:"passat perifràstic 3a pers. pl. de «venir» i «fer»",
+      answers:['van venir i van fer','van venir','van fer'],
+      theory:"Passat perifràstic de «venir»: van venir. De «fer»: van fer. La base verbal no canvia, només l'auxiliar.", example:"Van venir tots i van fer molta festa." },
+
+    { id:'a2-pas6', type:'reading', level:'a2', category:'Passat perifràstic',
+      text:"Quan vaig arribar a l'escola, vaig anar directament a l'aula. Vaig seure i de seguida va arribar el professor. Es va presentar i vam fer una activitat. Després va passar llista, però no hi va trobar el meu nom.",
+      question:'Quants verbs en passat perifràstic hi ha al text?',
+      options:['3','5','8'],
+      correct:2, theory:"Compta totes les formes «vaig/vas/va/vam/vau/van + infinitiu»: vaig arribar, vaig anar, vaig seure, va arribar, es va presentar, vam fer, va passar, va trobar = 8.", example:"Vaig arribar → va + arribar = passat perifràstic." },
+
+    // ── PRONOMS FEBLES A2 ──
+    { id:'a2-pfa1', type:'choice', level:'a2', category:'Pronoms febles A2',
+      question:'Quin pronom substitueix «el llibre» (masculí singular)?',
+      text:'«Has vist el llibre?» «Sí, ___ tinc jo.»',
+      options:['la','el','en'],
+      correct:1, theory:"El pronom «el» substitueix un CD masculí singular determinat. «La» és per al femení, «en» per a partitius.", example:"«On és el gat?» «El tinc a casa.»" },
+
+    { id:'a2-pfa2', type:'fill', level:'a2', category:'Pronoms febles A2',
+      question:'Substitueix el CD subratllat pel pronom feble adequat:',
+      sentence:"He trucat les meves amigues. → ___ he trucat.",
+      display:'pronom CD femení plural',
+      answers:['les'],
+      theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
+
+    { id:'a2-pfa3', type:'choice', level:'a2', category:'Pronoms febles A2',
+      question:"On va el pronom feble quan acompanya un infinitiu?",
+      text:"Necessito ___ veure ___ (la directora) ara.",
+      options:["La necessito veure.","Necessito veure-la.","Necessito-la veure."],
+      correct:1, theory:"Amb infinitius, el pronom feble va enclític (darrere i unit) a l'infinitiu amb guionet: veure-la, fer-ho, trucar-los.", example:"Vull veure-la. / He d'explicar-ho. / Cal trucar-los." },
+
+    { id:'a2-pfa4', type:'choice', level:'a2', category:'Pronoms febles A2',
+      question:"Quin pronom s'usa per substituir una quantitat indeterminada?",
+      text:'«Vols pa?» «Sí, ___ vull, gràcies.»',
+      options:['el','ho','en'],
+      correct:2, theory:"«En» s'usa com a pronom partitiu quan el CD no porta article determinat o quan hi ha quantitat indeterminada.", example:"«Tens germans?» «Sí, en tinc dos.» / «Vols cafè?» «En vull una mica.»" },
+
+    { id:'a2-pfa5', type:'fill', level:'a2', category:'Pronoms febles A2',
+      question:'Usa «ho» per completar la resposta:',
+      sentence:"«La Raquel és divertida?» «Sí, ___ és molt.»",
+      display:"pronom que substitueix l'adjectiu «divertida»",
+      answers:['ho'],
+      theory:"«Ho» substitueix l'atribut (adjectiu) dels verbs ser, estar i semblar. No s'usa «la» o «el» per substituir adjectius.", example:"«Sembla tímid?» «Sí, ho sembla, però no ho és.»" },
+
+    { id:'a2-pfa6', type:'choice', level:'a2', category:'Pronoms febles A2',
+      question:'Quina frase usa correctament el pronom feble?',
+      options:["Busco els documents. Busco-los demà.","Busco els documents. Els busco demà.","Busco els documents. Busco'ls demà."],
+      correct:1, theory:"En frases declaratives amb verb conjugat, el pronom feble va davant del verb: els busco, la crido, ho faig.", example:"Els documents? Els busco demà. / Necessito buscar-los ara." },
+
+    // ── IMPERFET D'INDICATIU ──
+    { id:'a2-imp1', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
+      question:"Omple amb l'imperfet correcte:",
+      sentence:"De petit, el meu avi sempre ___ (explicar) contes fantàstics.",
+      display:"imperfet, 3a pers. sing. d'«explicar»",
+      answers:['explicava'],
+      theory:"L'imperfet s'usa per a hàbits i rutines del passat. Terminació 3a pers. sing. verbs -ar: -ava.", example:"De petita, cada estiu anava a la platja. / Sempre llegíem abans de dormir." },
+
+    { id:'a2-imp2', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
+      question:"Quina forma d'imperfet és correcta per a «nosaltres» amb «ser»?",
+      options:['erem','érem','eram'],
+      correct:1, theory:"El verb «ser» en imperfet és irregular: era, eres, era, érem, éreu, eren. La primera persona del plural porta accent: érem.", example:"Quan érem petits, érem molt traviesos." },
+
+    { id:'a2-imp3', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
+      question:"Quan s'usa l'imperfet en lloc del passat perifràstic?",
+      options:['Per a accions acabades en un moment concret del passat','Per a descripcions, hàbits i estats del passat','Per a accions que passen ara'],
+      correct:1, theory:"Imperfet = descripció, hàbit, estat sense moment concret. Passat perifràstic = acció acabada en un moment específic.", example:"Cada dia anava a l'escola a peu. (hàbit) / Ahir vaig anar en cotxe. (acció concreta)" },
+
+    { id:'a2-imp4', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
+      question:"Completa amb la perífrasi d'hàbit passat:",
+      sentence:"La meva àvia ___ (soler) fer el mercat cada dissabte al matí.",
+      display:"imperfet de «soler» (3a pers. sing.)",
+      answers:['solia'],
+      theory:"«Soler + infinitiu» expressa un hàbit del passat. En imperfet: solia, solies, solia, solíem, solíeu, solien.", example:"Solia anar al gimnàs tres cops per setmana." },
+
+    { id:'a2-imp5', type:'reading', level:'a2', category:"Imperfet d'indicatiu",
+      text:"Quan era petit, el meu pare solia portar-me al parc cada diumenge. Jo sempre portava la meva pilota i jugava amb altres nens. La meva mare, en canvi, preferia quedar-se a casa i llegir.",
+      question:"Per a quina funció s'usa l'imperfet en aquest text?",
+      options:['Per a accions puntuals i acabades en un dia concret','Per a descriure hàbits i rutines del passat','Per a parlar de plans de futur'],
+      correct:1, theory:"El text usa l'imperfet per a hàbits repetits («solia», «sempre portava», «jugava», «preferia»). Cap acció és puntual.", example:"Solia portar-me = era un hàbit regular del passat." },
+
+    { id:'a2-imp6', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
+      question:"Escriu la forma correcta de l'imperfet:",
+      sentence:"Quan tenia vint anys, ___ (fer) molt esport i ___ (tenir) molta energia.",
+      display:"imperfet 1a pers. sing. de «fer» i «tenir»",
+      answers:['feia i tenia','feia','tenia'],
+      theory:"«Fer» en imperfet: feia, feies, feia, fèiem... «Tenir»: tenia, tenies, tenia, teníem...", example:"Quan tenia vint anys, feia molt esport i tenia molta energia." },
+
+    // ── LÈXIC A2: CARÀCTER I EMOCIONS ──
+    { id:'a2-lex1', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      question:"Quina expressió s'usa per dir que algú sent molta vergonya i vol desaparèixer?",
+      options:['em poso a riure','em vull fondre','em quedo callat'],
+      correct:1, theory:"«Em vull fondre» expressa la màxima vergonya: voler desaparèixer. Prové de la imatge de fondre's com si fos mantega.", example:"Quan vaig dir el nom equivocat, em volia fondre!" },
+
+    { id:'a2-lex2', type:'fill', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      question:'Omple amb el connector temporal adequat:',
+      sentence:"___ vaig arribar a la porta, vaig adonar-me que havia oblidat les claus.",
+      display:'connector temporal que introdueix el moment en què passa alguna cosa',
+      answers:['quan'],
+      theory:"«Quan» introdueix el moment precís en què una acció té lloc.", example:"Quan vaig obrir la porta, vaig veure que no hi havia ningú." },
+
+    { id:'a2-lex3', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      question:"Quin connector indica el moment inicial d'una narració?",
+      options:['finalment','al principi','llavors'],
+      correct:1, theory:"«Al principi» situa el lector al moment inicial del relat. Seqüència típica: al principi → llavors/aleshores → finalment.", example:"Al principi no entenia res. Llavors vaig demanar ajuda. Finalment ho vaig entendre." },
+
+    { id:'a2-lex4', type:'reading', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: \"Quin avi tan simpàtic que tens!\". El nen, molt enfadat, em va respondre: \"No és el meu avi, és el meu pare!\". La veritat és que em vaig posar molt vermella.",
+      question:"Com es va sentir la persona que explica l'anècdota al final?",
+      options:['Contenta i divertida','Avergonyida','Sorpresa però tranquil·la'],
+      correct:1, theory:"«Em vaig posar molt vermella» indica vergonya intensa. Posar-se vermell/a és una reacció física associada a la vergonya.", example:"Quan vaig dir alguna cosa inoportuna, em vaig posar vermella de vergonya." },
+
+    { id:'a2-lex5', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      question:"Quin adjectiu expressa un estat transitori de nerviosisme?",
+      text:"Estic molt ___ perquè demà tinc una entrevista de feina.",
+      options:['nerviós/osa','seriós/osa','tímid/a'],
+      correct:0, theory:"«Nerviós/osa» s'usa amb «estar» per a un estat d'agitació temporal. «Seriós» i «tímid» solen descriure característiques de caràcter.", example:"Estic nerviosa avui. / Normalment soc força tranquil·la." },
+
+    { id:'a2-lex6', type:'writing', level:'a2', category:"Lèxic A2: caràcter i emocions",
+      question:"Descriu una situació compromesa que has viscut. Usa el passat perifràstic i almenys dos connectors temporals.",
+      keywords:['passat perifràstic: vaig/vas/va...','connectors: quan / al principi / llavors / finalment','reacció: em vaig posar... / em vaig quedar...'],
+      sample:"Un dia vaig confondre la meva professora amb una alumna. Al principi no em vaig adonar de l'error. Quan ella em va mirar molt sorpresa, llavors vaig entendre el que havia passat. Finalment em vaig disculpar i em vaig posar molt vermell.",
+      theory:"Una bona narració al passat combina: context (imperfet) + accions (passat perifràstic) + connectors temporals.", example:"Al principi... Llavors... Finalment... em vaig posar vermell/a." },
+  ],
+
   b2: [
     // CONNECTORS
     { id:'b2-con1', type:'choice', level:'b2', category:'Connectors',
