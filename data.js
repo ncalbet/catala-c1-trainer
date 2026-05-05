@@ -2583,6 +2583,36 @@ const DATA = {
       keywords:['passat perifràstic: vaig/vas/va...','connectors: quan / al principi / llavors / finalment','reacció: em vaig posar... / em vaig quedar...'],
       sample:"Un dia vaig confondre la meva professora amb una alumna. Al principi no em vaig adonar de l'error. Quan ella em va mirar molt sorpresa, llavors vaig entendre el que havia passat. Finalment em vaig disculpar i em vaig posar molt vermell.",
       theory:"Una bona narració al passat combina: context (imperfet) + accions (passat perifràstic) + connectors temporals.", example:"Al principi... Llavors... Finalment... em vaig posar vermell/a." },
+
+    // PREGUNTES I INTERROGACIÓ
+    { id:'a2-pi1', type:'choice', level:'a2', category:'Preguntes i interrogació',
+      question:'Quina paraula interrogativa és correcta per preguntar per un lloc?',
+      text:'___ és la biblioteca?',
+      options:['Quan','On','Com','Qui'],
+      correct:1, theory:'«On» pregunta per llocs. «Quan» per temps. «Com» per manera. «Qui» per persones.', example:'On és l\'escola? / On vius?' },
+    { id:'a2-pi2', type:'fill', level:'a2', category:'Preguntes i interrogació',
+      question:'Completa la pregunta amb la paraula interrogativa correcta:',
+      sentence:'___ es diu el teu professor?',
+      display:'interrogatiu per a noms de persones', answers:['Com'],
+      theory:'«Com» s\'usa per preguntar el nom: «Com et dius?» / «Com es diu?». No «Qui» per a noms.', example:'Com et dius? / Com es diu ella?' },
+    { id:'a2-pi3', type:'choice', level:'a2', category:'Preguntes i interrogació',
+      question:'Quina pregunta és correcta en català?',
+      options:['Quants anys tens tú?','Quants anys tens?','Quants anys tu tens?'],
+      correct:1, theory:'En català el pronom subjecte (tu, ell, ella) s\'omet habitualment perquè la desinència verbal ja l\'indica. «Tu» és opcional i se sol ometre.', example:'Quants anys tens? / D\'on ets? / Que treballes?' },
+    { id:'a2-pi4', type:'fill', level:'a2', category:'Preguntes i interrogació',
+      question:'Omple amb la paraula interrogativa correcta:',
+      sentence:'___ costa aquest llibre?',
+      display:'interrogatiu per a preus', answers:['Quant'],
+      theory:'«Quant» (invariable) per a preus i quantitats indeterminades. «Quants/Quantes» per a quantitats comptables: «Quants llibres tens?»', example:'Quant costa? / Quant val? / Quants en vols?' },
+    { id:'a2-pi5', type:'choice', level:'a2', category:'Preguntes i interrogació',
+      question:'Com es forma una pregunta de confirmació en català?',
+      options:['Parles català, no?','Parles català, ¿verdad?','Tu parles català, si?'],
+      correct:0, theory:'La coletilla de confirmació en català és «no?» (o «oi?» en registre col·loquial). «¿Verdad?» és castellà. «Si?» no és la forma estàndard.', example:'Ets d\'aquí, no? / Ja has menjat, oi?' },
+    { id:'a2-pi6', type:'reorder', level:'a2', category:'Preguntes i interrogació',
+      question:'Ordena les paraules per formar una pregunta correcta:',
+      parts:['véns','D\'on','tu','?'],
+      correct:[1,0,2,3],
+      theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on véns? / On vas? / Quan arribes?' },
   ],
 
   b2: [
@@ -2931,6 +2961,34 @@ const DATA = {
       options:['Només superioritat','Inferioritat, igualtat i comparatius irregulars (millor/pitjor)','Només igualtat i superioritat regular'],
       correct:1, theory:'«menys complex» (inferioritat), «tan intuïtiu com» (igualtat), «millor» i «pitjor» (superioritat/inferioritat irregulars de bo/dolent).', example:'Identifica cada estructura comparativa i el seu tipus.' },
 
+
+    // +1 COMPRENSIÓ LECTORA
+    { id:'b2-cl6', type:'reading', level:'b2', category:'Comprensió lectora',
+      text:'La situació lingüística dels territoris de parla catalana és complexa. El català és llengua oficial a Catalunya, les Illes Balears i la Comunitat Valenciana, però el seu ús social varia molt segons el context i la generació dels parlants. A Andorra és l\'única llengua oficial.',
+      question:'Quina afirmació és correcta segons el text?',
+      options:['El català és oficial a tots els territoris on es parla','El català és l\'única llengua oficial d\'Andorra','L\'ús del català és uniforme en tots els territoris'],
+      correct:1, theory:'La comprensió lectora requereix distingir el que diu el text del que un pot suposar. L\'única afirmació directament al text és la d\'Andorra.', example:'Llegeix atentament i no afegeixis informació que no hi és.' },
+    // +1 CONNECTORS
+    { id:'b2-con7', type:'fill', level:'b2', category:'Connectors',
+      question:'Omple amb el connector adequat:',
+      sentence:'El projecte era ambiciós; ___, els resultats van superar les expectatives.',
+      display:'connector d\'adició/conclusió sorprenent (tot i així)', answers:['tot i així','tanmateix','malgrat tot'],
+      theory:'«Tot i així» i «tanmateix» introdueixen una conclusió inesperada respecte a la premissa anterior. Equivalen a «sin embargo» però amb matis de sorpresa positiva.', example:'Era difícil; tot i així, ho van aconseguir.' },
+    // +1 SUBJUNTIU
+    { id:'b2-sub7', type:'choice', level:'b2', category:'Subjuntiu',
+      question:'Quina oració requereix subjuntiu?',
+      options:['Crec que ve demà.','Dubto que vingui demà.','Sé que ve demà.'],
+      correct:1, theory:'Verbs de dubte (dubtar, no creure, no estar segur) regeixen subjuntiu. Verbs d\'afirmació i certesa (creure afirmatiu, saber, veure) regeixen indicatiu.', example:'Dubto que ho sàpiga. / No crec que vingui. / Crec que vindrà.' },
+    // +1 LÈXIC FORMAL
+    { id:'b2-lf7', type:'choice', level:'b2', category:'Lèxic formal',
+      question:'Quina és la forma lèxica més adequada en un correu professional?',
+      options:['Et faig saber que la reunió s\'ha cancel·lat.','T\'aviso que la reunió s\'ha cancel·lat.','Li comunico que la reunió ha estat cancel·lada.'],
+      correct:2, theory:'En registre formal s\'usa el tractament de vostè (li, la, el) i verbs com «comunicar», «informar», «notificar». «Avisar» i «fer saber» pertanyen a registres menys formals.', example:'Li comunico que... / Li faig arribar... / Em plau informar-lo/la que...' },
+    // +1 INTERFERÈNCIES
+    { id:'b2-int7', type:'choice', level:'b2', category:'Interferències',
+      question:'Quina frase és correcta en català?',
+      options:['Això depèn de si véns o no.','Això depèn de si o no véns.','Això depèn si véns o no.'],
+      correct:0, theory:'«Dependre de si» és la construcció catalana correcta. Ometre «de» davant «si» és una interferència del castellà «depende si».', example:'Depèn de si tinc temps. / Dependrà de si aproven el pressupost.' },
   ],
 
   c1: [
@@ -3345,6 +3403,38 @@ const DATA = {
       display:'en la qual / on (relatiu de lloc)', answers:['en la qual','on','a la qual'],
       theory:'Relatius de lloc: «on» (estàndard i col·loquial), «en la qual / a la qual» (registre culte formal). En textos acadèmics es prefereix «en la qual».', example:'La ciutat on va néixer. / La sala en la qual es va celebrar.' },
 
+
+
+    // +1 per categoria C1
+    { id:'c1-sa7', type:'fill', level:'c1', category:'Subjuntiu avançat',
+      question:'Completa amb la forma correcta del subjuntiu:',
+      sentence:'Per molt que ho ___, no ho entendrà.',
+      display:'explicar (3a pers. sing. subjuntiu present)', answers:['expliquis','expliqui'],
+      theory:'«Per molt que» + subjuntiu expressa una concessió hipotètica: sigui quin sigui el grau de l\'acció, el resultat no canvia.', example:'Per molt que corris, no arribaràs. / Per molt que estudii, suspendrà.' },
+    { id:'c1-cc7', type:'choice', level:'c1', category:'Connectors concessius',
+      question:'Quin connector introdueix una concessió real (no hipotètica)?',
+      options:['Encara que + subjuntiu','Tot i que + indicatiu','Per molt que + subjuntiu'],
+      correct:1, theory:'«Tot i que» + indicatiu expressa una concessió de fet real. «Encara que» i «per molt que» + subjuntiu expressen concessions hipotètiques o subjectives.', example:'Tot i que plou, sortim. (fet real) / Encara que plogués, sortiríem. (hipotètic)' },
+    { id:'c1-lf7', type:'transform', level:'c1', category:'Lèxic formal',
+      question:'Reformula en registre acadèmic formal:',
+      original:'«La cosa és que no tenim prous dades per dir res.»',
+      hints:['cosa → qüestió / fet / circumstància','dir res → extreure conclusions / afirmar','no tenim prous dades → la insuficiència de dades'],
+      sample:'La insuficiència de dades disponibles impedeix extreure conclusions definitives.',
+      theory:'En registre acadèmic s\'eviten paraules buit (cosa, tema) i s\'usen substantius precisos. Els verbs també s\'han de formalitzar.', example:'La qüestió rau en... / El fet és que... / Cal destacar que...' },
+    { id:'c1-ff7', type:'choice', level:'c1', category:'Frases fetes',
+      question:'Quina és la interpretació correcta de «posar-se les piles»?',
+      options:['Comprar piles per a un dispositiu electrònic','Espavilar-se i posar-se a treballar amb energia','Preparar-se físicament per a una activitat esportiva'],
+      correct:1, theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
+    { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
+      question:'Forma el substantiu abstracte a partir del verb indicat:',
+      sentence:'La ___ del text és imprescindible per comprendre\'l bé.',
+      display:'comprendre → substantiu abstracte de procés', answers:['comprensió'],
+      theory:'El sufix -ió/-sió/-ció forma substantius de procés o resultat a partir de verbs: comprendre→comprensió, decidir→decisió, actuar→actuació.', example:'comprendre→comprensió / percebre→percepció / definir→definició' },
+    { id:'c1-pf7', type:'writing', level:'c1', category:'Producció formal',
+      question:'Redacta una conclusió breu per a un informe sobre l\'ús del català en entorns laborals.',
+      keywords:['en definitiva','cal destacar','els resultats indiquen','una acció coordinada'],
+      sample:'En definitiva, els resultats indiquen que l\'ús del català en entorns laborals ha augmentat moderadament. Cal destacar, però, que calen polítiques de foment més efectives i una acció coordinada entre administracions i empreses.',
+      theory:'La conclusió d\'un informe recull la tesi principal, destaca els resultats clau i apunta cap a recomanacions o implicacions futures.', example:'En definitiva... / Els resultats permeten concloure que... / Cal destacar que...' },
 
   ]
 };
