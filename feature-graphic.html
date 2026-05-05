@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1024px; height:500px; overflow:hidden; background:#1a2f4e; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<svg width="1024" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1e35"/>
+      <stop offset="60%" style="stop-color:#1a2f4e"/>
+      <stop offset="100%" style="stop-color:#1e3a5f"/>
+    </linearGradient>
+    <!-- Gold accent gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+    <!-- Card gradient -->
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.03"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="500" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="820" cy="80" r="200" fill="#2d4a7a" opacity="0.4"/>
+  <circle cx="820" cy="80" r="130" fill="#3a5f9a" opacity="0.3"/>
+  <circle cx="150" cy="420" r="160" fill="#1e3a5f" opacity="0.5"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04">
+    <line x1="0" y1="100" x2="1024" y2="100" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="200" x2="1024" y2="200" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="300" x2="1024" y2="300" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="400" x2="1024" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="500" stroke="#fff" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="500" stroke="#fff" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="500" stroke="#fff" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="500" stroke="#fff" stroke-width="1"/>
+  </g>
+
+  <!-- Gold accent line top -->
+  <rect x="64" y="56" width="80" height="4" rx="2" fill="url(#gold)"/>
+
+  <!-- Main title -->
+  <text x="64" y="130" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="700" fill="#ffffff" filter="url(#softglow)">Català</text>
+  <text x="64" y="200" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="700" fill="url(#gold)" filter="url(#glow)">Trainer</text>
+
+  <!-- Subtitle -->
+  <text x="64" y="248" font-family="DM Sans, sans-serif" font-size="22" fill="#94a3b8" letter-spacing="1">Aprèn català als nivells B2 i C1</text>
+
+  <!-- Tags row -->
+  <!-- Tag 1 -->
+  <rect x="64" y="278" width="120" height="32" rx="16" fill="#1e40af" opacity="0.8"/>
+  <text x="124" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#93c5fd" text-anchor="middle" letter-spacing="0.5">GRAMÀTICA</text>
+  <!-- Tag 2 -->
+  <rect x="196" y="278" width="110" height="32" rx="16" fill="#065f46" opacity="0.8"/>
+  <text x="251" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#6ee7b7" text-anchor="middle" letter-spacing="0.5">GAMIFICAT</text>
+  <!-- Tag 3 -->
+  <rect x="318" y="278" width="116" height="32" rx="16" fill="#7c2d12" opacity="0.8"/>
+  <text x="376" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#fdba74" text-anchor="middle" letter-spacing="0.5">OFFLINE</text>
+
+  <!-- Feature cards on the right -->
+  <!-- Card 1: SRS -->
+  <rect x="560" y="60" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
+  <text x="580" y="100" font-family="DM Sans, sans-serif" font-size="28">🧠</text>
+  <text x="618" y="96" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Repetició</text>
+  <text x="618" y="114" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">espaçada</text>
+  <text x="580" y="142" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Sistema SRS intel·ligent</text>
+
+  <!-- Card 2: 147 exercicis -->
+  <rect x="776" y="60" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
+  <text x="796" y="100" font-family="DM Sans, sans-serif" font-size="28">📚</text>
+  <text x="834" y="96" font-family="DM Sans, sans-serif" font-size="22" font-weight="700" fill="#ffffff">147</text>
+  <text x="834" y="116" font-family="DM Sans, sans-serif" font-size="14" fill="#fbbf24">exercicis</text>
+  <text x="796" y="142" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">B2 · C1 · 6 tipus</text>
+
+  <!-- Card 3: Assoliments -->
+  <rect x="560" y="180" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
+  <text x="580" y="220" font-family="DM Sans, sans-serif" font-size="28">🏅</text>
+  <text x="618" y="216" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Assoliments</text>
+  <text x="618" y="234" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">i medalles</text>
+  <text x="580" y="262" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Progressa i col·lecciona</text>
+
+  <!-- Card 4: Repte diari -->
+  <rect x="776" y="180" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
+  <text x="796" y="220" font-family="DM Sans, sans-serif" font-size="28">🎯</text>
+  <text x="834" y="216" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Repte</text>
+  <text x="834" y="234" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">diari</text>
+  <text x="796" y="262" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Crea l'hàbit d'aprendre</text>
+
+  <!-- Progress bar demo -->
+  <rect x="560" y="300" width="416" height="6" rx="3" fill="#ffffff" opacity="0.1"/>
+  <rect x="560" y="300" width="280" height="6" rx="3" fill="url(#gold)"/>
+  <text x="560" y="330" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">67% dominat · 🏆 Expert · 🔥 12 dies de ratxa</text>
+
+  <!-- Level badges row -->
+  <rect x="560" y="350" width="78" height="26" rx="13" fill="#1a2f4e" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="599" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#fbbf24" text-anchor="middle">🌱 Aprenent</text>
+
+  <rect x="648" y="350" width="78" height="26" rx="13" fill="#1e40af" opacity="0.8"/>
+  <text x="687" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#93c5fd" text-anchor="middle">📖 Estudiant</text>
+
+  <rect x="736" y="350" width="72" height="26" rx="13" fill="#065f46" opacity="0.8"/>
+  <text x="772" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7" text-anchor="middle">💬 Parlant</text>
+
+  <rect x="818" y="350" width="72" height="26" rx="13" fill="#4c1d95" opacity="0.8"/>
+  <text x="854" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#c4b5fd" text-anchor="middle">⭐ Expert</text>
+
+  <rect x="900" y="350" width="76" height="26" rx="13" fill="#7c2d12" opacity="0.8"/>
+  <text x="938" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#fdba74" text-anchor="middle">🏆 Mestre</text>
+
+  <!-- Bottom tagline -->
+  <text x="64" y="430" font-family="Fraunces, serif" font-size="18" font-style="italic" fill="#ffffff" opacity="0.6">Aprèn. Practica. Domina.</text>
+
+  <!-- Bottom decoration -->
+  <rect x="64" y="450" width="40" height="3" rx="1.5" fill="#fbbf24" opacity="0.6"/>
+  <rect x="112" y="450" width="20" height="3" rx="1.5" fill="#fbbf24" opacity="0.3"/>
+</svg>
+</body>
+</html>
