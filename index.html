@@ -218,6 +218,7 @@
 </div>
 <div class="ct-nav">
   <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
+  <button onclick="showTab('a2')" id="nav-a2">Nivell A2</button>
   <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
   <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
   <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
@@ -362,6 +363,7 @@ function showTab(tab) {
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('nav-' + tab).classList.add('active');
   if (tab === 'menu') renderMenu();
+  else if (tab === 'a2') renderLevelMenu('a2');
   else if (tab === 'b2') renderLevelMenu('b2');
   else if (tab === 'c1') renderLevelMenu('c1');
   else if (tab === 'review') renderReview();
@@ -372,7 +374,7 @@ function showTab(tab) {
 // ══ MENU PRINCIPAL ══
 function renderMenu() {
   const lv = getLevel(progress.xp);
-  const total = DATA.b2.length + DATA.c1.length;
+  const total = (DATA.a2||[]).length + DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
   const needsReview = [...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
@@ -405,6 +407,7 @@ function renderMenu() {
           ? `<div style="background:#f0fdf4;border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:#065f46;font-weight:600;">✅ Repte diari completat! +50 XP</div>`
           : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
       })()}
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('a2');document.getElementById('nav-a2').click()">Practicar Nivell A2</button>
       <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
@@ -560,7 +563,7 @@ function startCategoryExercise(level, cat, i) {
 
 // ══ REPÀS SRS ══
 function renderReview() {
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const toStudy = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
 
   document.getElementById('ct-body').innerHTML = `
@@ -594,7 +597,7 @@ function renderReview() {
 }
 
 function startReviewSession() {
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const items = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
   if (!items.length) return;
   currentSession = { items, idx:0, correct:0, level:'mixed', returnTo:'review' };
@@ -1003,6 +1006,19 @@ function getUnlockedAchievements() {
 // ══ MEDALLES DE GRAMÀTICA ══
 function buildGrammarMedals() {
   const medals = [];
+  const a2cats = [...new Set((DATA.a2||[]).map(q => q.category))];
+  a2cats.forEach(cat => {
+    const th = THEORY[cat];
+    medals.push({
+      id: 'a2__' + cat, level:'a2', category:cat,
+      icon: th ? th.icon : '🥈', name: cat,
+      desc: `Domina tots els exercicis de ${cat} al nivell A2.`,
+      check: p => {
+        const exs = (DATA.a2||[]).filter(q => q.category === cat);
+        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+      }
+    });
+  });
   const b2cats = [...new Set(DATA.b2.map(q => q.category))];
   b2cats.forEach(cat => {
     const th = THEORY[cat];
@@ -1030,6 +1046,9 @@ function buildGrammarMedals() {
     });
   });
   // Supermedalles
+  medals.push({ id:'master_a2', level:'super', icon:'🌟', name:'Mestre de l\'A2',
+    desc:'Domina totes les categories del nivell A2.',
+    check: p => (DATA.a2||[]).every(q => (p.mastery[q.id]||0) >= 4) });
   medals.push({ id:'master_b2', level:'super', icon:'🏅', name:'Mestre del B2',
     desc:'Domina totes les categories del nivell B2.',
     check: p => DATA.b2.every(q => (p.mastery[q.id]||0) >= 4) });
@@ -1083,7 +1102,7 @@ function getDailyChallenge() {
     return progress.dailyChallenge;
   }
   // Genera repte nou basat en la data (consistent per a tots els usuaris)
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const indices = [];
   let attempts = 0;
@@ -1100,7 +1119,7 @@ function getDailyChallenge() {
 
 function startDailySession() {
   const dc = getDailyChallenge();
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
   renderExercise();
@@ -1146,7 +1165,7 @@ function render7DayHistory() {
 
 function renderDailyChallengeSection() {
   const dc = getDailyChallenge();
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   const nDone = dc.completed.length;
   const allDone = nDone === items.length;
@@ -1302,7 +1321,7 @@ function checkNewAchievements(prevUnlocked) {
 
 
 function renderProgress() {
-  const all = [...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
   const masteries = all.map(q => getMastery(q.id));
   const m0  = masteries.filter(m => m === 0).length;
   const m12 = masteries.filter(m => m >= 1 && m <= 2).length;
@@ -1336,6 +1355,13 @@ function renderProgress() {
           <span>${progress.xp} XP</span>
           <span>${nextLv ? nextLv.name + ' a ' + nextLv.min + ' XP' : 'Nivell màxim assolit! 🏆'}</span>
         </div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
+          <span style="font-weight:500;">Nivell A2</span>
+          <span style="color:var(--muted)">${(DATA.a2||[]).filter(q => getMastery(q.id) >= 4).length} / ${(DATA.a2||[]).length} dominats</span>
+        </div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.a2||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.a2||[]).length)*100)}%;background:#059669;"></div></div>
       </div>
       <div style="margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
