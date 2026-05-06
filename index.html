@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aprèn Català Online Gratis | Exercicis A2, B2 i C1 — AprènCatalà</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a2f4e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AprènCatalà">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -227,7 +234,7 @@
 <div class="ct-nav">
   <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
   <button onclick="showTab('a2')" id="nav-a2">Nivell A2</button>
-  <button onclick="showTab('b1')" id="nav-b1" style="color:#059669;">Nivell B1</button>
+  <button onclick="showTab('b1')" id="nav-b1">Nivell B1</button>
   <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
   <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
   <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
@@ -426,7 +433,7 @@ function renderMenu() {
           : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
       })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('a2');document.getElementById('nav-a2').click()">Practicar Nivell A2</button>
-      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-color:#059669;color:#059669;" onclick="renderLevelMenu('b1');document.getElementById('nav-b1').click()">Practicar Nivell B1</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b1');document.getElementById('nav-b1').click()">Practicar Nivell B1</button>
       <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
