@@ -3,39 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ══ SEO BÀSIC ══ -->
-  <title>Aprèn Català Online Gratis | Exercicis A2, B2 i C1 — AprènCatalà</title>
-  <meta name="description" content="Aprèn català online de forma gratuïta. Exercicis interactius dels nivells A2, B2 i C1, sistema de punts XP, repàs intel·ligent i assoliments. Comença ara!">
-  <meta name="author" content="AprènCatalà">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://aprencatala.cat/">
-
-  <!-- ══ OPEN GRAPH ══ -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aprencatala.cat/">
-  <meta property="og:title" content="Aprèn Català Online Gratis | A2, B2 i C1">
-  <meta property="og:description" content="Exercicis interactius, punts XP i repàs intel·ligent per aprendre català de A2 a C1. Totalment gratuït, sense registre.">
-  <meta property="og:image" content="https://aprencatala.cat/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="ca_ES">
-  <meta property="og:site_name" content="AprènCatalà">
-
-  <!-- ══ TWITTER CARD ══ -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Aprèn Català Online Gratis | A2, B2 i C1">
-  <meta name="twitter:description" content="Exercicis interactius per aprendre català de A2 a C1. Sistema de punts i repàs intel·ligent. Gratis!">
-  <meta name="twitter:image" content="https://aprencatala.cat/og-image.png">
-
-  <!-- ══ PWA ══ -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1a2f4e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="AprènCatalà">
-  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-
+  <title>Català Trainer — B2 / C1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -58,6 +26,13 @@
     .ct-logo { font-family: 'Fraunces', serif; font-size: 20px; }
     .ct-logo span { color: #f59e0b; font-style: italic; }
     .ct-stats { display: flex; gap: 14px; font-size: 13px; align-items: center; }
+    .ct-kofi {
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.7); cursor: pointer; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .ct-kofi:hover { background: rgba(255,255,255,0.1); border-color: #fbbf24; color: #fbbf24; }
     .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
     .ct-streak { color: #fbbf24; font-weight: 500; }
 
@@ -240,26 +215,10 @@
 </head>
 <body>
 
-<!-- ══ BLOC SEO ESTÀTIC — visible per a Google ══ -->
-<section id="seo-static" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
-  <h1>AprènCatalà — Aprèn català online gratis</h1>
-  <p>AprènCatalà és una aplicació web gratuïta per aprendre català amb exercicis interactius. Cobreix els nivells A2, B2 i C1 del Marc Europeu de Referència per a les Llengües. No cal registre. Funciona al mòbil i a l'ordinador. Disponible offline.</p>
-  <h2>Exercicis de català per nivell</h2>
-  <ul>
-    <li>Nivell A2 — Vocabulari i gramàtica bàsica per a principiants i nouvinguts a Catalunya.</li>
-    <li>Nivell B2 — Gramàtica intermèdia, expressions i comprensió de textos en català.</li>
-    <li>Nivell C1 — Nivell avançat per preparar l'examen oficial de català de la Generalitat.</li>
-  </ul>
-  <h2>Com funciona AprènCatalà?</h2>
-  <p>Respon exercicis interactius de gramàtica i vocabulari i guanya punts XP. Mantén la teva ratxa diària, desbloqueja assoliments i medalles, i repassa les preguntes que et costen més amb el sistema de repàs intel·ligent. Aprèn català al teu ritme, de forma gratuïta i sense crear cap compte.</p>
-  <h2>Per a qui és AprènCatalà?</h2>
-  <p>Per a tothom que vulgui aprendre català online: castellanoparlants nouvinguts a Catalunya, persones que es preparen per als exàmens oficials de la Generalitat (A2, B2, C1), estudiants universitaris, professionals i qualsevol persona que vulgui millorar el seu nivell de català de forma interactiva i divertida.</p>
-</section>
-<!-- ══ FI BLOC SEO ESTÀTIC ══ -->
-
 <div class="ct-header">
-  <div class="ct-logo">Català <span>Trainer</span></div>
+  <div class="ct-logo">Aprèn<span>Català</span></div>
   <div class="ct-stats">
+    <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ Convida'm un cafè</a>
     <span class="ct-level-badge" id="ct-level-badge">Aprenent</span>
     <span class="ct-streak" id="ct-streak">🔥 0</span>
     <span class="ct-xp" id="ct-xp">0 XP</span>
@@ -276,7 +235,7 @@
 </div>
 <div class="ct-body" id="ct-body"></div>
 
-<script src="data.js" defer></script>
+<script src="data.js"></script>
 <script>
 // ══ PROGRÉS amb SRS ══
 // ══ SISTEMA DE NIVELLS ══
@@ -1466,6 +1425,15 @@ function renderProgress() {
         </div>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
+      <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
+        style="display:flex;align-items:center;gap:12px;background:#fef9ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:#78350f;">
+        <span style="font-size:28px;">☕</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;">T'ha estat útil? Convida'm un cafè</div>
+          <div style="font-size:12px;opacity:0.75;margin-top:2px;">AprènCatalà és gratuït per sempre. Si t'ajuda, pots donar suport al projecte.</div>
+        </div>
+        <span style="font-size:18px;margin-left:auto;">→</span>
+      </a>
       <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[]};saveProgress();updateHeader();renderProgress();}">
         Reiniciar progrés
       </button>
@@ -1498,46 +1466,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "AprènCatalà",
-  "alternateName": "Català Trainer",
-  "url": "https://aprencatala.cat",
-  "description": "Aplicació web gratuïta per aprendre català online amb exercicis interactius dels nivells A2, B2 i C1. Sistema de punts XP, repàs intel·ligent i assoliments.",
-  "applicationCategory": "EducationApplication",
-  "operatingSystem": "Web, Android, iOS",
-  "inLanguage": "ca",
-  "isAccessibleForFree": true,
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  },
-  "featureList": [
-    "Exercicis de gramàtica i vocabulari nivell A2",
-    "Exercicis de gramàtica i vocabulari nivell B2",
-    "Exercicis de gramàtica i vocabulari nivell C1",
-    "Sistema de punts XP i ratxes diàries",
-    "Repàs intel·ligent basat en la memòria",
-    "Assoliments i medalles",
-    "Sense registre ni compte necessari",
-    "Funciona offline (PWA)"
-  ],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "Persones que volen aprendre o millorar el seu català, nouvinguts, estudiants i professionals"
-  },
-  "educationalLevel": ["A2", "B2", "C1"],
-  "teaches": "Llengua catalana",
-  "publisher": {
-    "@type": "Organization",
-    "name": "AprènCatalà",
-    "url": "https://aprencatala.cat"
-  }
-}
 </script>
 </body>
 </html>
