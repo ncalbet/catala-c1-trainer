@@ -2353,12 +2353,611 @@ const THEORY = {
     ]
   },
 
+  // ── NIVELL B1 ──────────────────────────────────────────────
+
+  'Imperfet i perifràstic B1': {
+    level: 'b1',
+    icon: '⏱️',
+    subtitle: "Distingir quan usar l'imperfet o el passat perifràstic en contextos habituals",
+    sections: [
+      {
+        title: 'La clau de la tria',
+        icon: '📌',
+        body: `<p>Al B1, la dificultat central és triar correctament entre el <strong>passat perifràstic</strong> (vaig + infinitiu) i l'<strong>imperfet</strong> (-ava/-ia). La regla bàsica: el perifràstic descriu accions puntuals i acabades; l'imperfet descriu accions en curs, habituals o de fons.</p>`
+      },
+      {
+        title: 'Perifràstic vs. Imperfet: quadre comparatiu',
+        icon: '📊',
+        table: {
+          headers: ['Temps', 'Usos principals', 'Exemple'],
+          rows: [
+            ['Passat perifràstic', 'Acció puntual i acabada; acció nova; acció comptada', 'Ahir va ploure a les sis. / Va trucar tres vegades.'],
+            ['Imperfet', 'Hàbit del passat; acció en curs (de fons); descripció; estat', "De petit, anava a la platja cada estiu. / Quan va entrar, plovia."],
+          ]
+        }
+      },
+      {
+        title: 'Expressions temporals que orienten la tria',
+        icon: '📋',
+        examples: [
+          { text: "Perifràstic → ahir, fa una setmana, l'any passat, de cop, de sobte, llavors, finalment" },
+          { text: 'Imperfet → sempre, normalment, cada dia, sovint, mentre, en aquella època, de petit' },
+        ]
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        rules: [
+          { bad: 'Ahir menjava pizza.', good: 'Ahir vaig menjar pizza. (acció puntual i acabada ahir)' },
+          { bad: "Quan era nen, vaig anar a l'escola cada dia.", good: "Quan era nen, anava a l'escola cada dia. (hàbit del passat)" },
+        ]
+      }
+    ]
+  },
+
+  'Pronoms febles B1': {
+    level: 'b1',
+    icon: '🟡',
+    subtitle: "Els pronoms en, hi i les combinacions bàsiques",
+    sections: [
+      {
+        title: "El pronom «en»",
+        icon: '📌',
+        body: `<p>«En» substitueix un complement directe que no porta article determinat (partitiu), o un complement introduït per «de». És un dels pronoms que més diferencia el català del castellà.</p>`
+      },
+      {
+        title: "Usos de «en» i «hi»",
+        icon: '📊',
+        table: {
+          headers: ['Pronom', 'Substitueix', 'Exemple'],
+          rows: [
+            ['en', 'CD partitiu (sense article / amb indefinit)', "«Vols pa?» «Sí, en vull.»"],
+            ['en', "Complement amb «de»", "«Parles de la reunió?» «Sí, en parlo.»"],
+            ['en', 'Procedència', "«Véns de Girona?» «Sí, en vinc.»"],
+            ['hi', "Lloc on es va o on s'és", "«Vas al mercat?» «Sí, hi vaig.»"],
+            ['hi', "Complement amb «a/en» (no lloc físic)", "«Hi penso molt, en la teva proposta.»"],
+          ]
+        }
+      },
+      {
+        title: 'Col·locació del pronom',
+        icon: '🔵',
+        rules: [
+          { label: 'Davant del verb (proclític)', example: "«En vull.» / «Hi vaig.» / «No el veig.»" },
+          { label: "Darrere i unit (enclític) amb infinitiu/imperatiu", example: "«Vull menjar-ne.» / «Porta'l!» / «Anem-hi!»" },
+        ]
+      }
+    ]
+  },
+
+  'Verbs irregulars B1': {
+    level: 'b1',
+    icon: '🔧',
+    subtitle: 'Conjugació dels verbs irregulars més freqüents en present i passat',
+    sections: [
+      {
+        title: 'Per què hi ha tanta irregularitat?',
+        icon: '📌',
+        body: `<p>Els verbs més usats en qualsevol llengua tendeixen a ser els més irregulars. En català, verbs com <strong>ser, estar, anar, fer, poder, voler, saber, tenir, venir, dir</strong> presenten formes pròpies que cal memoritzar.</p>`
+      },
+      {
+        title: "Verbs essencials: present d'indicatiu",
+        icon: '📊',
+        table: {
+          headers: ['Verb', 'jo', 'tu', 'ell/ella', 'nosaltres', 'vosaltres', 'ells/elles'],
+          rows: [
+            ['ser', 'soc', 'ets', 'és', 'som', 'sou', 'són'],
+            ['anar', 'vaig', 'vas', 'va', 'anem', 'aneu', 'van'],
+            ['fer', 'faig', 'fas', 'fa', 'fem', 'feu', 'fan'],
+            ['poder', 'puc', 'pots', 'pot', 'podem', 'podeu', 'poden'],
+            ['voler', 'vull', 'vols', 'vol', 'volem', 'voleu', 'volen'],
+            ['tenir', 'tinc', 'tens', 'té', 'tenim', 'teniu', 'tenen'],
+            ['venir', 'vinc', 'véns', 've', 'venim', 'veniu', 'vénen'],
+            ['dir', 'dic', 'dius', 'diu', 'diem', 'dieu', 'diuen'],
+          ]
+        }
+      },
+      {
+        title: 'Passat perifràstic dels irregulars',
+        icon: '📋',
+        body: `<p>El passat perifràstic dels verbs irregulars es forma amb l'auxiliar «anar» (vaig/vas/va...) + <strong>infinitiu</strong> del verb, de manera que la irregularitat del verb no afecta el passat perifràstic.</p>`,
+        examples: [
+          { text: 'Ahir vaig fer els deures. (fer → vaig fer)' },
+          { text: 'Vas poder venir? (poder → vas poder)' },
+          { text: 'Va dir la veritat. (dir → va dir)' },
+        ]
+      }
+    ]
+  },
+
+  'Connectors B1': {
+    level: 'b1',
+    icon: '🔗',
+    subtitle: 'Connectar idees amb causa, contrast, conseqüència i ordre',
+    sections: [
+      {
+        title: 'Per a què serveixen els connectors?',
+        icon: '📌',
+        body: `<p>Els connectors (o marcadors discursius) uneixen frases i paràgrafs mostrant la relació lògica entre les idees. Sense connectors, el discurs és una llista d'idees soltes; amb connectors, és un text cohesionat.</p>`
+      },
+      {
+        title: 'Connectors B1 per funció',
+        icon: '📊',
+        table: {
+          headers: ['Funció', 'Connectors principals', 'Exemple'],
+          rows: [
+            ['Causa', 'perquè, ja que, com que, a causa de', 'No va venir perquè estava malalt.'],
+            ['Conseqüència', 'per tant, per això, així doncs, llavors', 'Havia estudiat molt; per tant, va aprovar.'],
+            ['Contrast', "però, tanmateix, en canvi, malgrat tot", "M'agrada molt; tanmateix, és massa car."],
+            ['Ordre', 'primer / en primer lloc, després, finalment', 'Primer neteja, després menja.'],
+            ['Addició', "a més, també, i a més, fins i tot", "A més, porta'n un per a la Júlia."],
+          ]
+        }
+      },
+      {
+        title: 'Distinció causa / conseqüència',
+        icon: '⚖️',
+        rules: [
+          { label: 'Causa (explica el motiu)', example: "«No va venir perquè estava malalt.» → La malaltia és la causa de no venir." },
+          { label: 'Conseqüència (expressa el resultat)', example: "«Estava malalt; per tant, no va venir.» → No venir és el resultat de la malaltia." },
+        ]
+      }
+    ]
+  },
+
+  'Futur i condicional B1': {
+    level: 'b1',
+    icon: '🔮',
+    subtitle: 'Expressar plans, prediccions i hipòtesis amb futur i condicional',
+    sections: [
+      {
+        title: 'Futur simple',
+        icon: '📌',
+        body: `<p>El futur simple s'usa per fer prediccions, promeses i suposicions. Es forma afegint les terminacions al <strong>infinitiu</strong>: -é, -às, -à, -em, -eu, -an.</p>`
+      },
+      {
+        title: 'Futur simple: formes regulars i irregulars',
+        icon: '📊',
+        table: {
+          headers: ['Persona', 'Parlar', 'Fer (irreg.)', 'Poder (irreg.)'],
+          rows: [
+            ['jo', 'parlaré', 'faré', 'podré'],
+            ['tu', 'parlaràs', 'faràs', 'podràs'],
+            ['ell/ella', 'parlarà', 'farà', 'podrà'],
+            ['nosaltres', 'parlarem', 'farem', 'podrem'],
+            ['vosaltres', 'parlareu', 'fareu', 'podreu'],
+            ['ells/elles', 'parlaran', 'faran', 'podran'],
+          ]
+        }
+      },
+      {
+        title: 'Condicional simple',
+        icon: '📋',
+        body: `<p>El condicional expressa accions possibles sota una condició, desitjos educats i hipòtesis. Terminacions: -ia, -ies, -ia, -íem, -íeu, -ien (afegides a l'infinitiu).</p>`,
+        rules: [
+          { label: 'Desig / petició educada', example: "«Voldria un cafè, si us plau.» / «Podries ajudar-me?»" },
+          { label: 'Hipòtesi present', example: "«Si pogués, estudiaria català cada dia.»" },
+          { label: 'Supòsit sobre el present', example: "«Deuria ser tard quan va arribar.»" },
+        ]
+      }
+    ]
+  },
+
+  'Perífrasis B1': {
+    level: 'b1',
+    icon: '⚙️',
+    subtitle: 'Perífrasis verbals habituals: obligació, possibilitat i aspecte',
+    sections: [
+      {
+        title: 'Què és una perífrasi verbal?',
+        icon: '📌',
+        body: `<p>Una perífrasi verbal és la combinació d'un <strong>verb auxiliar conjugat</strong> + infinitiu (o gerundi). L'auxiliar perd el significat original i aporta un valor d'obligació, possibilitat, aspecte, etc.</p>`
+      },
+      {
+        title: 'Perífrasis B1 essencials',
+        icon: '📊',
+        table: {
+          headers: ['Perífrasi', 'Valor', 'Exemple'],
+          rows: [
+            ["haver de + inf.", 'Obligació', 'He de treballar demà.'],
+            ['poder + inf.', 'Possibilitat / permís', 'Pots quedar-te si vols.'],
+            ['voler + inf.', 'Voluntat', 'Vull aprendre català.'],
+            ['anar a + inf.', 'Futur immediat (intenció)', 'Avui vespre vaig a estudiar.'],
+            ['estar + gerundi', 'Acció en curs', 'Estic llegint un llibre molt bo.'],
+            ['acabar de + inf.', 'Acció recent', 'Acabo de dinar.'],
+            ["deixar de + inf.", "Fi d'un hàbit/acció", 'He deixat de fumar.'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        rules: [
+          { bad: '*Tinc que estudiar.', good: "He d'estudiar. / Cal que estudiï. (No «tenir que» en català)" },
+          { bad: '*Estic de treballar.', good: 'Estic treballant. (estar + gerundi, no infinitiu)' },
+        ]
+      }
+    ]
+  },
+
+  'Subordinades B1': {
+    level: 'b1',
+    icon: '🔀',
+    subtitle: 'Oracions subordinades causals, finals, temporals i condicionals bàsiques',
+    sections: [
+      {
+        title: 'Oracions subordinades al B1',
+        icon: '📌',
+        body: `<p>Les oracions subordinades permeten expressar relacions complexes dins d'una mateixa frase. Al B1 cal dominar les quatre més freqüents: causals, finals, temporals i condicionals.</p>`
+      },
+      {
+        title: 'Tipus de subordinades B1',
+        icon: '📊',
+        table: {
+          headers: ['Tipus', 'Nexe principal', 'Mode', 'Exemple'],
+          rows: [
+            ['Causal', 'perquè, ja que, com que', 'Indicatiu', 'No vaig sortir perquè plovia.'],
+            ['Final', 'perquè, per tal que', 'Subjuntiu (si canvi de subjecte)', 'Ho faig perquè aprengueu.'],
+            ['Temporal', 'quan, mentre, fins que, abans que', 'Indicatiu (present/passat)', 'Quan arribi, truqueu-me.'],
+            ['Condicional', 'si', 'Indicatiu (condició real)', 'Si tens temps, vine.'],
+          ]
+        }
+      },
+      {
+        title: "Distinció «perquè» causal vs. final",
+        icon: '⚖️',
+        rules: [
+          { label: 'Causal: perquè + indicatiu', example: "«No he menjat perquè no tenia gana.» → La causa és explicada." },
+          { label: 'Final: perquè + subjuntiu (canvi de subjecte)', example: "«T'ho dic perquè ho sàpigues.» → L'objectiu és que l'altre ho sàpiga." },
+        ]
+      }
+    ]
+  },
+
+  'Lèxic quotidià B1': {
+    level: 'b1',
+    icon: '🗣️',
+    subtitle: 'Vocabulari essencial per a situacions de la vida quotidiana',
+    sections: [
+      {
+        title: 'Registre estàndard al B1',
+        icon: '📌',
+        body: `<p>Al B1, cal dominar el vocabulari de la vida quotidiana en registre estàndard: salut, treball, medi ambient, serveis i relacions interpersonals. Un error típic és usar paraules castellanes quan existeix el terme català específic.</p>`
+      },
+      {
+        title: 'Camps lèxics essencials B1',
+        icon: '📊',
+        table: {
+          headers: ['Àmbit', 'Paraules clau'],
+          rows: [
+            ['Salut i cos', 'malalt/a, febre, mal de cap, metge/essa, cita, recepta, farmàcia, curar-se'],
+            ['Feina i estudis', 'sou, jornada, contracte, feina, empresa, currículum, entrevista, formació'],
+            ['Natura i medi', 'bosc, mar, muntanya, clima, contaminació, reciclatge, residus, energia'],
+            ['Serveis', 'ajuntament, oficina, finestreta, tràmit, sol·licitud, impost, multa'],
+            ['Relacions', 'amistat, confiança, discutir, reconciliar-se, malentès, disculpa'],
+          ]
+        }
+      },
+      {
+        title: "Paraules que s'assemblen al castellà però difereixen",
+        icon: '⚠️',
+        rules: [
+          { bad: '*el despacho (oficina)', good: 'el despatx' },
+          { bad: '*el ordenador', good: "l'ordinador" },
+          { bad: '*el coche', good: 'el cotxe' },
+          { bad: '*el/la jefe/a', good: 'el/la cap' },
+        ]
+      }
+    ]
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
    EXERCICIS (5+ per categoria)
 ═══════════════════════════════════════════════════════════ */
 const DATA = {
+  b1: [
+    // ── IMPERFET I PERIFRÀSTIC B1 ──
+    { id:'b1-ip1', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
+      question:'Tria el temps verbal correcte:',
+      text:'De petit, ___ al parc cada diumenge amb els meus pares.',
+      options:['vaig anar','anava','vaig anar-hi'],
+      correct:1, theory:"«Cada diumenge» indica hàbit del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'De petit, jugava al carrer cada tarda.' },
+
+    { id:'b1-ip2', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
+      question:'Tria el temps verbal correcte:',
+      text:'Ahir a les vuit ___ la llum quan estudiava.',
+      options:['apagava','vaig apagar','apago'],
+      correct:1, theory:"«Ahir a les vuit» situa l'acció en un moment puntual → passat perifràstic. «Estudiava» és el fons en curs.", example:'Quan vaig arribar, ell ja dormia.' },
+
+    { id:'b1-ip3', type:'fill', level:'b1', category:'Imperfet i perifràstic B1',
+      question:'Omple amb la forma correcta (imperfet o perifràstic):',
+      sentence:'Quan ___ (tenir) quinze anys, ___ (aprendre) a tocar la guitarra.',
+      display:'tenia / vaig aprendre',
+      answers:['tenia / vaig aprendre'],
+      theory:"«Quan tenia quinze anys» = circumstància de fons (imperfet). «Va aprendre» = acció nova puntual (perifràstic).", example:'Quan vivia a París, vaig aprendre francès.' },
+
+    { id:'b1-ip4', type:'reorder', level:'b1', category:'Imperfet i perifràstic B1',
+      question:'Ordena la narració cronològicament:',
+      parts:['Va tancar el llibre i va apagar el llum.','Aquella nit llegia tranquil·lament al llit.','De sobte va sentir un soroll estrany.','Normalment s\'adormia molt aviat.'],
+      correct:[3,1,2,0], theory:"Imperfets per a hàbits/fons (normalment s'adormia, llegia); perifràstics per a accions noves (va sentir, va tancar).", example:'Mentre dormia (imperfet fons), va sonar el telèfon (perifràstic nou).' },
+
+    { id:'b1-ip5', type:'reading', level:'b1', category:'Imperfet i perifràstic B1',
+      text:"L'Arnau vivia en un poble petit quan era jove. Cada matí es llevava d'hora i anava a treballar al camp. Un dia, però, va rebre una carta important: l'acceptaven a la universitat de la ciutat. Va decidir marxar i va canviar completament la seva vida.",
+      question:"Quina funció té «anava a treballar al camp» al text?",
+      options:['Expressa una acció puntual que va canviar la vida del personatge','Descriu un hàbit quotidià del passat','Indica una acció acabada en un moment concret'],
+      correct:1, theory:"«Anava» (imperfet) descriu la rutina habitual de fons. Les accions que canvien el curs de la narració («va rebre», «va decidir», «va canviar») van en perifràstic.", example:"Cada dia estudiava (imperfet hàbit). Un dia va suspendre (perifràstic puntual)." },
+
+    { id:'b1-ip6', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
+      question:'Quin parell de frases utilitza correctament els dos temps?',
+      options:["Ahir estava molt cansada, per tant vaig dormir onze hores.","Ahir era molt cansada, per tant dormia onze hores.","Ahir vaig estar molt cansada, per tant dormia onze hores."],
+      correct:0, theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
+
+    // ── PRONOMS FEBLES B1 ──
+    { id:'b1-pf1', type:'choice', level:'b1', category:'Pronoms febles B1',
+      question:'Quin pronom substitueix correctament el complement subratllat?',
+      text:'«Vas al gimnàs?» → «Sí, ___ vaig cada dia.»',
+      options:['el','hi','en'],
+      correct:1, theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
+
+    { id:'b1-pf2', type:'choice', level:'b1', category:'Pronoms febles B1',
+      question:'Completa amb el pronom correcte:',
+      text:'«Vols més arròs?» → «Sí, ___ vull una mica.»',
+      options:['el','hi','en'],
+      correct:2, theory:"«En» substitueix un CD partitiu (sense article, quantitat indeterminada). «Arròs» sense article → «en vull».", example:"«Tens pa?» «Sí, en tinc.»" },
+
+    { id:'b1-pf3', type:'fill', level:'b1', category:'Pronoms febles B1',
+      question:"Substitueix el complement subratllat pel pronom adequat: «Parlo molt de la meva feina.»",
+      sentence:'___ parlo molt.',
+      display:'en / hi',
+      answers:['en'],
+      theory:"«Parlar de + cosa» → pronom «en». «En parlo molt» substitueix «de la meva feina».", example:"«Parles de política?» «Sí, en parlo.»" },
+
+    { id:'b1-pf4', type:'choice', level:'b1', category:'Pronoms febles B1',
+      question:'On va el pronom en una frase amb infinitiu?',
+      text:'Vull comprar-___ tres, de pomes.',
+      options:['en','hi','en (darrere de l\'infinitiu unit amb guionet)'],
+      correct:2, theory:"Amb infinitiu, el pronom va darrere unit amb guionet: «comprar-ne». «En» substitueix el CD partitiu (tres pomes).", example:"Vull menjar-ne. / Puc comprar-ne dos." },
+
+    { id:'b1-pf5', type:'reading', level:'b1', category:'Pronoms febles B1',
+      text:'—Has estat mai a Menorca?\n—Sí, hi vaig anar fa dos estius. Em va agradar molt. M\'hi podria quedar per sempre!\n—I en tornaràs?\n—Segur que sí!',
+      question:'Quina funció té «hi» a «m\'hi podria quedar»?',
+      options:['Substitueix una quantitat de cosa','Indica el lloc on el parlant es quedaria (Menorca)','Substitueix un complement introduït per «de»'],
+      correct:1, theory:"«Hi» pot indicar lloc (referit a Menorca ja esmentat). «Quedar-s'hi» = quedar-se en aquell lloc.", example:"«Et quedes a casa?» «Sí, m'hi quedo.»" },
+
+    { id:'b1-pf6', type:'fill', level:'b1', category:'Pronoms febles B1',
+      question:'Completa amb «en» o «hi»:',
+      sentence:"Penses molt en els teus amics? — Sí, ___ penso molt.",
+      display:'en / hi',
+      answers:['hi'],
+      theory:"«Pensar en + persona/cosa» → pronom «hi». «En» s'usa per a complements amb «de».", example:"«Hi penso sempre, en tu.» (pensar en tu → hi)" },
+
+    // ── VERBS IRREGULARS B1 ──
+    { id:'b1-vi1', type:'fill', level:'b1', category:'Verbs irregulars B1',
+      question:'Conjuga el verb en la persona indicada (present d\'indicatiu):',
+      sentence:'Jo ___ (fer) els deures cada vespre.',
+      display:'fer → 1a persona singular',
+      answers:['faig'],
+      theory:"«Fer» és irregular: jo faig, tu fas, ell fa, nosaltres fem, vosaltres feu, ells fan.", example:"Jo faig el sopar. / Ell fa molt de soroll." },
+
+    { id:'b1-vi2', type:'choice', level:'b1', category:'Verbs irregulars B1',
+      question:'Quina és la forma correcta de «venir» en primera persona del plural?',
+      options:['venimos','venim','vins','venín'],
+      correct:1, theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
+
+    { id:'b1-vi3', type:'fill', level:'b1', category:'Verbs irregulars B1',
+      question:'Escriu la forma correcta:',
+      sentence:'Ella ___ (saber) molt bé on és el mercat.',
+      display:'saber → 3a persona singular',
+      answers:['sap'],
+      theory:"«Saber» en present: jo sé, tu saps, ell sap, nosaltres sabem, vosaltres sabeu, ells saben.", example:"Ell sap parlar quatre idiomes." },
+
+    { id:'b1-vi4', type:'choice', level:'b1', category:'Verbs irregulars B1',
+      question:'Quina forma de «poder» és correcta per a «ells»?',
+      options:['puguen','poden','pugan','poden'],
+      correct:1, theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden.", example:"Ells poden venir demà si volen." },
+
+    { id:'b1-vi5', type:'reorder', level:'b1', category:'Verbs irregulars B1',
+      question:'Ordena per formar una frase correcta:',
+      parts:['volem','els meus amics i jo','aprendre','català molt bé'],
+      correct:[1,0,2,3], theory:"Subjecte + verb conjugat (1a pl. de «voler»: «volem») + infinitiu + complement.", example:"Els meus amics i jo volem aprendre català molt bé." },
+
+    { id:'b1-vi6', type:'fill', level:'b1', category:'Verbs irregulars B1',
+      question:'Completa totes les formes del present de «tenir»:',
+      sentence:'Jo ___, tu ___, ell ___, nosaltres ___, vosaltres ___, ells ___.',
+      display:'tinc / tens / té / tenim / teniu / tenen',
+      answers:['tinc / tens / té / tenim / teniu / tenen'],
+      theory:"«Tenir» és irregular: tinc (1a sg.), tens (2a), té (3a), tenim (1a pl.), teniu (2a pl.), tenen (3a pl.).", example:"Jo tinc fred. Ell té raó. Ells tenen pressa." },
+
+    // ── CONNECTORS B1 ──
+    { id:'b1-con1', type:'choice', level:'b1', category:'Connectors B1',
+      question:'Quin connector indica causa?',
+      text:'No vull sortir ___ fa molt de fred.',
+      options:['per tant','ja que','en canvi'],
+      correct:1, theory:"«Ja que» introdueix la causa. «Per tant» indica conseqüència. «En canvi» indica contrast.", example:"No vaig poder venir ja que estava malalt." },
+
+    { id:'b1-con2', type:'fill', level:'b1', category:'Connectors B1',
+      question:'Omple amb el connector adequat (contrast):',
+      sentence:"M'agrada el muntanya; ___, el mar és més relaxant per a mi.",
+      display:'però / tanmateix / en canvi',
+      answers:['tanmateix','però','en canvi'],
+      theory:"Els tres connectors expressen contrast. «Tanmateix» i «en canvi» és més formal; «però» és més habitual.", example:"El pla era bo; tanmateix, va fracassar." },
+
+    { id:'b1-con3', type:'reorder', level:'b1', category:'Connectors B1',
+      question:'Ordena per formar una seqüència lògica:',
+      parts:['Finalment, va aconseguir el treball dels seus somnis.','Primer, va fer el currículum i el va enviar.','A més, va practicar molt per a l\'entrevista.','Després, va esperar la resposta durant dues setmanes.'],
+      correct:[1,2,3,0], theory:"Connectors d'ordre temporal: primer → a més (addició) → després → finalment.", example:"Primer vaig estudiar, després vaig fer l'examen, finalment vaig celebrar-ho." },
+
+    { id:'b1-con4', type:'choice', level:'b1', category:'Connectors B1',
+      question:'Quina frase usa incorrectament el connector?',
+      options:["Va estudiar molt; per tant, va aprovar.","No va venir perquè tenia febre.","Va fer fred; perquè no van sortir."],
+      correct:2, theory:"«Perquè» introdueix la causa en una frase subordinada, no una frase principal. Cal dir: «Va fer fred; per tant, no van sortir.»", example:"Correcte: «No van sortir perquè feia fred.» / «Feia fred; per tant, no van sortir.»" },
+
+    { id:'b1-con5', type:'reading', level:'b1', category:'Connectors B1',
+      text:"La contaminació de l'aire és un problema greu a les grans ciutats. A causa dels cotxes i de la indústria, la qualitat de l'aire ha empitjorat molt. Tanmateix, alguns municipis han pres mesures importants. Per exemple, han creat zones de baixes emissions. A més, han ampliat el transport públic. Per tant, la situació podria millorar en els propers anys.",
+      question:'Quantes relacions lògiques diferents s\'estableixen al text?',
+      options:['Només causa i conseqüència','Causa, contrast, addició i conseqüència','Causa, ordre i contrast'],
+      correct:1, theory:"«A causa de» (causa) / «Tanmateix» (contrast) / «A més» (addició) / «Per tant» (conseqüència).", example:"Identifica el connector → identifica la relació lògica." },
+
+    { id:'b1-con6', type:'fill', level:'b1', category:'Connectors B1',
+      question:'Tria el connector de conseqüència adequat:',
+      sentence:"Ha après molt de vocabulari nou; ___, pot llegir textos més complexos.",
+      display:'per tant / per això / així doncs',
+      answers:['per tant','per això','així doncs'],
+      theory:"«Per tant», «per això» i «així doncs» introdueixen la conseqüència d'allò que s'ha dit abans.", example:"Va treballar molt; per tant, va tenir èxit." },
+
+    // ── FUTUR I CONDICIONAL B1 ──
+    { id:'b1-fc1', type:'fill', level:'b1', category:'Futur i condicional B1',
+      question:'Escriu la forma de futur correcta:',
+      sentence:'Demà ___ (fer) molt bon temps, diuen a la ràdio.',
+      display:'fer → 3a persona singular futur',
+      answers:['farà'],
+      theory:"«Fer» és irregular al futur: faré, faràs, farà, farem, fareu, faran.", example:"Demà farà sol. / L'any que ve faré un viatge." },
+
+    { id:'b1-fc2', type:'choice', level:'b1', category:'Futur i condicional B1',
+      question:'Quina frase expressa un desig educat?',
+      options:["Vull un cafè!","Voldria un cafè, si us plau.","Dóna'm un cafè."],
+      correct:1, theory:"El condicional «voldria» suavitza la petició i la fa educada. És equivalent a «would like» en anglès.", example:"Voldria reservar una taula per a dos, si us plau." },
+
+    { id:'b1-fc3', type:'fill', level:'b1', category:'Futur i condicional B1',
+      question:'Completa amb el condicional:',
+      sentence:"Si tingués més temps, ___ (estudiar) música.",
+      display:'estudiar → 1a pers. sing. condicional',
+      answers:['estudiaria'],
+      theory:"Condicional en -ia: estudiar → estudiaria. S'usa per a hipòtesis sobre el present.", example:"Si pogués, viuria a la muntanya." },
+
+    { id:'b1-fc4', type:'choice', level:'b1', category:'Futur i condicional B1',
+      question:'Quin temps verbal és el correcte?',
+      text:"Si tens fred, ___ la finestra.",
+      options:['tancaràs','tanques','tanca'],
+      correct:2, theory:"Les condicionals reals (si + present indicatiu) porten l'apòdosi en imperatiu o present. «Si tens... tanca!»", example:"Si tens gana, menja alguna cosa." },
+
+    { id:'b1-fc5', type:'reading', level:'b1', category:'Futur i condicional B1',
+      text:"—Quin seria el teu treball ideal?\n—M'agradaria ser periodista. Viatjaria molt i escriuria sobre cultures diferents. A més, podria conèixer persones molt interessants. I tu?\n—Jo voldria treballar en una editorial. Corregiria texts i descobriria nous autors.",
+      question:'Quina funció gramatical tenen els condicionals del text?',
+      options:['Expressen accions passades que ja no es fan','Expressen hipòtesis sobre un futur ideal imaginat','Expressen ordres i instruccions'],
+      correct:1, theory:"El condicional «m'agradaria», «viatjaria», «escriuria», «podria», «voldria», «corregiria» expressen hipòtesis sobre un futur desitjat o imaginat.", example:"«Viuria a París si pogués» → hipòtesi sobre el futur." },
+
+    { id:'b1-fc6', type:'fill', level:'b1', category:'Futur i condicional B1',
+      question:'Forma el futur correcte:',
+      sentence:"L'any que ve ___ (poder) anar de vacances a Grècia.",
+      display:'poder → 1a pers. sing. futur',
+      answers:['podré'],
+      theory:"«Poder» és irregular al futur: podré, podràs, podrà, podrem, podreu, podran.", example:"Demà podré venir a la reunió." },
+
+    // ── PERÍFRASIS B1 ──
+    { id:'b1-per1', type:'choice', level:'b1', category:'Perífrasis B1',
+      question:'Quina perífrasi expressa obligació?',
+      text:'___ presentar el passaport a la frontera.',
+      options:['Vull','He de','Acabo de'],
+      correct:1, theory:"«Haver de + infinitiu» expressa obligació. «Voler» és voluntat. «Acabar de» indica acció recentment acabada.", example:"He de pagar la factura avui." },
+
+    { id:'b1-per2', type:'fill', level:'b1', category:'Perífrasis B1',
+      question:'Omple amb la perífrasi correcta per indicar una acció recent:',
+      sentence:'___ (dinar). Ara estic ple.',
+      display:"acabar de + infinitiu (1a pers. sing.)",
+      answers:['Acabo de dinar'],
+      theory:"«Acabar de + infinitiu» expressa una acció que s'ha realitzat fa molt poc temps.", example:"Acabo d'arribar. / Acabes de telefonar?" },
+
+    { id:'b1-per3', type:'choice', level:'b1', category:'Perífrasis B1',
+      question:'Quina frase és incorrecta en català?',
+      options:["He de fer la compra.","Tinc que fer la compra.","Cal que faci la compra."],
+      correct:1, theory:"«Tenir que» és un calc del castellà «tener que». En català cal usar «haver de» per a l'obligació personal.", example:"He de trucar la meva mare. / Ha de venir demà." },
+
+    { id:'b1-per4', type:'fill', level:'b1', category:'Perífrasis B1',
+      question:'Completa amb la perífrasi d\'acció en curs:',
+      sentence:'No la molestis! ___ (estudiar) per a l\'examen de demà.',
+      display:'estar + gerundi (3a pers. sing.)',
+      answers:['Està estudiant'],
+      theory:"«Estar + gerundi» indica que l'acció es desenvolupa en aquest mateix moment.", example:"Estic menjant. / Esteu treballant?" },
+
+    { id:'b1-per5', type:'reading', level:'b1', category:'Perífrasis B1',
+      text:"La Neus acaba de trobar feina en una empresa nova. Avui ha de signar el contracte i ha d'anar a comprar roba nova per al primer dia. Ara mateix està preparant la documentació que li han demanat. Diu que vol deixar de treballar en torns i poder tenir horaris estables.",
+      question:'Quantes perífrasis verbals apareixen al text i quins valors expressen?',
+      options:['Dues: obligació i aspecte ingréssiu','Quatre: acció recent, obligació (x2), acció en curs, i desig+fi d\'un hàbit','Tres: desig, obligació i acció recent'],
+      correct:1, theory:"«Acaba de trobar» (recent), «ha de signar», «ha d'anar» (obligació), «està preparant» (en curs), «vol deixar de» (desig + fi d'un hàbit).", example:"Identificar cada perífrasi: auxiliar + infinitiu/gerundi → valor aspectual o modal." },
+
+    { id:'b1-per6', type:'choice', level:'b1', category:'Perífrasis B1',
+      question:'Quina perífrasi indica intenció en un futur immediat?',
+      text:'Avui a la nit ___ estudiar per a l\'examen.',
+      options:["vaig a","acabo de","deixo de"],
+      correct:0, theory:"«Anar a + infinitiu» expressa la intenció o el pla per a un futur immediat. No és el passat perifràstic: aquí «vaig» és l'auxiliar d'intenció.", example:"Vaig a trucar-te aquesta tarda. / Anem a menjar fora?" },
+
+    // ── SUBORDINADES B1 ──
+    { id:'b1-sub1', type:'choice', level:'b1', category:'Subordinades B1',
+      question:'Quin mode verbal exigeix la subordinada temporal «quan» referida al futur?',
+      text:'Quan ___ de la feina, et trucaré.',
+      options:['sortiré','surts','surti'],
+      correct:2, theory:"Les oracions temporals de futur amb «quan» porten el verb subordinat en present de subjuntiu, no en futur.", example:"Quan arribi, avisa'm. / Quan tingui temps, vindré." },
+
+    { id:'b1-sub2', type:'fill', level:'b1', category:'Subordinades B1',
+      question:'Omple amb el mode verbal correcte (indicatiu o subjuntiu):',
+      sentence:"T'ho explico perquè ho ___ (saber, 2a pers. sing.).",
+      display:'sàpigues (subj.) — finalitat, canvi de subjecte',
+      answers:['sàpigues'],
+      theory:"«Perquè» final + canvi de subjecte → subjuntiu. «Perquè» causal + indicatiu.", example:"Ho faig perquè aprenguis. (final, subj.) / Ho faig perquè ja ho saps. (causal, ind.)" },
+
+    { id:'b1-sub3', type:'choice', level:'b1', category:'Subordinades B1',
+      question:'Quina frase és una condicional real?',
+      options:["Si tingués diners, viatjaria més.","Si tens diners, pots viatjar molt.","Si hagués tingut diners, hauria viatjat."],
+      correct:1, theory:"Condicional real: si + present d'indicatiu + present/futur/imperatiu. Les altres dues expressen hipòtesis irrels.", example:"Si fa sol, anirem a la platja." },
+
+    { id:'b1-sub4', type:'fill', level:'b1', category:'Subordinades B1',
+      question:'Causal o final? Tria el mode correcte:',
+      sentence:"Ho faig ___ (perquè) em ___ (sentir) millor.",
+      display:"perquè + em sento (causal, ind.) o per tal que em senti (final, subj.)",
+      answers:['perquè em sento'],
+      theory:"Si «perquè» explica el motiu i no hi ha canvi de subjecte → indicatiu (causal). Si és la finalitat amb canvi de subjecte → subjuntiu.", example:"Ho faig perquè em sento malament. / Ho faig perquè te sentis millor." },
+
+    { id:'b1-sub5', type:'reading', level:'b1', category:'Subordinades B1',
+      text:"Mentre estudiava per a l'examen, va sonar el telèfon. Era la seva amiga, que li deia que no podria venir a la festa perquè tenia molta feina. Li va proposar que quedessin un altre dia perquè poguessin parlar amb tranquil·litat.",
+      question:'Quines oracions subordinades apareixen al text?',
+      options:['Només temporals i causals','Temporal, causal, final i substantiva (dir que...)','Causal i condicional'],
+      correct:1, theory:"«Mentre estudiava» (temporal) / «perquè tenia» (causal, indicatiu) / «perquè poguessin» (final, subjuntiu) / «que li deia que» (substantiva).", example:"Identificar el nexe → identificar el tipus de subordinada." },
+
+    { id:'b1-sub6', type:'choice', level:'b1', category:'Subordinades B1',
+      question:'Quina frase té la subordinada temporal correctament construïda?',
+      options:["Truqueu-me quan arribareu.","Truqueu-me quan arribareu.","Truqueu-me quan arribeu.","Truqueu-me quan arribaràs."],
+      correct:2, theory:"«Quan» + futur és incorrecte en català. La temporals de futur exigeixen present de subjuntiu: «quan arribeu».", example:"Quan tingui temps, vindré. / Avisar-me quan surtin." },
+
+    // ── LÈXIC QUOTIDIÀ B1 ──
+    { id:'b1-lq1', type:'choice', level:'b1', category:'Lèxic quotidià B1',
+      question:'Quina és la paraula catalana correcta?',
+      text:"He de trucar al ___ per demanar una cita mèdica.",
+      options:['médico','metge','doctor en castellà'],
+      correct:1, theory:"«Metge/essa» és el mot català per «médico/médica». «Metge» és masculí, «metgessa» és femení.", example:"La meva metgessa diu que haig de descansar més." },
+
+    { id:'b1-lq2', type:'fill', level:'b1', category:'Lèxic quotidià B1',
+      question:'Omple amb la paraula catalana adequada (evita el calc):',
+      sentence:"Treballo en un ___ molt gran, al centre de la ciutat. (no *despacho)",
+      display:'despatx / oficina',
+      answers:['despatx','oficina'],
+      theory:"«Despatx» = oficina pròpia o habitació de treball. «Oficina» = espai laboral general. Cap dels dos és «despacho».", example:"El director té un despatx molt gran. / Treballo en una oficina compartida." },
+
+    { id:'b1-lq3', type:'choice', level:'b1', category:'Lèxic quotidià B1',
+      question:'Quin terme és incorrecte en català?',
+      options:['el cotxe','el carro (vehicle)','el car (vehicle)'],
+      correct:2, theory:"«Car» en anglès i «carro» en castellà no es tradueixen directament. El català usa «cotxe» per al vehicle de motor. «Carro» pot ser un vehicle de tracció animal.", example:"Vine en cotxe o en transport públic?" },
+
+    { id:'b1-lq4', type:'reorder', level:'b1', category:'Lèxic quotidià B1',
+      question:'Ordena per formar una frase correcta:',
+      parts:['la meva cap','una reunió important','ha convocat','per demà al matí'],
+      correct:[0,2,1,3], theory:"«Cap» és el terme català per a «jefe/jefa». La frase és: «La meva cap ha convocat una reunió important per demà al matí.»", example:"La meva cap és molt exigent. / El cap del departament és nou." },
+
+    { id:'b1-lq5', type:'reading', level:'b1', category:'Lèxic quotidià B1',
+      text:"Avui he anat a l'ajuntament a fer un tràmit. Havia de renovar el certificat d'empadronament. La funcionària de la finestreta em va dir que havia de demanar cita prèvia per internet. Amb sort, podré anar-hi la setmana que ve.",
+      question:'Quins mots del text pertanyen al camp lèxic dels serveis i tràmits administratius?',
+      options:['ajuntament, tràmit, certificat, empadronament, finestreta, cita','ajuntament, anar, cert, tràmit','renovar, poder, finestreta'],
+      correct:0, theory:"El camp lèxic administratiu inclou: ajuntament, tràmit, certificat, empadronament, finestreta, cita prèvia, funcionari/a.", example:"Vocabulari de serveis: tràmit, sol·licitud, impost, multa, finestreta, cita." },
+
+    { id:'b1-lq6', type:'fill', level:'b1', category:'Lèxic quotidià B1',
+      question:'Substitueix el mot incorrecte pel terme català:',
+      sentence:"He de reciclar els *basura abans de sortir de casa.",
+      display:'residus / brossa / deixalles',
+      answers:['residus','brossa','deixalles'],
+      theory:"«Brossa» (llenguatge col·loquial) i «residus» (formal) equivalen a «basura». «Deixalles» s'usa en contextos de reciclatge.", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
+  ],
   a2: [
     // ── SER, ESTAR I SEMBLAR ──
     { id:'a2-ses1', type:'choice', level:'a2', category:'Ser, estar i semblar',
