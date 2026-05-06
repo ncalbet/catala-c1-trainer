@@ -227,6 +227,7 @@
 <div class="ct-nav">
   <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
   <button onclick="showTab('a2')" id="nav-a2">Nivell A2</button>
+  <button onclick="showTab('b1')" id="nav-b1" style="color:#059669;">Nivell B1</button>
   <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
   <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
   <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
@@ -275,6 +276,14 @@ const ENCOURAGEMENT = {
   'Derivació i flexió':       "🧬 La morfologia és la base de tot. Molt bé pel treball!",
   'Estil indirecte':          "💬 L'estil indirecte requereix molt de control gramatical. Segueix!",
   'Passiva i impersonal':     "🔄 La passiva reflexa és la marca del català genuí. Quasi!",
+  'Imperfet i perifràstic B1': "⏱️ Distingir l'imperfet del perifràstic és clau en català. Poc a poc!",
+  'Pronoms febles B1':         "🔵 Els pronoms febles costen a tothom. La pràctica ho soluciona!",
+  'Verbs irregulars B1':       "🔀 Els irregulars cal memoritzar-los. Fes-los servir en frases pròpies!",
+  'Connectors B1':             "🔗 Els connectors fan els textos molt més fluids. Continua!",
+  'Futur i condicional B1':    "🔮 Futur i condicional donen molta expressivitat. Quasi!",
+  'Perífrasis B1':             "⚙️ Les perífrasis verbals enriqueixen molt el català. Endavant!",
+  'Subordinades B1':           "🧩 Les subordinades connecten idees complexes. No et rendeixis!",
+  'Lèxic quotidià B1':         "📚 El lèxic quotidià és la base de la comunicació real. Segueix!",
   'default':                  "💪 Cada error és una oportunitat d'aprendre. Continua practicant!",
 };
 
@@ -372,6 +381,7 @@ function showTab(tab) {
   document.getElementById('nav-' + tab).classList.add('active');
   if (tab === 'menu') renderMenu();
   else if (tab === 'a2') renderLevelMenu('a2');
+  else if (tab === 'b1') renderLevelMenu('b1');
   else if (tab === 'b2') renderLevelMenu('b2');
   else if (tab === 'c1') renderLevelMenu('c1');
   else if (tab === 'review') renderReview();
@@ -382,7 +392,7 @@ function showTab(tab) {
 // ══ MENU PRINCIPAL ══
 function renderMenu() {
   const lv = getLevel(progress.xp);
-  const total = (DATA.a2||[]).length + DATA.b2.length + DATA.c1.length;
+  const total = (DATA.a2||[]).length + (DATA.b1||[]).length + DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
   const needsReview = [...(DATA.a2||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
@@ -416,6 +426,7 @@ function renderMenu() {
           : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
       })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('a2');document.getElementById('nav-a2').click()">Practicar Nivell A2</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-color:#059669;color:#059669;" onclick="renderLevelMenu('b1');document.getElementById('nav-b1').click()">Practicar Nivell B1</button>
       <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
@@ -431,6 +442,8 @@ function renderLevelMenu(level) {
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
   const desc = level === 'a2'
     ? 'Contingut bàsic: verbs essencials, adjectius i estructures fonamentals del català. Ideal per començar.'
+    : level === 'b1'
+    ? 'Nivell intermedi: verbs irregulars, pronoms, connectors i estructures de la vida quotidiana.'
     : level === 'b2'
     ? 'Cada tema inclou una lliçó de teoria i exercicis pràctics. Comença per la teoria per preparar-te millor.'
     : 'Contingut avançat: argumentació, precisió lèxica i producció formal. Llegeix la teoria abans de practicar.';
@@ -577,7 +590,7 @@ function startCategoryExercise(level, cat, i) {
 
 // ══ REPÀS SRS ══
 function renderReview() {
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const toStudy = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
 
   document.getElementById('ct-body').innerHTML = `
@@ -611,7 +624,7 @@ function renderReview() {
 }
 
 function startReviewSession() {
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
   if (!items.length) return;
   currentSession = { items, idx:0, correct:0, level:'mixed', returnTo:'review' };
@@ -1033,6 +1046,19 @@ function buildGrammarMedals() {
       }
     });
   });
+  const b1cats = [...new Set((DATA.b1||[]).map(q => q.category))];
+  b1cats.forEach(cat => {
+    const th = THEORY[cat];
+    medals.push({
+      id: 'b1__' + cat, level:'b1', category:cat,
+      icon: th ? th.icon : '🟢', name: cat,
+      desc: `Domina tots els exercicis de ${cat} al nivell B1.`,
+      check: p => {
+        const exs = (DATA.b1||[]).filter(q => q.category === cat);
+        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+      }
+    });
+  });
   const b2cats = [...new Set(DATA.b2.map(q => q.category))];
   b2cats.forEach(cat => {
     const th = THEORY[cat];
@@ -1063,6 +1089,9 @@ function buildGrammarMedals() {
   medals.push({ id:'master_a2', level:'super', icon:'🌟', name:'Mestre de l\'A2',
     desc:'Domina totes les categories del nivell A2.',
     check: p => (DATA.a2||[]).every(q => (p.mastery[q.id]||0) >= 4) });
+  medals.push({ id:'master_b1', level:'super', icon:'🟢', name:'Mestre del B1',
+    desc:'Domina totes les categories del nivell B1.',
+    check: p => (DATA.b1||[]).every(q => (p.mastery[q.id]||0) >= 4) });
   medals.push({ id:'master_b2', level:'super', icon:'🏅', name:'Mestre del B2',
     desc:'Domina totes les categories del nivell B2.',
     check: p => DATA.b2.every(q => (p.mastery[q.id]||0) >= 4) });
@@ -1071,7 +1100,7 @@ function buildGrammarMedals() {
     check: p => DATA.c1.every(q => (p.mastery[q.id]||0) >= 4) });
   medals.push({ id:'master_all', level:'super', icon:'👑', name:'Mestre del Català',
     desc:'Domina absolutament tots els exercicis de B2 i C1. Felicitats!',
-    check: p => [...DATA.b2,...DATA.c1].every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].every(q => (p.mastery[q.id]||0) >= 4) });
   return medals;
 }
 
@@ -1116,7 +1145,7 @@ function getDailyChallenge() {
     return progress.dailyChallenge;
   }
   // Genera repte nou basat en la data (consistent per a tots els usuaris)
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const indices = [];
   let attempts = 0;
@@ -1133,7 +1162,7 @@ function getDailyChallenge() {
 
 function startDailySession() {
   const dc = getDailyChallenge();
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
   renderExercise();
@@ -1179,7 +1208,7 @@ function render7DayHistory() {
 
 function renderDailyChallengeSection() {
   const dc = getDailyChallenge();
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   const nDone = dc.completed.length;
   const allDone = nDone === items.length;
@@ -1261,6 +1290,8 @@ function renderAchievements() {
   }).join('');
 
   // ── Medalles de gramàtica B2 ──
+  const b1medals  = medals.filter(m => m.level === 'b1');
+  const b1done    = b1medals.filter(m => unlockedM.has(m.id)).length;
   const b2medals  = medals.filter(m => m.level === 'b2');
   const b2done    = b2medals.filter(m => unlockedM.has(m.id)).length;
   const c1medals  = medals.filter(m => m.level === 'c1');
@@ -1287,7 +1318,13 @@ function renderAchievements() {
       </div>
       ${groupsHTML}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#1e40af;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#059669;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #d1fae5;">
+        🟢 Medalles B1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b1done}/${b1medals.length}</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B1.</p>
+      ${renderMedalGrid(b1medals, unlockedM)}
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#1e40af;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
         🥉 Medalles B2 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b2done}/${b2medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B2.</p>
@@ -1335,7 +1372,7 @@ function checkNewAchievements(prevUnlocked) {
 
 
 function renderProgress() {
-  const all = [...(DATA.a2||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const masteries = all.map(q => getMastery(q.id));
   const m0  = masteries.filter(m => m === 0).length;
   const m12 = masteries.filter(m => m >= 1 && m <= 2).length;
@@ -1376,6 +1413,13 @@ function renderProgress() {
           <span style="color:var(--muted)">${(DATA.a2||[]).filter(q => getMastery(q.id) >= 4).length} / ${(DATA.a2||[]).length} dominats</span>
         </div>
         <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.a2||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.a2||[]).length)*100)}%;background:#059669;"></div></div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
+          <span style="font-weight:500;">Nivell B1</span>
+          <span style="color:var(--muted)">${(DATA.b1||[]).filter(q => getMastery(q.id) >= 4).length} / ${(DATA.b1||[]).length} dominats</span>
+        </div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.b1||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.b1||[]).length)*100)}%;background:#059669;"></div></div>
       </div>
       <div style="margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
