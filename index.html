@@ -310,7 +310,7 @@ let progress = (function() {
     (v5.done || []).forEach(id => { mastery[id] = 3; });
     return { xp: v5.xp || 0, streak: v5.streak || 0, mastery, lastDay: v5.lastDay || null };
   }
-  return { xp: 0, streak: 0, mastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [] };
+  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [] };
 })();
 
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
@@ -851,6 +851,7 @@ function showTheory(q) {
 function markDone(ok, xp) {
   const q = currentSession.items[currentSession.idx];
   const prev = getMastery(q.id);
+  const prevMax = (progress.maxMastery || {})[q.id] || 0;
   const prevLevel = getLevel(progress.xp);
 
   // Actualitza domini
@@ -861,8 +862,12 @@ function markDone(ok, xp) {
   }
   const newM = getMastery(q.id);
 
-  // XP + comprovació de pujada de nivell
-  if (ok && newM > prev) {
+  // Actualitza màxim històric de domini
+  if (!progress.maxMastery) progress.maxMastery = {};
+  if (newM > prevMax) progress.maxMastery[q.id] = newM;
+
+  // XP només quan s'arriba a un NOU MÀXIM de domini — evita farming
+  if (ok && newM > prevMax) {
     progress.xp += xp;
     showXPPop(xp);
     const newLevel = getLevel(progress.xp);
@@ -1488,7 +1493,7 @@ function renderProgress() {
         </div>
         <span style="font-size:18px;margin-left:auto;">→</span>
       </a>
-      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[]};saveProgress();updateHeader();renderProgress();}">
+      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},maxMastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[]};saveProgress();updateHeader();renderProgress();}">
         Reiniciar progrés
       </button>
     </div>`;
