@@ -29,7 +29,7 @@
       --radius: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); margin: 0; padding: 0; }
 
     /* HEADER */
     .ct-header { background: var(--c1); color: white; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 8px; }
@@ -40,9 +40,10 @@
       font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
       background: transparent; border: 1px solid rgba(255,255,255,0.25);
       color: rgba(255,255,255,0.7); cursor: pointer; text-decoration: none;
-      transition: all 0.2s; white-space: nowrap; display: none;
+      transition: all 0.2s; white-space: nowrap; display: inline-flex; align-items: center;
     }
-    @media (min-width: 480px) { .ct-kofi { display: inline-flex; align-items: center; } }
+    .ct-kofi .kofi-text { display: none; }
+    @media (min-width: 400px) { .ct-kofi .kofi-text { display: inline; } }
     .ct-kofi:hover { background: rgba(255,255,255,0.1); border-color: #fbbf24; color: #fbbf24; }
     .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
     .ct-streak { color: #fbbf24; font-weight: 500; }
@@ -229,7 +230,7 @@
 <div class="ct-header">
   <div class="ct-logo">Aprèn<span>Català</span></div>
   <div class="ct-stats">
-    <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ Convida'm a un cafè</a>
+    <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ <span class="kofi-text">Convida'm a un cafè</span></a>
     <span class="ct-level-badge" id="ct-level-badge">Aprenent</span>
     <span class="ct-streak" id="ct-streak">🔥 0</span>
     <span class="ct-xp" id="ct-xp">0 XP</span>
