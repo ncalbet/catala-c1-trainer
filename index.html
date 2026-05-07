@@ -32,16 +32,17 @@
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); }
 
     /* HEADER */
-    .ct-header { background: var(--c1); color: white; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-    .ct-logo { font-family: 'Fraunces', serif; font-size: 20px; }
+    .ct-header { background: var(--c1); color: white; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 8px; }
+    .ct-logo { font-family: 'Fraunces', serif; font-size: 17px; white-space: nowrap; flex-shrink: 0; }
     .ct-logo span { color: #f59e0b; font-style: italic; }
-    .ct-stats { display: flex; gap: 14px; font-size: 13px; align-items: center; }
+    .ct-stats { display: flex; gap: 6px; font-size: 12px; align-items: center; flex-wrap: nowrap; overflow: hidden; }
     .ct-kofi {
-      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
       background: transparent; border: 1px solid rgba(255,255,255,0.25);
       color: rgba(255,255,255,0.7); cursor: pointer; text-decoration: none;
-      transition: all 0.2s; white-space: nowrap;
+      transition: all 0.2s; white-space: nowrap; display: none;
     }
+    @media (min-width: 480px) { .ct-kofi { display: inline-flex; align-items: center; } }
     .ct-kofi:hover { background: rgba(255,255,255,0.1); border-color: #fbbf24; color: #fbbf24; }
     .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
     .ct-streak { color: #fbbf24; font-weight: 500; }
@@ -187,7 +188,7 @@
 
     /* LEVEL BADGE al header */
     .ct-level-badge {
-      font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+      font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px;
       background:#fef3c7; color:#92400e; border:1px solid #fcd34d; white-space:nowrap;
     }
     /* LEVEL-UP OVERLAY */
@@ -437,7 +438,7 @@ function renderMenu() {
       })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('a2');document.getElementById('nav-a2').click()">Practicar Nivell A2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b1');document.getElementById('nav-b1').click()">Practicar Nivell B1</button>
-      <button class="ct-btn primary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
     </div>`;
@@ -1197,7 +1198,7 @@ function getMidnightCountdown() {
 function render7DayHistory() {
   const history = new Set(progress.practiceHistory || []);
   const days = [];
-  for (let i = 6; i >= 0; i--) {
+  for (let i = 0; i <= 6; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     days.push(d);
